@@ -98,10 +98,10 @@ int Vector2::getAngle(Vector2& begin, Vector2& end)
 	return atan2( difY, difX);
 }
 
-int Vector2::getDistance(Vector2& begin, Vector2& end)
+int Vector2::getDistance(Vector2& other)
 {
-	int difX = end.getX() - begin.getX();
-	int difY = end.getY() - begin.getY();
+	int difX = other.getX - this->x;
+	int difY = other.getY - this->y;
 
 	return sqrt( pow(difX, 2 ) + pow( difY, 2 ));
 }

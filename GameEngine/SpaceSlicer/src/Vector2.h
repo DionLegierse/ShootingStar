@@ -22,7 +22,7 @@ public:
 	int getY();
 
 	int getAngle(Vector2& begin, Vector2& end);
-	int getDistance(Vector2& begin, Vector2& end);
+	int getDistance(Vector2& other);
 
 private:
 	int x;

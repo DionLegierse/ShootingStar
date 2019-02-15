@@ -16,8 +16,15 @@ public:
 	Vector2 operator/(int) 				const;
 
 public:
-	int distance;
-	int angle;
+	void setX(int);
+	void setY(int);
+	int getX();
+	int getY();
+
+	int getAngle(Vector2& begin, Vector2& end);
+	int getDistance(Vector2& begin, Vector2& end);
+
+private:
 	int x;
 	int y;
 };

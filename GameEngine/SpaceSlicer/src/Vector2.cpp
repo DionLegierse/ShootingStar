@@ -27,7 +27,7 @@ void Vector2::setX(int aX)
 {
  	x = aX;
 }
-void Vector2::setX(int aY)
+void Vector2::setY(int aY)
 {
  	y = aY;
 }

@@ -4,13 +4,19 @@
 
 #include "esp_system.h"
 #include "esp_spi_flash.h"
+#include "soc\gpio_struct.h"
 #include "Vector2.h"
 
 extern "C" {
 	void app_main(void);
+
 }
+
+extern gpio_dev_t GPIO;
 
 void app_main(void)
 {
+	GPIO.enable_w1ts = 0xFFFFFFFF;
 
+	GPIO.out_w1ts = 0xFFFFFFFF;
 }

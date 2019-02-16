@@ -16,7 +16,7 @@ extern gpio_dev_t GPIO;
 
 void app_main(void)
 {
-	GPIO.enable_w1ts = 0xFFFFFFFF;
+	GPIO.enable_w1ts = 0b00000000000011110000000000111110;
 
-	GPIO.out_w1ts = 0xFFFFFFFF;
+	GPIO.out_w1ts = 0b00000000000011110000000000111110;
 }

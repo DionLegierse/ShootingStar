@@ -12,7 +12,7 @@ entity TRIANGLE_GENERATOR is
   );
 end entity;
 
-architecture Behavior of TRIANGLE_GENERATOR is
+architecture Behavioral of TRIANGLE_GENERATOR is
   type state is (UP, DOWN);
 
   signal frequencyInteger : POSITIVE RANGE 64 TO 131073;

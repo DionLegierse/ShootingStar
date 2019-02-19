@@ -16,7 +16,7 @@ entity DIGITAL_MIXER is
   );
 end entity;
 
-architecture Behavior of DIGITAL_MIXER is
+architecture Behavioral of DIGITAL_MIXER is
     signal soundEffectMetaStable : std_logic_vector(7 downto 0);
     signal soundEffectStable : std_logic_vector(7 downto 0);
 begin
@@ -34,7 +34,7 @@ begin
   if rising_edge(clk) then
     mixed <= std_logic_vector(unsigned("0000" &square1) +
                               unsigned("0000" & square2) +
-                              unsigned("0000" & triangle) +
+                              unsigned("00" & triangle & "00") +
                               unsigned("0000" & noise) +
                               unsigned("0000" & soundEffectStable)
                               );

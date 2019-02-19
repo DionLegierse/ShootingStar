@@ -12,7 +12,7 @@ entity SQUARE_WAVE is
   );
 end entity;
 
-architecture Behavior of SQUARE_WAVE is
+architecture Behavioral of SQUARE_WAVE is
 
   signal frequencyInteger : POSITIVE RANGE 64 TO 131073;
   signal prescaler : POSITIVE RANGE 762 TO 1562500;

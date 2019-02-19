@@ -3,18 +3,18 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity SOUND_GENERATORS_TEST is
-  port (
-    clk : in std_logic;
-    pwm : out std_logic
-  );
+    generic(
+        clkSpeed : positive := 10 ** 8
+    );
+    port (
+        clk : in std_logic;
+        pwm : out std_logic
+    );
 end entity;
 
 architecture Behavior of SOUND_GENERATORS_TEST is
 -------------------------------------SQUARE_WAVE_1/1_TEST_VALUES----------------
     type chordStates is (CHORD_1, CHORD_2, CHORD_3, CHORD_4);
-
-    constant square1_enable : std_logic := '1';
-    constant square2_enable : std_logic := '1';
 
     constant G4 : std_logic_vector(10 downto 0) := b"110_1011_0001";
     constant D5 : std_logic_vector(10 downto 0) := b"111_0010_0000";
@@ -32,20 +32,24 @@ architecture Behavior of SOUND_GENERATORS_TEST is
 
     signal chordCounter : natural range 0 to chordPrescaler := 0;
 
+    signal square1_enable : std_logic := '1';
+    signal square2_enable : std_logic := '1';
+
     signal square1_frequency : std_logic_vector(10 downto 0) := b"110_1011_0001";
     signal square2_frequency : std_logic_vector(10 downto 0) := b"111_0010_0000";
 
     signal currentChordState : chordStates := CHORD_1;
 -------------------------------------TRIANGLE_TEST_VALUES-----------------------
-    constant triangle_frequency : std_logic_vector(10 downto 0) := b"010_1100_0110";
+    constant G2 : std_logic_vector(10 downto 0) := b"010_1100_0110";
+    constant G3 : std_logic_vector(10 downto 0) := b"101_0110_0011";
     constant trianglePrescaler : natural := 12500000;
 
+    signal triangle_frequency : std_logic_vector(10 downto 0) := G2;
     signal triangle_enable : std_logic := '0';
     signal triangleCounter : natural range 0 to trianglePrescaler := 0;
--------------------------------------TRIANGLE_TEST_VALUES-----------------------
-    constant noise_enable : std_logic := '0';
-    constant noise_frequency : std_logic_vector(10 downto 0) := (others => '0');
-    constant noise_sample : std_logic_vector(3 downto 0) := (others => '0');
+-------------------------------------NOISE_TEST_VALUES--------------------------
+    signal noise_sample : std_logic_vector(3 downto 0);
+    signal noise_enable : std_logic;
 --------------------------------------------------------------------------------
     signal square1 : std_logic_vector(7 downto 0);
     signal square2 : std_logic_vector(7 downto 0);
@@ -63,21 +67,33 @@ begin
                         square1_frequency <= G4;
                         square2_frequency <= D5;
                         currentChordState <= CHORD_2;
+                        square1_enable <= '1';
+                        square2_enable <= '1';
+                        noise_sample <= "0000";
 
                     when CHORD_2 =>
                         square1_frequency <= A4;
                         square2_frequency <= C5;
                         currentChordState <= CHORD_3;
+                        square1_enable <= '0';
+                        square2_enable <= '0';
+                        noise_sample <= "1111";
 
                     when CHORD_3 =>
                         square1_frequency <= B5;
                         square2_frequency <= D5;
                         currentChordState <= CHORD_4;
+                        square1_enable <= '1';
+                        square2_enable <= '1';
+                        noise_sample <= "0000";
 
                     when CHORD_4 =>
                         square1_frequency <= C5;
                         square2_frequency <= G5;
                         currentChordState <= CHORD_1;
+                        square1_enable <= '0';
+                        square2_enable <= '0';
+                        noise_sample <= "1111";
 
                     when others =>
                         currentChordState <= CHORD_1;
@@ -97,7 +113,15 @@ begin
     begin
         if rising_edge(clk) then
             if triangleCounter = 0 then
+
+                if triangle_frequency = G2 and triangle_enable = '0' then
+                    triangle_frequency <= G3;
+                elsif triangle_frequency = G3 and triangle_enable = '0' then
+                    triangle_frequency <= G2;
+                end if;
+
                 triangle_enable <= not triangle_enable;
+                noise_enable <= not noise_enable;
             end if;
 
             if triangleCounter /= trianglePrescaler then
@@ -107,6 +131,17 @@ begin
             end if;
         end if;
     end process;
+
+    NOISE_GENERATOR_1 : entity work.NOISE_GENERATOR(Behavioral)
+    generic map(
+        clkSpeed => clkSpeed
+    )
+    port map(
+        clk => clk,
+        selectSample => noise_sample,
+        enable => noise_enable,
+        noiseWaveOut => noise
+    );
 
     DIGITAL_MIXER_1 : entity work.DIGITAL_MIXER(Behavioral)
     port map(
@@ -121,7 +156,7 @@ begin
 
     SQUARE_WAVE_1 : entity work.SQUARE_WAVE(Behavioral)
     generic map(
-        frequencyClk => 10 **8
+        frequencyClk => clkSpeed
     )
     port map(
         clk => clk,
@@ -132,7 +167,7 @@ begin
 
     SQUARE_WAVE_2 : entity work.SQUARE_WAVE(Behavioral)
     generic map(
-        frequencyClk => 10 **8
+        frequencyClk => clkSpeed
     )
     port map(
         clk => clk,
@@ -143,7 +178,7 @@ begin
 
     TRIANGLE_WAVE_1 : entity work.TRIANGLE_GENERATOR(Behavioral)
     generic map(
-        frequencyClk => 10 **8
+        frequencyClk => clkSpeed
     )
     port map(
         clk => clk,
@@ -152,25 +187,13 @@ begin
         waveOut => triangle
     );
 
-
-    NOISE_GENERATOR_1 : entity work.NOISE_GENERATOR(Behavioral)
-    generic map(
-        clkSpeed => 10 **8
-    )
-    port map(
-        clk => clk,
-        frequency => noise_frequency,
-        setSample => noise_sample,
-        enable => noise_enable,
-        noiseWaveOut => noise
-    );
-
     PWM_GENERATOR_1 : entity work.PWM_GENERATOR(Behavioral)
     port map(
         clk => clk,
         waveIn => mixedSignal,
         pwm => pwm
     );
+
 
 
 end architecture;

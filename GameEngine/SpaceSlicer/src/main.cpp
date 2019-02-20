@@ -5,11 +5,11 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 #include "soc\gpio_struct.h"
+
 #include "Vector2.h"
 
 extern "C" {
 	void app_main(void);
-
 }
 
 extern gpio_dev_t GPIO;

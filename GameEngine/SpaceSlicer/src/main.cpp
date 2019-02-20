@@ -47,3 +47,38 @@ void app_main(void)
 	
     nvs_close(myHandle);	
 }
+=======
+	esp_err_t f = CasIsGay();
+	printf("%s\n", esp_err_to_name(f));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 22af99e57b28728f5bf6ef6c70333236269510fd

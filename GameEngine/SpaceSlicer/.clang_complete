@@ -69,7 +69,7 @@
 -IC:\Users\hammi\.platformio\packages\framework-espidf\components\lwip\include\lwip\port
 -IC:\Users\hammi\.platformio\packages\framework-espidf\components\lwip\include\lwip\posix
 -IC:\Users\hammi\.platformio\packages\framework-espidf\components\lwip\apps\ping
--IC:\Users\hammi\OneDrive\Documenten\ShootingStar\GameEngine\SpaceSlicer\src
+-IC:\Users\hammi\Documents\ShootingStar\GameEngine\SpaceSlicer\src
 -IC:\Users\hammi\.platformio\packages\framework-espidf\components\mbedtls\port\include
 -IC:\Users\hammi\.platformio\packages\framework-espidf\components\mbedtls\mbedtls\include
 -IC:\Users\hammi\.platformio\packages\framework-espidf\components\mdns\include
@@ -101,9 +101,9 @@
 -IC:\Users\hammi\.platformio\packages\toolchain-xtensa32\lib\gcc\xtensa-esp32-elf\5.2.0\include
 -IC:\Users\hammi\.platformio\packages\toolchain-xtensa32\lib\gcc\xtensa-esp32-elf\5.2.0\include-fixed
 -IC:\Users\hammi\.platformio\packages\tool-unity
--IC:\Users\hammi\OneDrive\Documenten\ShootingStar\GameEngine\SpaceSlicer\include
+-IC:\Users\hammi\Documents\ShootingStar\GameEngine\SpaceSlicer\include
 -DWITH_POSIX
--DIDF_VER="3.30101.0"
+-DIDF_VER="3.30102.190109"
 -DPLATFORMIO=30604
 -DARDUINO_ESP32_DEV
 -DESP32

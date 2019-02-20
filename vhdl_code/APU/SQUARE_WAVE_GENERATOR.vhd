@@ -8,6 +8,7 @@ entity SQUARE_WAVE is
     clk : in std_logic;
     enable : in std_logic;
     frequency : in std_logic_vector(10 downto 0);
+    volume : in std_logic_vector(7 downto 0);
     waveOut : out std_logic_vector(7 downto 0)
   );
 end entity;
@@ -39,8 +40,12 @@ begin
   identifier : process(clk)
   begin
     if rising_edge(clk) then
-      if prescalerCounter = prescaler then
-        waveOutBuffer <= not waveOutBuffer;
+      if prescalerCounter = prescaler and enable = '1' then
+          if waveOutBuffer = x"00" then
+              waveOutBuffer <= volume;
+          else
+              waveOutBuffer <= (others => '0');
+          end if;
       end if;
     end if;
   end process;

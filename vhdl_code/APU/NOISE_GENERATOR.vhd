@@ -11,6 +11,7 @@ entity NOISE_GENERATOR is
         clk : in std_logic;
         selectSample : in std_logic_vector(3 downto 0);
         enable : in std_logic;
+        volume : in std_logic_vector(7 downto 0);
 ------------------------------------OUTPUTS-------------------------------------
         noiseWaveOut : out std_logic_vector(7 downto 0)
     );
@@ -104,13 +105,13 @@ end process;
 counter_process : process(clk)
 begin
   if rising_edge(clk) then
-      if counter /= prescaler then
-          counter <= counter + 1;
+      if enable = '1' and oldSample = selectSample then
+          if counter /= prescaler then
+              counter <= counter + 1;
+          else
+              counter <= 0;
+          end if;
       else
-          counter <= 0;
-      end if;
-
-      if enable = '0' or oldSample /= selectSample then
           counter <= 0;
       end if;
   end if;
@@ -119,19 +120,21 @@ end process;
 pseudo_random_generator : process(clk)
 begin
     if rising_edge(clk) then
-        if counter = 0 then
-            randomRegister <= (randomRegister(0) xor randomRegister(1)) & randomRegister(13 downto 1);
-        end if;
+        if enable = '1' then
+            if counter = 0 then
+                randomRegister <= (randomRegister(0) xor randomRegister(1)) & randomRegister(13 downto 1);
+            end if;
 
-        if randomRegister(0) = '1' then
-            noiseWaveOut <= (others => '1');
-        else
-            noiseWaveOut <= (others => '0');
-        end if;
+            if randomRegister(0) = '1' then
+                noiseWaveOut <= volume;
+            else
+                noiseWaveOut <= (others => '0');
+            end if;
 
-        if oldSample /= selectSample then
-            oldSample <= selectSample;
-            randomRegister <= b"00_0000_0000_0001";
+            if oldSample /= selectSample then
+                oldSample <= selectSample;
+                randomRegister <= b"00_0000_0000_0001";
+            end if;
         end if;
     end if;
 end process;

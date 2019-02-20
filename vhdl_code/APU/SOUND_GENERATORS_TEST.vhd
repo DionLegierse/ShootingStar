@@ -140,6 +140,7 @@ begin
         clk => clk,
         selectSample => noise_sample,
         enable => noise_enable,
+        volume => b"1111_1111",
         noiseWaveOut => noise
     );
 
@@ -162,6 +163,7 @@ begin
         clk => clk,
         enable => square1_enable,
         frequency => square1_frequency,
+        volume => b"1111_1111",
         waveOut => square1
     );
 
@@ -173,6 +175,7 @@ begin
         clk => clk,
         enable => square2_enable,
         frequency => square2_frequency,
+        volume => b"1111_1111",
         waveOut => square2
     );
 

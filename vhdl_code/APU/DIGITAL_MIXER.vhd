@@ -34,7 +34,7 @@ begin
   if rising_edge(clk) then
     mixed <= std_logic_vector(unsigned("0000" &square1) +
                               unsigned("0000" & square2) +
-                              unsigned("00" & triangle & "00") +
+                              unsigned("0000" & triangle) +
                               unsigned("0000" & noise) +
                               unsigned("0000" & soundEffectStable)
                               );

@@ -57,20 +57,20 @@ begin
 
                     case( currentNote ) is
                         when NOTE1 =>
-                            square1_openingNote <= D4;
-                            triangle_frequency <= D3;
-                            currentNote <= NOTE2;
-                        when NOTE2 =>
                             square1_openingNote <= C4;
                             triangle_frequency <= C3;
-                            currentNote <= NOTE3;
-                        when NOTE3 =>
+                            currentNote <= NOTE2;
+                        when NOTE2 =>
                             square1_openingNote <= B4;
                             triangle_frequency <= B3;
-                            currentNote <= NOTE4;
-                        when NOTE4 =>
+                            currentNote <= NOTE3;
+                        when NOTE3 =>
                             square1_openingNote <= AS3;
                             triangle_frequency <= AS2;
+                            currentNote <= NOTE4;
+                        when NOTE4 =>
+                            square1_openingNote <= D4;
+                            triangle_frequency <= D3;
                             currentNote <= NOTE1;
                         when others =>
                             NULL;
@@ -95,7 +95,7 @@ begin
                 when 0 =>
                     square1_frequency <= square1_openingNote;
                     noise_enable <= '1';
-                    noise_sample <= "1111";
+                    noise_sample <= "1110";
                 when 1 =>
                     square1_enable <= '0';
                 when 2 =>
@@ -109,11 +109,11 @@ begin
                     square1_frequency <= A4;
                     triangle_enable <= '0';
                     noise_enable <= '1';
-                    noise_sample <= "1111";
+                    noise_sample <= "1110";
                 when 10 =>
                     triangle_enable <= '0';
                     noise_enable <= '1';
-                    noise_sample <= "1111";
+                    noise_sample <= "1110";
                 when 12 =>
                     noise_enable <= '1';
                     noise_sample <= "1000";
@@ -121,12 +121,12 @@ begin
                     square1_frequency <= GS4;
                     triangle_enable <= '0';
                     noise_enable <= '1';
-                    noise_sample <= "1111";
+                    noise_sample <= "1110";
                 when 18 =>
                     square1_frequency <= G4;
                     triangle_enable <= '0';
                     noise_enable <= '1';
-                    noise_sample <= "1111";
+                    noise_sample <= "1110";
                 when 20 =>
                     noise_enable <= '1';
                     noise_sample <= "1000";
@@ -134,14 +134,14 @@ begin
                     square1_frequency <= F4;
                     triangle_enable <= '0';
                     noise_enable <= '1';
-                    noise_sample <= "1111";
+                    noise_sample <= "1110";
                 when 24 =>
                     triangle_enable <= '0';
                 when 26 =>
                     square1_frequency <= D4;
                     triangle_enable <= '0';
                     noise_enable <= '1';
-                    noise_sample <= "1111";
+                    noise_sample <= "1110";
                 when 28 =>
                     square1_frequency <= F4;
                     triangle_enable <= '0';

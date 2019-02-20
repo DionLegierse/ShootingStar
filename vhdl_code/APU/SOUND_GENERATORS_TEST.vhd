@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.NOTES.all;
 
 entity SOUND_GENERATORS_TEST is
     generic(
@@ -14,39 +15,15 @@ end entity;
 
 architecture Behavior of SOUND_GENERATORS_TEST is
 -------------------------------------SQUARE_WAVE_1/1_TEST_VALUES----------------
-    type chordStates is (CHORD_1, CHORD_2, CHORD_3, CHORD_4);
-
-    constant G4 : std_logic_vector(10 downto 0) := b"110_1011_0001";
-    constant D5 : std_logic_vector(10 downto 0) := b"111_0010_0000";
-
-    constant A4 : std_logic_vector(10 downto 0) := b"110_1101_0110";
-    constant E5 : std_logic_vector(10 downto 0) := b"111_0011_1001";
-
-    constant B5 : std_logic_vector(10 downto 0) := b"110_1111_0110";
-    constant FS5 : std_logic_vector(10 downto 0) := b"111_0100_1110";
-
-    constant C5 : std_logic_vector(10 downto 0) := b"111_0000_0101";
-    constant G5 : std_logic_vector(10 downto 0) := b"111_0101_1000";
-
-    constant chordPrescaler : natural := 50000000;
-
-    signal chordCounter : natural range 0 to chordPrescaler := 0;
-
     signal square1_enable : std_logic := '1';
-    signal square2_enable : std_logic := '1';
+    constant square2_enable : std_logic := '0';
 
     signal square1_frequency : std_logic_vector(10 downto 0) := b"110_1011_0001";
+    signal square1_openingNote : std_logic_vector(10 downto 0) := D4;
     signal square2_frequency : std_logic_vector(10 downto 0) := b"111_0010_0000";
-
-    signal currentChordState : chordStates := CHORD_1;
 -------------------------------------TRIANGLE_TEST_VALUES-----------------------
-    constant G2 : std_logic_vector(10 downto 0) := b"010_1100_0110";
-    constant G3 : std_logic_vector(10 downto 0) := b"101_0110_0011";
-    constant trianglePrescaler : natural := 12500000;
-
-    signal triangle_frequency : std_logic_vector(10 downto 0) := G2;
+    signal triangle_frequency : std_logic_vector(10 downto 0) := D3;
     signal triangle_enable : std_logic := '0';
-    signal triangleCounter : natural range 0 to trianglePrescaler := 0;
 -------------------------------------NOISE_TEST_VALUES--------------------------
     signal noise_sample : std_logic_vector(3 downto 0);
     signal noise_enable : std_logic;
@@ -57,80 +34,127 @@ architecture Behavior of SOUND_GENERATORS_TEST is
     signal noise : std_logic_vector(7 downto 0);
 
     signal mixedSignal : std_logic_vector(11 downto 0);
+--------------------------------------------------------------------------------
+    constant framePrescaler : NATURAL := clkSpeed / 16;
+    constant maxFrames : POSITIVE := 31;
+
+    signal frameTimer : NATURAL range 0 to framePrescaler := 0;
+    signal frameCounter : NATURAL range 0 to maxFrames := 0;
+--------------------------------------------------------------------------------
+    type openingNotes is (NOTE1, NOTE2, NOTE3, NOTE4);
+
+    signal currentNote : openingNotes := NOTE1;
+--------------------------------------------------------------------------------
 begin
-    CHORD_BEAT : process(clk)
+    frame_timer : process(clk)
     begin
         if rising_edge(clk) then
-            if chordCounter = 0 then
-                case( currentChordState ) is
-                    when CHORD_1 =>
-                        square1_frequency <= G4;
-                        square2_frequency <= D5;
-                        currentChordState <= CHORD_2;
-                        square1_enable <= '1';
-                        square2_enable <= '1';
-                        noise_sample <= "0000";
+            if frameTimer = framePrescaler then
+                frameTimer <= 0;
 
-                    when CHORD_2 =>
-                        square1_frequency <= A4;
-                        square2_frequency <= C5;
-                        currentChordState <= CHORD_3;
-                        square1_enable <= '0';
-                        square2_enable <= '0';
-                        noise_sample <= "1111";
+                if frameCounter = maxFrames then
+                    frameCounter <= 0;
 
-                    when CHORD_3 =>
-                        square1_frequency <= B5;
-                        square2_frequency <= D5;
-                        currentChordState <= CHORD_4;
-                        square1_enable <= '1';
-                        square2_enable <= '1';
-                        noise_sample <= "0000";
-
-                    when CHORD_4 =>
-                        square1_frequency <= C5;
-                        square2_frequency <= G5;
-                        currentChordState <= CHORD_1;
-                        square1_enable <= '0';
-                        square2_enable <= '0';
-                        noise_sample <= "1111";
-
-                    when others =>
-                        currentChordState <= CHORD_1;
-
-                end case;
-            end if;
-
-            if chordCounter /= chordPrescaler then
-                chordCounter <= chordCounter + 1;
-            else
-                chordCounter <= 0;
-            end if;
-        end if;
-    end process;
-
-    TRIANGLE_BEAT : process(clk)
-    begin
-        if rising_edge(clk) then
-            if triangleCounter = 0 then
-
-                if triangle_frequency = G2 and triangle_enable = '0' then
-                    triangle_frequency <= G3;
-                elsif triangle_frequency = G3 and triangle_enable = '0' then
-                    triangle_frequency <= G2;
+                    case( currentNote ) is
+                        when NOTE1 =>
+                            square1_openingNote <= D4;
+                            triangle_frequency <= D3;
+                            currentNote <= NOTE2;
+                        when NOTE2 =>
+                            square1_openingNote <= C4;
+                            triangle_frequency <= C3;
+                            currentNote <= NOTE3;
+                        when NOTE3 =>
+                            square1_openingNote <= B4;
+                            triangle_frequency <= B3;
+                            currentNote <= NOTE4;
+                        when NOTE4 =>
+                            square1_openingNote <= AS3;
+                            triangle_frequency <= AS2;
+                            currentNote <= NOTE1;
+                        when others =>
+                            NULL;
+                    end case;
+                else
+                    frameCounter <= frameCounter + 1;
                 end if;
-
-                triangle_enable <= not triangle_enable;
-                noise_enable <= not noise_enable;
-            end if;
-
-            if triangleCounter /= trianglePrescaler then
-                triangleCounter <= triangleCounter + 1;
             else
-                triangleCounter <= 0;
+                frameTimer <= frameTimer + 1;
             end if;
         end if;
     end process;
+
+    FRAME_NOTES : process(clk)
+    begin
+        if rising_edge(clk) then
+            square1_enable <= '1';
+            triangle_enable <= '1';
+            noise_enable <= '0';
+
+            case( frameCounter ) is
+                when 0 =>
+                    square1_frequency <= square1_openingNote;
+                    noise_enable <= '1';
+                    noise_sample <= "1111";
+                when 1 =>
+                    square1_enable <= '0';
+                when 2 =>
+                    square1_frequency <= square1_openingNote;
+                when 4 =>
+                    square1_frequency <= D5;
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1000";
+                when 8 =>
+                    square1_frequency <= A4;
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1111";
+                when 10 =>
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1111";
+                when 12 =>
+                    noise_enable <= '1';
+                    noise_sample <= "1000";
+                when 14 =>
+                    square1_frequency <= GS4;
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1111";
+                when 18 =>
+                    square1_frequency <= G4;
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1111";
+                when 20 =>
+                    noise_enable <= '1';
+                    noise_sample <= "1000";
+                when 22 =>
+                    square1_frequency <= F4;
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1111";
+                when 24 =>
+                    triangle_enable <= '0';
+                when 26 =>
+                    square1_frequency <= D4;
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1111";
+                when 28 =>
+                    square1_frequency <= F4;
+                    triangle_enable <= '0';
+                    noise_enable <= '1';
+                    noise_sample <= "1000";
+                when 30 =>
+                    square1_frequency <= G4;
+                when others =>
+                    NULL;
+            end case;
+        end if;
+    end process;
+
 
     NOISE_GENERATOR_1 : entity work.NOISE_GENERATOR(Behavioral)
     generic map(
@@ -140,7 +164,7 @@ begin
         clk => clk,
         selectSample => noise_sample,
         enable => noise_enable,
-        volume => b"1111_1111",
+        volume => b"0011_1111",
         noiseWaveOut => noise
     );
 
@@ -163,7 +187,7 @@ begin
         clk => clk,
         enable => square1_enable,
         frequency => square1_frequency,
-        volume => b"1111_1111",
+        volume => b"0011_1111",
         waveOut => square1
     );
 
@@ -175,7 +199,7 @@ begin
         clk => clk,
         enable => square2_enable,
         frequency => square2_frequency,
-        volume => b"1111_1111",
+        volume => b"0011_1111",
         waveOut => square2
     );
 

@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -52,25 +51,6 @@ void app_main(void)
 	esp_err_t f = CasIsGay();
 	printf("%s\n", esp_err_to_name(f));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

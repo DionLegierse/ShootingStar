@@ -12,7 +12,7 @@
 
 #include "Vector2.h"
 
-#define STORAGE_NAMESPACE "testBin"
+#define STORAGE_NAMESPACE "dummyNamespace"
 
 extern "C" {
 	void app_main(void);
@@ -22,35 +22,25 @@ extern gpio_dev_t GPIO;
 
 esp_err_t CasIsGay(void)
 {
-	nvs_handle myHandle;
     esp_err_t err;
 
 	err = nvs_flash_init();
-    if (err != ESP_OK) return err;
 
-    err = nvs_open(STORAGE_NAMESPACE, NVS_READWRITE, &myHandle);
-    if (err != ESP_OK) return err;
-	
-	size_t blobSize;
-	err = nvs_get_blob(myHandle, "testKey", NULL, &blobSize);
-    if (err != ESP_OK && err != ESP_ERR_NVS_NOT_FOUND) return err;
-
-	for(size_t i = 0; i < 10; i++)
-	{
-		printf("%d\n", blobSize);
-	} 
+	spi_flash_init();
 
 	uint8_t *dammy = new uint8_t();
-	size_t size = sizeof(dammy);
-    err = nvs_get_blob(myHandle, "testKey", dammy, &size);
-	if (err != ESP_OK) return err;
-
-    nvs_close(myHandle);
-
-	for(size_t i = 0; i < 10; i++)
-	{
-		printf("%d\n", *dammy );
-	}    
+	spi_flash_read(0x100000, dammy, sizeof(char));
+	printf("%d\n", static_cast<char>(*dammy) );
+	spi_flash_read(0x100001, dammy, sizeof(char));
+	printf("%d\n", static_cast<char>(*dammy) );
+	spi_flash_read(0x100002, dammy, sizeof(char));
+	printf("%d\n", static_cast<char>(*dammy) );
+	spi_flash_read(0x100003, dammy, sizeof(char));
+	printf("%d\n", static_cast<char>(*dammy) );
+	spi_flash_read(0x100004, dammy, sizeof(char));
+	printf("%d\n", static_cast<char>(*dammy) );
+	spi_flash_read(0x100005, dammy, sizeof(char));
+	printf("%d\n", static_cast<char>(*dammy) );
 
 	free(dammy);
 

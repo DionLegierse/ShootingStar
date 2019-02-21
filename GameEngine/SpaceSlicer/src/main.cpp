@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -29,7 +30,7 @@ esp_err_t CasIsGay(void)
 
 	uint8_t *dammy = new uint8_t();
 	spi_flash_read(0x100000, dammy, sizeof(char));
-	printf("%d\n", static_cast<char>(*dammy) );
+	printf("%d\n", static_cast<char>(*dammy) );  
 	spi_flash_read(0x100001, dammy, sizeof(char));
 	printf("%d\n", static_cast<char>(*dammy) );
 	spi_flash_read(0x100002, dammy, sizeof(char));
@@ -51,6 +52,25 @@ void app_main(void)
 	esp_err_t f = CasIsGay();
 	printf("%s\n", esp_err_to_name(f));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

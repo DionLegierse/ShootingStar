@@ -15,9 +15,9 @@ end entity;
 
 architecture Behavioral of SQUARE_WAVE is
 
-  signal frequencyInteger : POSITIVE RANGE 64 TO 131073;
-  signal prescaler : POSITIVE RANGE 762 TO 1562500;
-  signal prescalerCounter : INTEGER RANGE 0 TO 1562500;
+  signal frequencyInteger : POSITIVE RANGE 64 TO 1245;
+  signal prescaler : POSITIVE RANGE 762 TO 40161;
+  signal prescalerCounter : INTEGER RANGE 0 TO 40161;
   signal waveOutBuffer : std_logic_vector(7 downto 0) := (others => '0');
 
 begin

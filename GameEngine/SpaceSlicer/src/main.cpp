@@ -28,21 +28,11 @@ esp_err_t CasIsGay(void)
 
 	spi_flash_init();
 
-	uint8_t *dammy = new uint8_t();
-	spi_flash_read(0x100000, dammy, sizeof(char));
-	printf("%d\n", static_cast<char>(*dammy) );  
-	spi_flash_read(0x100001, dammy, sizeof(char));
-	printf("%d\n", static_cast<char>(*dammy) );
-	spi_flash_read(0x100002, dammy, sizeof(char));
-	printf("%d\n", static_cast<char>(*dammy) );
-	spi_flash_read(0x100003, dammy, sizeof(char));
-	printf("%d\n", static_cast<char>(*dammy) );
-	spi_flash_read(0x100004, dammy, sizeof(char));
-	printf("%d\n", static_cast<char>(*dammy) );
-	spi_flash_read(0x100005, dammy, sizeof(char));
-	printf("%d\n", static_cast<char>(*dammy) );
+	int *Daniel = new int();
+	spi_flash_read(0x100000, Daniel, sizeof(uint8_t)*4 );
+	printf("%x\n", *Daniel );  
 
-	free(dammy);
+	delete Daniel;
 
    	return err;
 }

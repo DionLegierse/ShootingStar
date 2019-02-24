@@ -52,12 +52,12 @@
 -- The following code must appear in the VHDL architecture header.
 
 ------------- Begin Cut here for COMPONENT Declaration ------ COMP_TAG
-COMPONENT xbip_dsp48_macro_0
+COMPONENT triangle_dsp
   PORT (
     CLK : IN STD_LOGIC;
-    A : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    A : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
     B : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
-    P : OUT STD_LOGIC_VECTOR(21 DOWNTO 0)
+    P : OUT STD_LOGIC_VECTOR(14 DOWNTO 0)
   );
 END COMPONENT;
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
@@ -66,7 +66,7 @@ END COMPONENT;
 -- body. Substitute your own instance name and net names.
 
 ------------- Begin Cut here for INSTANTIATION Template ----- INST_TAG
-your_instance_name : xbip_dsp48_macro_0
+your_instance_name : triangle_dsp
   PORT MAP (
     CLK => CLK,
     A => A,
@@ -75,7 +75,7 @@ your_instance_name : xbip_dsp48_macro_0
   );
 -- INST_TAG_END ------ End INSTANTIATION Template ---------
 
--- You must compile the wrapper file xbip_dsp48_macro_0.vhd when simulating
--- the core, xbip_dsp48_macro_0. When compiling the wrapper file, be sure to
+-- You must compile the wrapper file triangle_dsp.vhd when simulating
+-- the core, triangle_dsp. When compiling the wrapper file, be sure to
 -- reference the VHDL simulation library.
 

@@ -54,15 +54,15 @@
 // (in parentheses) to your own signal names.
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
-xbip_dsp48_macro_0 your_instance_name (
+triangle_dsp your_instance_name (
   .CLK(CLK),  // input wire CLK
-  .A(A),      // input wire [9 : 0] A
+  .A(A),      // input wire [2 : 0] A
   .B(B),      // input wire [11 : 0] B
-  .P(P)      // output wire [21 : 0] P
+  .P(P)      // output wire [14 : 0] P
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 
-// You must compile the wrapper file xbip_dsp48_macro_0.v when simulating
-// the core, xbip_dsp48_macro_0. When compiling the wrapper file, be sure to
+// You must compile the wrapper file triangle_dsp.v when simulating
+// the core, triangle_dsp. When compiling the wrapper file, be sure to
 // reference the Verilog simulation library.
 

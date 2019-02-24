@@ -17,57 +17,59 @@ architecture Behavioral of SQUARE_WAVE is
     component xbip_dsp48_macro_0 is
         port(
             CLK : IN STD_LOGIC;
-            A : IN STD_LOGIC_VECTOR(18 DOWNTO 0);
-            B : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
-            P : OUT STD_LOGIC_VECTOR(29 DOWNTO 0)
+            A : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+            B : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
+            P : OUT STD_LOGIC_VECTOR(21 DOWNTO 0)
         );
     end component;
 
-    constant constant1 : std_logic_vector(18 downto 0) := b"101_1111_0101_1110_0001";
-    constant constant2 : unsigned(19 downto 0) := b"1011_1110_1011_1100_0010";
+    constant constant1 : std_logic_vector(8 downto 0) := b"1_0111_1110";
+    constant constant2 : unsigned(11 downto 0) := b"1000_0000_0000";
 
-    signal multiplyResult : std_logic_vector(29 downto 0);
+    signal multiplyResult : std_logic_vector(21 downto 0);
+    signal subtractionResult : std_logic_vector(11 downto 0);
 
-    signal prescaler : positive range 1 to 40161;
-    signal prescalerCounter : positive range 1 to 40161;
+    signal prescaler : unsigned(21 downto 0);
+    signal prescalerCounter : unsigned(21 downto 0) := (others => '0');
 
-  signal waveOutBuffer : std_logic_vector(7 downto 0) := (others => '0');
+    signal waveOutBuffer : std_logic_vector(7 downto 0) := (others => '0');
 
 begin
 
-  waveOut <= waveOutBuffer;
+    subtractionResult <= std_logic_vector(constant2 - ('0' & unsigned(frequency)));
+    prescaler <= unsigned(multiplyResult);
 
-  DSP1 : xbip_dsp48_macro_0 port map(
+    waveOut <= waveOutBuffer;
+
+    DSP1 : xbip_dsp48_macro_0 port map(
         CLK => clk,
-        A => constant1,
-        B => frequency,
+        A => '0' & constant1,
+        B => subtractionResult,
         P => multiplyResult
-  );
+    );
 
-  prescaler <= to_integer(constant2 - unsigned(multiplyResult(29 downto 10)));
+    counter : process(clk)
+    begin
+        if rising_edge(clk) then
+            if enable = '1' and prescalerCounter < prescaler then
+                prescalerCounter <= prescalerCounter + 1;
+            else
+                prescalerCounter <= (others => '0');
+            end if;
+        end if;
+    end process;
 
-  counter : process(clk)
-  begin
-    if rising_edge(clk) then
-      if enable = '1' and prescalerCounter < prescaler then
-        prescalerCounter <= prescalerCounter + 1;
-      else
-        prescalerCounter <= 0;
-      end if;
-    end if;
-  end process;
-
-  identifier : process(clk)
-  begin
-    if rising_edge(clk) then
-      if prescalerCounter = prescaler and enable = '1' then
-          if waveOutBuffer = x"00" then
-              waveOutBuffer <= volume;
-          else
-              waveOutBuffer <= (others => '0');
-          end if;
-      end if;
-    end if;
-  end process;
+    identifier : process(clk)
+    begin
+        if rising_edge(clk) then
+            if prescalerCounter = prescaler and enable = '1' then
+                if waveOutBuffer = x"00" then
+                    waveOutBuffer <= volume;
+                else
+                    waveOutBuffer <= (others => '0');
+                end if;
+            end if;
+        end if;
+    end process;
 
 end architecture;

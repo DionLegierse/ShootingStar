@@ -13,19 +13,42 @@ entity TRIANGLE_GENERATOR is
 end entity;
 
 architecture Behavioral of TRIANGLE_GENERATOR is
-  type state is (UP, DOWN);
+    component triangle_dsp is
+        port(
+            CLK : IN STD_LOGIC;
+            A : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+            B : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
+            P : OUT STD_LOGIC_VECTOR(14 DOWNTO 0)
+        );
+    end component;
 
-  signal frequencyInteger : POSITIVE RANGE 64 TO 131073;
-  signal prescaler : POSITIVE RANGE 762 TO 1562500;
-  signal prescalerCounter : INTEGER RANGE 0 TO 1562500;
-  signal waveOutBuffer : std_logic_vector(7 downto 0) := (others => '0');
-  signal currentState : state := UP;
+    constant constant1 : std_logic_vector(2 downto 0) := b"011";
+    constant constant2 : unsigned(11 downto 0) := b"1000_0000_0000";
+
+    type state is (UP, DOWN);
+
+    signal waveOutBuffer : std_logic_vector(7 downto 0) := (others => '0');
+    signal currentState : state := UP;
+
+    signal subtractionResult : std_logic_vector(11 downto 0);
+    signal multiplyResult : std_logic_vector(14 downto 0);
+
+    signal prescaler : unsigned(13 downto 0);
+    signal prescalerCounter : unsigned(13 downto 0) := (others => '0');
 
 begin
 
-  frequencyInteger <= 131072 / (2048 - to_integer(unsigned(frequency))); --gives frequency in Hertz
-  prescaler <= (frequencyClk / frequencyInteger) / 512;
   waveOut <= waveOutBuffer;
+
+  subtractionResult <= std_logic_vector(constant2 - ('0' & unsigned(frequency)));
+  prescaler <= unsigned(multiplyResult(14 downto 1));
+
+  DSP1 : triangle_dsp port map(
+      CLK => clk,
+      A => constant1,
+      B => subtractionResult,
+      P => multiplyResult
+  );
 
   COUNTER : process(clk)
   begin
@@ -33,7 +56,7 @@ begin
       if enable = '1' and prescalerCounter < prescaler then
         prescalerCounter <= prescalerCounter + 1;
       else
-        prescalerCounter <= 0;
+        prescalerCounter <= (others => '0');
       end if;
     end if;
   end process;

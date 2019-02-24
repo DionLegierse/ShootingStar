@@ -59,9 +59,9 @@ USE xbip_dsp48_macro_v3_0_15.xbip_dsp48_macro_v3_0_15;
 ENTITY xbip_dsp48_macro_0 IS
   PORT (
     CLK : IN STD_LOGIC;
-    A : IN STD_LOGIC_VECTOR(18 DOWNTO 0);
-    B : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
-    P : OUT STD_LOGIC_VECTOR(29 DOWNTO 0)
+    A : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    B : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
+    P : OUT STD_LOGIC_VECTOR(21 DOWNTO 0)
   );
 END xbip_dsp48_macro_0;
 
@@ -132,8 +132,8 @@ ARCHITECTURE xbip_dsp48_macro_0_arch OF xbip_dsp48_macro_0 IS
       PCIN : IN STD_LOGIC_VECTOR(47 DOWNTO 0);
       ACIN : IN STD_LOGIC_VECTOR(29 DOWNTO 0);
       BCIN : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
-      A : IN STD_LOGIC_VECTOR(18 DOWNTO 0);
-      B : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
+      A : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+      B : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
       C : IN STD_LOGIC_VECTOR(47 DOWNTO 0);
       D : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
       CONCAT : IN STD_LOGIC_VECTOR(47 DOWNTO 0);
@@ -142,7 +142,7 @@ ARCHITECTURE xbip_dsp48_macro_0_arch OF xbip_dsp48_macro_0 IS
       CARRYOUT : OUT STD_LOGIC;
       CARRYCASCOUT : OUT STD_LOGIC;
       PCOUT : OUT STD_LOGIC_VECTOR(47 DOWNTO 0);
-      P : OUT STD_LOGIC_VECTOR(29 DOWNTO 0);
+      P : OUT STD_LOGIC_VECTOR(21 DOWNTO 0);
       CED : IN STD_LOGIC;
       CED1 : IN STD_LOGIC;
       CED2 : IN STD_LOGIC;
@@ -231,12 +231,12 @@ BEGIN
       C_HAS_D => 0,
       C_HAS_CONCAT => 0,
       C_HAS_C => 0,
-      C_A_WIDTH => 19,
-      C_B_WIDTH => 11,
+      C_A_WIDTH => 10,
+      C_B_WIDTH => 12,
       C_C_WIDTH => 48,
       C_D_WIDTH => 18,
       C_CONCAT_WIDTH => 48,
-      C_P_MSB => 29,
+      C_P_MSB => 21,
       C_P_LSB => 0,
       C_SEL_WIDTH => 0,
       C_HAS_ACOUT => 0,

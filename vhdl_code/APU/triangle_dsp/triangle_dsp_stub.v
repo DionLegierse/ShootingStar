@@ -1,11 +1,10 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-// Date        : Sun Feb 24 20:15:31 2019
+// Date        : Sun Feb 24 20:46:46 2019
 // Host        : DESKTOP-24KCCOQ running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               f:/ShootingStar/vhdl_code/APU/xbip_dsp48_macro_0/xbip_dsp48_macro_0_stub.v
-// Design      : xbip_dsp48_macro_0
+// Command     : write_verilog -force -mode synth_stub f:/ShootingStar/vhdl_code/APU/triangle_dsp/triangle_dsp_stub.v
+// Design      : triangle_dsp
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tcpg236-1
 // --------------------------------------------------------------------------------
@@ -14,10 +13,10 @@
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
 (* x_core_info = "xbip_dsp48_macro_v3_0_15,Vivado 2017.4" *)
-module xbip_dsp48_macro_0(CLK, A, B, P)
-/* synthesis syn_black_box black_box_pad_pin="CLK,A[9:0],B[11:0],P[21:0]" */;
+module triangle_dsp(CLK, A, B, P)
+/* synthesis syn_black_box black_box_pad_pin="CLK,A[2:0],B[11:0],P[14:0]" */;
   input CLK;
-  input [9:0]A;
+  input [2:0]A;
   input [11:0]B;
-  output [21:0]P;
+  output [14:0]P;
 endmodule

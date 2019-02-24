@@ -14,17 +14,37 @@ entity SQUARE_WAVE is
 end entity;
 
 architecture Behavioral of SQUARE_WAVE is
+    component xbip_dsp48_macro_0 is
+        port(
+            CLK : IN STD_LOGIC;
+            A : IN STD_LOGIC_VECTOR(18 DOWNTO 0);
+            B : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
+            P : OUT STD_LOGIC_VECTOR(29 DOWNTO 0)
+        );
+    end component;
 
-  signal frequencyInteger : POSITIVE RANGE 64 TO 1245;
-  signal prescaler : POSITIVE RANGE 762 TO 40161;
-  signal prescalerCounter : INTEGER RANGE 0 TO 40161;
+    constant constant1 : std_logic_vector(18 downto 0) := b"101_1111_0101_1110_0001";
+    constant constant2 : unsigned(19 downto 0) := b"1011_1110_1011_1100_0010";
+
+    signal multiplyResult : std_logic_vector(29 downto 0);
+
+    signal prescaler : positive range 1 to 40161;
+    signal prescalerCounter : positive range 1 to 40161;
+
   signal waveOutBuffer : std_logic_vector(7 downto 0) := (others => '0');
 
 begin
 
-  frequencyInteger <= 131072 / (2048 - to_integer(unsigned(frequency))); --gives frequency in Hertz
-  prescaler <= (frequencyClk / frequencyInteger) / 2;
   waveOut <= waveOutBuffer;
+
+  DSP1 : xbip_dsp48_macro_0 port map(
+        CLK => clk,
+        A => constant1,
+        B => frequency,
+        P => multiplyResult
+  );
+
+  prescaler <= to_integer(constant2 - unsigned(multiplyResult(29 downto 10)));
 
   counter : process(clk)
   begin

@@ -8,21 +8,22 @@ entity SYNTHESIZER_REGISTERS is
         clk : in std_logic;
         write_enable : in std_logic;
         register_select : in std_logic_vector(3 downto 0);
-        data : in std_logic_vector(7 downto 0);
+        data : in std_logic_vector(10 downto 0);
 -----------------------------------OUTPUTS--------------------------------------
-        square1_frequency_lsb : out std_logic_vector(7 downto 0);
-        square1_frequency_msb : out std_logic_vector(3 downto 0);
+        square1_frequency : out std_logic_vector(10 downto 0);
+        square1_enable : out std_logic;
         square1_volume : out std_logic_vector(7 downto 0);
 
-        square2_frequency_lsb : out std_logic_vector(7 downto 0);
-        square2_frequency_msb : out std_logic_vector(3 downto 0);
+        square2_frequency : out std_logic_vector(10 downto 0);
+        square2_enable : out std_logic;
         square2_volume : out std_logic_vector(7 downto 0);
 
-        triangle_frequency_lsb : out std_logic_vector(7 downto 0);
-        triangle_frequency_msb : out std_logic_vector(3 downto 0);
+        triangle_frequency : out std_logic_vector(10 downto 0);
+        triangle_enable : out std_logic;
 
-        noise_selectSample : out std_logic_vector(4 downto 0);
-        noise_volume : out std_logic_vector(7 downto 0)
+        noise_selectSample : out std_logic_vector(3 downto 0);
+        noise_volume : out std_logic_vector(7 downto 0);
+        noise_enable : out std_logic
     );
 end entity;
 
@@ -39,25 +40,27 @@ begin
             case( register_select ) is
 
                 when "0000" =>
-                    square1_frequency_lsb <= data;
+                    square1_frequency <= data;
                 when "0001" =>
-                    square1_frequency_msb <= data(3 downto 0);
+                    square1_enable <= data(0);
                 when "0010" =>
-                    square1_volume <= data;
+                    square1_volume <= data(7 downto 0);
                 when "0011" =>
-                    square2_frequency_lsb <= data;
+                    square2_frequency <= data;
                 when "0100" =>
-                    square2_frequency_msb <= data(3 downto 0);
+                    square2_enable <= data(0);
                 when "0101" =>
-                    square2_volume <= data;
+                    square2_volume <= data(7 downto 0);
                 when "0110" =>
-                    triangle_frequency_lsb <= data;
+                    triangle_frequency <= data;
                 when "0111" =>
-                    triangle_frequency_msb <= data(3 downto 0);
+                    triangle_enable <= data(0);
                 when "1000" =>
-                    noise_selectSample <= data(4 downto 0);
+                    noise_selectSample <= data(3 downto 0);
                 when "1001" =>
-                    noise_volume <= data;
+                    noise_volume <= data(7 downto 0);
+                when "1010" =>
+                    noise_enable <= data(0);
                 when others =>
                     NULL;
 

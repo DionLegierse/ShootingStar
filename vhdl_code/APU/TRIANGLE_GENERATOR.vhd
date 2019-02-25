@@ -3,7 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity TRIANGLE_GENERATOR is
-  generic(frequencyClk : POSITIVE := 10 ** 8);
   port (
     clk : in std_logic;
     enable : in std_logic;

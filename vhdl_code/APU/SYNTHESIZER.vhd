@@ -3,15 +3,12 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity SYNTHESIZER is
-    generic(
-        clkSpeed : POSITIVE := 10 ** 8
-    );
     port (
 ----------------------------------INPUTS------------------------------
         clk : in std_logic;
         write_enable : in std_logic;
         register_select : in std_logic_vector(3 downto 0);
-        data : in std_logic_vector(7 downto 0);
+        data : in std_logic_vector(10 downto 0);
 ----------------------------------OUTPUTS-----------------------------
         sound_out : out std_logic
     );
@@ -19,19 +16,20 @@ end entity;
 
 architecture Behavioral of SYNTHESIZER is
 
-    signal square1_frequency_lsb : std_logic_vector(7 downto 0);
-    signal square1_frequency_msb : std_logic_vector(3 downto 0);
+    signal square1_frequency : std_logic_vector(10 downto 0);
+    signal square1_enable : std_logic;
     signal square1_volume : std_logic_vector(7 downto 0);
 
-    signal square2_frequency_lsb : std_logic_vector(7 downto 0);
-    signal square2_frequency_msb : std_logic_vector(3 downto 0);
+    signal square2_frequency : std_logic_vector(10 downto 0);
+    signal square2_enable : std_logic;
     signal square2_volume : std_logic_vector(7 downto 0);
 
-    signal triangle_frequency_lsb : std_logic_vector(7 downto 0);
-    signal triangle_frequency_msb : std_logic_vector(3 downto 0);
+    signal triangle_frequency : std_logic_vector(10 downto 0);
+    signal triangle_enable : std_logic;
 
-    signal noise_selectSample : std_logic_vector(4 downto 0);
+    signal noise_selectSample : std_logic_vector(3 downto 0);
     signal noise_volume : std_logic_vector(7 downto 0);
+    signal noise_enable : std_logic;
 
     signal square1_out : std_logic_vector(7 downto 0);
     signal square2_out : std_logic_vector(7 downto 0);
@@ -47,64 +45,53 @@ begin
         register_select => register_select,
         data => data,
 
-        square1_frequency_lsb => square1_frequency_lsb,
-        square1_frequency_msb => square1_frequency_msb,
+        square1_frequency => square1_frequency,
+        square1_enable => square1_enable,
         square1_volume => square1_volume,
 
-        square2_frequency_lsb => square2_frequency_lsb,
-        square2_frequency_msb => square2_frequency_msb,
+        square2_frequency => square2_frequency,
+        square2_enable => square2_enable,
         square2_volume => square2_volume,
 
-        triangle_frequency_lsb => triangle_frequency_lsb,
-        triangle_frequency_msb => triangle_frequency_msb,
+        triangle_frequency => triangle_frequency,
+        triangle_enable => triangle_enable,
 
         noise_selectSample => noise_selectSample,
-        noise_volume => noise_volume
+        noise_volume => noise_volume,
+        noise_enable => noise_enable
     );
 
     SQUARE_WAVE_1 : ENTITY WORK.SQUARE_WAVE(Behavioral)
-    GENERIC MAP(
-        frequencyClk => clkSpeed
-    )
     PORT MAP(
         clk => clk,
-        enable => square1_frequency_msb(3),
-        frequency => square1_frequency_msb(2 downto 0) & square1_frequency_lsb,
+        enable => square1_enable,
+        frequency => square1_frequency,
         volume => square1_volume,
         waveOut => square1_out
     );
 
     SQUARE_WAVE_2 : ENTITY WORK.SQUARE_WAVE(Behavioral)
-    GENERIC MAP(
-        frequencyClk => clkSpeed
-    )
     PORT MAP(
         clk => clk,
-        enable => square2_frequency_msb(3),
-        frequency => square2_frequency_msb(2 downto 0) & square2_frequency_lsb,
+        enable => square2_enable,
+        frequency => square2_frequency,
         volume => square2_volume,
         waveOut => square2_out
     );
 
     TRIANGLE_GENERATOR_1 : ENTITY WORK.TRIANGLE_GENERATOR(Behavioral)
-    GENERIC MAP(
-        frequencyClk => clkSpeed
-    )
     PORT MAP(
         clk => clk,
-        enable => triangle_frequency_msb(3),
-        frequency => triangle_frequency_msb(2 downto 0) & triangle_frequency_lsb,
+        enable => triangle_enable,
+        frequency => triangle_frequency,
         waveOut => triangle_out
     );
 
     NOISE_GENERATOR_1 : ENTITY WORK.NOISE_GENERATOR(Behavioral)
-    GENERIC MAP(
-        clkSpeed => clkSpeed
-    )
     PORT MAP(
         clk => clk,
-        selectSample => noise_selectSample(3 downto 0),
-        enable => noise_selectSample(4),
+        selectSample => noise_selectSample,
+        enable => noise_enable,
         volume => noise_volume,
         noiseWaveOut => noise_out
     );

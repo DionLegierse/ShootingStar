@@ -3,9 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity NOISE_GENERATOR is
-    generic(
-        clkSpeed : positive := 10 ** 8
-    );
     port (
 ------------------------------------INPUTS--------------------------------------
         clk : in std_logic;
@@ -18,6 +15,8 @@ entity NOISE_GENERATOR is
 end entity;
 
 architecture Behavioral of NOISE_GENERATOR is
+    constant clkSpeed : positive := 10 ** 8;
+
     constant frequency1 : integer := 447443;
     constant frequency2 : integer := 223721;
     constant frequency3 : integer := 111860;
@@ -53,7 +52,7 @@ architecture Behavioral of NOISE_GENERATOR is
     constant prescaler16 : integer := clkSpeed / frequency16;
 
     signal prescaler : natural RANGE 0 TO clkSpeed := 440;
-    signal counter : natural RANGE 0 TO clkSpeed / frequency16;
+    signal counter : natural RANGE 0 TO prescaler16;
 
     signal randomRegister : std_logic_vector(13 downto 0) := (0 => '1', others => '0');
     signal oldSample : std_logic_vector(3 downto 0) := (others => '0');

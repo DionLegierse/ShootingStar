@@ -23,15 +23,17 @@ void SpriteLoader::loadSpriteOntoFPGA()
 
 	for(int i = address; i < address + size; i++)
 	{	 
-        /* //Testing bs
-		pr c intf( "%x\t", *data );
+        /* 
+        //Testing bs
+		printf( "%x\t", *data );
         */
+
 		if (i % 8 == 0 && i != address)
 			printf("\n");
             
 		spi_flash_read(0x100000 + i, data, sizeof(uint8_t) );
         GPIO.out_w1tc |= 0b00; //write enable low
-        GPIO.out_w1tc = convertToGPIO(*data);
+        GPIO.out_w1tc |= convertToGPIO(data);
 	}
     printf("\n");
     printf("\n");
@@ -41,21 +43,20 @@ void SpriteLoader::loadSpriteOntoFPGA()
     GPIO.enable_w1ts = 0x0;
 }
 
-int SpriteLoader::convertToGPIO(int aValue)
+int SpriteLoader::convertToGPIO(int *aValue)
 {
     int output = 0;
-
     int temp = 0;
     
-    temp = (aValue & 0xF0);
+    temp = (*aValue & 0xF0);
     output += (temp * 65536);
 
-    temp = (aValue & 0x0F);
+    temp = (*aValue & 0x0F);
     output += (temp * 4);
 
     output += 0b10; //write enable high
 
-    printf("%x ", output);
+    printf("%x\t", output);
 
     return output; 
 }

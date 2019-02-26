@@ -1,60 +1,27 @@
 import sys
+from array import *
 from PIL import Image
 
-filename = "SpaceShip " + str(1) + ".png"
-print(filename)
-file = Image.open(filename)
+bites = array('B')
 
-size = w, h = file.size
 
-datalist = list(file.getdata())
+def write_to_bin(filename):
+    print(filename)
+    file = Image.open(filename + ".png")
 
-print(datalist)
-print(len(datalist))
+    datalist = list(file.getdata())
 
-output = [512]
-start = 0
-end = 8
+    for n in range(0, 64):
+        bites.append(datalist[n])
 
-for k in range(start, end):
-    for n in range(k * 8, (k + 1) * 8):
-        Red = bin(datalist[n][0])[2:4]
-        Green = bin(datalist[n][1])[2:4]
-        Blue = bin(datalist[n][2])[2:3]
 
-        tRed = ''
-        tGreen = ''
-        tBlue = ''
+write_to_bin("SpaceShip 1")
+write_to_bin("SpaceShip 2")
+write_to_bin("SpaceShip 3")
+write_to_bin("SpaceShip 4")
 
-        for _ in range(3 - len(Red)):
-            tRed += "0"
-        for _ in range(3 - len(Green)):
-            tGreen += "0"
-        for _ in range(2 - len(Blue)):
-            tBlue += "0"
-
-        tRed += str(Red)
-        tGreen += str(Green)
-        tBlue += str(Blue)
-
-        print("R" + str(tRed) + " G" + str(tGreen) + " B" + str(tBlue))
-    print()
-
-for k in range(start, end):
-    for i in range(0, 3):
-        for n in range(k*8, (k+1)*8):
-            # str3 = datalist[n][i]
-            str1 = bin(datalist[n][i])[2:10]
-            str2 = ''
-
-            for x in range(8 - len(str1)):
-                str2 += '0'
-
-            str2 += str1
-            print(str2, end=' ')
-        print()
-    print()
-
+with open("spriteData.bin", 'wb') as f:
+    f.write(bites)
 
 print(sys.version)
 print()

@@ -10,7 +10,8 @@
 #include "nvs_flash.h"
 #include "nvs.h"
 
-#include "Vector2.h"
+//costum
+#include "SpriteLoader.h"
 
 #define STORAGE_NAMESPACE "dummyNamespace"
 
@@ -20,27 +21,23 @@ extern "C" {
 
 extern gpio_dev_t GPIO;
 
-esp_err_t CasIsGay(void)
-{
-    esp_err_t err;
-
-	err = nvs_flash_init();
-
-	spi_flash_init();
-
-	int *Daniel = new int();
-	spi_flash_read(0x100000, Daniel, sizeof(uint8_t)*4 );
-	printf("%x\n", *Daniel );  
-
-	delete Daniel;
-
-   	return err;
-}
-
 void app_main(void)
 {
-	esp_err_t f = CasIsGay();
-	printf("%s\n", esp_err_to_name(f));
+	SpriteLoader spr;
+
+	spr.setAddressAndSize(0, 64);
+	spr.loadSpriteOntoFPGA();
+	
+	spr.setAddressAndSize(64, 64);
+	spr.loadSpriteOntoFPGA();
+	
+	spr.setAddressAndSize(128, 64);
+	spr.loadSpriteOntoFPGA();
+	
+	spr.setAddressAndSize(192, 64);
+	spr.loadSpriteOntoFPGA();
+
+	
 }
 
 

@@ -5,7 +5,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/FlashMemory.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FlashMemory.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceShip 1.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceShip 2.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceShip 3.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceShip 4.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spriteConversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/spriteConversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spriteData.bin" beforeDir="false" afterPath="$PROJECT_DIR$/spriteData.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpaceSlicer/src/Vector2.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpaceSlicer/src/Vector2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpaceSlicer/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../SpaceSlicer/src/main.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/FlashMemory$spriteConversion.coverage" NAME="spriteConversion Coverage Results" MODIFIED="1551138103155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FlashMemory$spriteConversion.coverage" NAME="spriteConversion Coverage Results" MODIFIED="1551186662927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -35,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spriteConversion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="28" column="37" lean-forward="true" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
+            <state relative-caret-position="220">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -61,7 +69,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="width" value="977" />
     <option name="height" value="1038" />
@@ -89,7 +97,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -147,11 +155,13 @@
       <workItem from="1550864805114" duration="228000" />
       <workItem from="1550865047101" duration="221000" />
       <workItem from="1551097999906" duration="10685000" />
+      <workItem from="1551174733321" duration="73000" />
+      <workItem from="1551174829497" duration="10709000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14479000" />
+    <option name="totallyTimeSpent" value="25261000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -163,15 +173,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.18976545" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.119463086" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29035753" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29461756" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39660057" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
@@ -232,13 +243,7 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/-635839070/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="3724" column="8" selection-start-line="3724" selection-start-column="8" selection-end-line="3724" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/-635839070/builtins.py" />
     <entry file="file://$PROJECT_DIR$/SpaceShip 2.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -248,13 +253,16 @@
     <entry file="file://$PROJECT_DIR$/SpaceShip 4.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/spriteData.bin">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/SpaceShip 1.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/spriteConversion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="28" column="37" lean-forward="true" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
+        <state relative-caret-position="220">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

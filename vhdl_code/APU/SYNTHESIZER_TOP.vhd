@@ -7,6 +7,7 @@ entity SYNTHESIZER_TOP is
 ------------------------------------INPUTS--------------------------------------
         clk : in std_logic;
         start_music : in std_logic;
+        reset : in std_logic;
 ------------------------------------OUTPUTS-------------------------------------
         sound_out : out std_logic
     );
@@ -23,6 +24,7 @@ begin
         clk => clk,
         startAddress => b"000000000",
         start_music => start_music,
+        reset => reset,
         data => data,
         write_enable => write_enable,
         register_select => register_select

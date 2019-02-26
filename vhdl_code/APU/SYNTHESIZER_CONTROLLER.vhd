@@ -12,6 +12,7 @@ entity SYNTHESIZER_CONTROLLER is
         clk : in std_logic;
         startAddress : in std_logic_vector(bus_width downto 0);
         start_music : in std_logic;
+        reset : in std_logic;
 ------------------------------------OUTPUTS-------------------------------------
         data : out std_logic_vector(10 downto 0);
         write_enable : out std_logic;
@@ -87,10 +88,12 @@ begin
         end if;
     end process;
 --------------------------------------------------------------------------------
-    COUNTER : process(clk)
+    COUNTER : process(clk, reset)
     begin
         if rising_edge(clk) then
-            if isCounterEnable and frame_counter /= unsigned(frame_prescaler) then
+            if reset = '1' then
+                frame_counter <= (others => '0');
+            elsif isCounterEnable and frame_counter /= unsigned(frame_prescaler) then
                 frame_counter <= frame_counter + 1;
             else
                 frame_counter <= (others => '0');
@@ -98,9 +101,12 @@ begin
         end if;
     end process;
 --------------------------------------------------------------------------------
-    CONTROLLER_STATE_MACHINE : process(clk)
+    CONTROLLER_STATE_MACHINE : process(clk, reset)
     begin
-        if rising_edge(clk) then
+        if reset = '1' then
+            controller_state <= HOLD;
+            isCounterEnable <= false;
+        elsif rising_edge(clk) then
             write_enable <= '0';
             case( controller_state ) is
 ----------------------------------STATE: HOLD-----------------------------------

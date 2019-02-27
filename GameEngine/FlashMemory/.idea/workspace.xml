@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6630f732-e7b1-4ba8-a747-85005b65baea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/FlashMemory.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FlashMemory.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceShip 1.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceShip 2.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceShip 3.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceShip 4.png" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceShip 4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spriteConversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/spriteConversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spriteData.bin" beforeDir="false" afterPath="$PROJECT_DIR$/spriteData.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpaceSlicer/src/Vector2.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpaceSlicer/src/Vector2.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpaceSlicer/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../SpaceSlicer/src/main.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="6630f732-e7b1-4ba8-a747-85005b65baea" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +30,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spriteConversion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
+            <state relative-caret-position="330">
               <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -69,7 +56,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="width" value="977" />
     <option name="height" value="1038" />
@@ -156,12 +143,12 @@
       <workItem from="1550865047101" duration="221000" />
       <workItem from="1551097999906" duration="10685000" />
       <workItem from="1551174733321" duration="73000" />
-      <workItem from="1551174829497" duration="10709000" />
+      <workItem from="1551174829497" duration="11309000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25261000" />
+    <option name="totallyTimeSpent" value="25861000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -174,14 +161,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.119463086" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29461756" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29461756" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39660057" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -261,7 +247,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/spriteConversion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
+        <state relative-caret-position="330">
           <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />

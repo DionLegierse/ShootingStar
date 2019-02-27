@@ -35,9 +35,7 @@ void app_main(void)
 	spr.loadSpriteOntoFPGA();
 	
 	spr.setAddressAndSize(192, 64);
-	spr.loadSpriteOntoFPGA();
-
-	
+	spr.loadSpriteOntoFPGA();	
 }
 
 

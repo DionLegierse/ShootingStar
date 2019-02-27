@@ -11,7 +11,7 @@ public:
 
     void loadSpriteOntoFPGA();
     void setAddressAndSize(int, int);
-    int convertToGPIO(int);
+    int convertToGPIO(int*);
 
 private:
     int address = 0;

@@ -13,8 +13,6 @@
 //costum
 #include "SpriteLoader.h"
 
-#define STORAGE_NAMESPACE "dummyNamespace"
-
 extern "C" {
 	void app_main(void);
 }
@@ -24,16 +22,16 @@ extern gpio_dev_t GPIO;
 void app_main(void)
 {
 	SpriteLoader spr;
-
+	
 	spr.setAddressAndSize(0, 64);
 	spr.loadSpriteOntoFPGA();
-	
+
 	spr.setAddressAndSize(64, 64);
 	spr.loadSpriteOntoFPGA();
-	
+
 	spr.setAddressAndSize(128, 64);
 	spr.loadSpriteOntoFPGA();
-	
+
 	spr.setAddressAndSize(192, 64);
 	spr.loadSpriteOntoFPGA();	
 }

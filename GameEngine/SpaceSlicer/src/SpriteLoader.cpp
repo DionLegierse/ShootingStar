@@ -46,13 +46,10 @@ void SpriteLoader::loadSpriteOntoFPGA()
 int SpriteLoader::convertToGPIO(int *aValue)
 {
     int output = 0;
-    int temp = 0;
-    
-    temp = (*aValue & 0xF0);
-    output += (temp * 65536);
 
-    temp = (*aValue & 0x0F);
-    output += (temp * 4);
+    output += ((*aValue & 0xF0) * 65536);
+    
+    output += ((*aValue & 0x0F) * 4);
 
     output += 0b10; //write enable high
 

@@ -1,35 +1,6 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 02/28/2019 11:50:37 AM
--- Design Name:
--- Module Name: ScanlineOAM - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
-
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
+use IEEE.NUMERIC_STD.ALL;
 
 entity ScanlineOAM is
     Port (
@@ -39,13 +10,12 @@ entity ScanlineOAM is
     scanline : in STD_LOGIC_VECTOR (9 downto 0);
 
     --Object Attribute Memory
-    OAMim : in STD_LOGIC_VECTOR (31 downto 0);
+    OAMin : in STD_LOGIC_VECTOR (31 downto 0);
     OAMadd : out STD_LOGIC_VECTOR (6 downto 0);
-    
+
     --Secondary Object Attribute Memory
     SOAMout : out STD_LOGIC_VECTOR (31 downto 0);
-    SOAMpush : out STD_LOGIC;
-    SOAMfull : in STD_LOGIC
+    SOAMadd : out STD_LOGIC
     );
 end ScanlineOAM;
 
@@ -54,10 +24,21 @@ architecture Behavioral of ScanlineOAM is
     begin
 
         process(clk)
+        variable objY : STD_LOGIC_VECTOR (8 downto 0);
 
         begin
             if (rising_edge(clk)) then
-
+                objY := OAMin(31 downto 23);
+                if ( (unsigned(objY) <= unsigned(scanline)) AND (unsigned(objY) >=unsigned(scanline) - 7) ) then
+                    if(not SOAMfull) then
+                        SOAMout <= OAMin;
+                        SOAMpush <= '1';
+                    end if;
+                else
+                    SOAMpush <= '0';
+                end if;
+            elsif (falling_edge(clk)) then
+                SOAMpush <= '0';
             end if;
         end process;
 

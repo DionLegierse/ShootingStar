@@ -1,3 +1,4 @@
+#pragma once
 #include "Vector2.h"
 
 class Entity
@@ -12,24 +13,25 @@ protected:
 
 // Position methods
 public:
-    void    setPosition(Vector2);
-    Vector2 getPosition();
+    void        setPosition(Vector2);
+    Vector2&    getPosition();
 
 // Collision methods
 public:
-    bool    checkCollision(Entity*);
+    bool        checkCollision(Entity*);
+    int         getColliderRadius();
 
 // Virtual methods
 public:
     virtual void    move();
 
 // Movement variables
-private:
+protected:
     Vector2 _position;
     int     _speed;
 
 // Collider variables
-private:
+protected:
     int     _colliderRadius;
     int     _colliderTag;
 

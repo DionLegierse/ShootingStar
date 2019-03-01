@@ -1,4 +1,6 @@
 #include <cmath>
+#include <stdio.h>
+
 #include "Vector2.h"
 
 Vector2::Vector2()
@@ -27,7 +29,7 @@ void Vector2::setX(int aX)
 {
  	x = aX;
 }
-void Vector2::setX(int aY)
+void Vector2::setY(int aY)
 {
  	y = aY;
 }
@@ -48,6 +50,13 @@ Vector2 Vector2::operator+(const Vector2& v) const
 	coord.x = this->x + v.x;
 	coord.y = this->y + v.y;
 	return coord;
+}
+
+Vector2 Vector2::operator+=(const Vector2& v)
+{
+	this->x += v.x;
+	this->y += v.y;
+	return *this;
 }
 
 Vector2 Vector2::operator-(const Vector2& v) const
@@ -90,6 +99,11 @@ Vector2 Vector2::operator/(int v) const
 	return coord;
 }
 
+void Vector2::print()
+{
+	printf("(%d, %d)\n", this->x, this->y);
+}
+
 int Vector2::getAngle(Vector2& begin, Vector2& end)
 {
 	int difX = end.getX() - begin.getX();
@@ -100,8 +114,8 @@ int Vector2::getAngle(Vector2& begin, Vector2& end)
 
 int Vector2::getDistance(Vector2& other)
 {
-	int difX = other.getX - this->x;
-	int difY = other.getY - this->y;
+	int difX = other.getX() - this->x;
+	int difY = other.getY() - this->y;
 
 	return sqrt( pow(difX, 2 ) + pow( difY, 2 ));
 }

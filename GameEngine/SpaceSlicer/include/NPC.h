@@ -12,6 +12,6 @@ protected:
             NPC();
 
 // Movement variables
-private:
+protected:
     Vector2 _direction;
 };

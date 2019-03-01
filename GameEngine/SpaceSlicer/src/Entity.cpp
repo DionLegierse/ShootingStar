@@ -13,9 +13,9 @@ Entity::~Entity() {}
 
 //>-----------{ Position methods }-----------<<
 
-Vector2 Entity::getPosition ()
+Vector2& Entity::getPosition ()
 {
-    return this->_position;
+    return static_cast<Vector2&>(this->_position);
 }
 
 void Entity::setPosition (Vector2 aPosition)
@@ -27,11 +27,17 @@ void Entity::setPosition (Vector2 aPosition)
 
 bool Entity::checkCollision (Entity *aCollider)
 {
-    int distance = this->_position.getDistance(aCollider->getPosition);
+    int distance = this->_position.getDistance(aCollider->getPosition());
 
-    if (distance > this->_colliderRadius)
-        return false;
+    if (distance > this->_colliderRadius + aCollider->getColliderRadius())
+        return false;  
 
     return true;
 }
 
+int Entity::getColliderRadius ()
+{
+    return this->_colliderRadius;
+}
+
+void Entity::move() {}

@@ -1,3 +1,5 @@
+#pragma once
+#include <iostream>
 
 class Vector2
 {
@@ -9,6 +11,7 @@ public:
 
 public:
 	Vector2 operator+(const Vector2&) 	const;
+	Vector2 operator+=(const Vector2&);
 	Vector2 operator-(const Vector2&) 	const;
 	Vector2 operator*(const Vector2&) 	const;
 	Vector2 operator*(int) 				const;
@@ -23,6 +26,8 @@ public:
 
 	int getAngle(Vector2& begin, Vector2& end);
 	int getDistance(Vector2& other);
+
+	void print();
 
 private:
 	int x;

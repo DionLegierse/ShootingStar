@@ -91,6 +91,8 @@ def create_noise():
         wordsNoise = wordsNoise + lines[i].count(" ") + 1
         cueFile.append(lines[i].replace("\n",""))
         i = i + 1
+        if i == len(lines):
+            break
 
     cueFile[8] = '{:04x}'.format(wordsHeader + wordsSquare1 + wordsSquare2 + wordsTriangle)
 
@@ -121,6 +123,7 @@ create_noise()
 cue_file = open(inputFileName + ".coe", "w")
 
 for x in cueFile:
+    x = x.replace("\r\n", "\n")
     cue_file.write(x + "\n")
 
 cue_file.close()

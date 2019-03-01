@@ -56,7 +56,7 @@ COMPONENT apu_memory
   PORT (
     clka : IN STD_LOGIC;
     wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    addra : IN STD_LOGIC_VECTOR(8 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
     dina : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
   );

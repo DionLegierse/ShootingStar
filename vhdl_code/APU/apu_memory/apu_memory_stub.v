@@ -1,10 +1,9 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-// Date        : Tue Feb 26 15:29:04 2019
-// Host        : LAPTOP-MCELIKGK running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               C:/Users/djleg/Documents/ShootingStar/vhdl_code/APU/apu_memory/apu_memory_stub.v
+// Date        : Thu Feb 28 20:58:02 2019
+// Host        : DESKTOP-24KCCOQ running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode synth_stub F:/ShootingStar/vhdl_code/APU/apu_memory/apu_memory_stub.v
 // Design      : apu_memory
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tcpg236-1
@@ -15,10 +14,10 @@
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
 (* x_core_info = "blk_mem_gen_v8_4_1,Vivado 2017.4" *)
 module apu_memory(clka, wea, addra, dina, douta)
-/* synthesis syn_black_box black_box_pad_pin="clka,wea[0:0],addra[8:0],dina[15:0],douta[15:0]" */;
+/* synthesis syn_black_box black_box_pad_pin="clka,wea[0:0],addra[10:0],dina[15:0],douta[15:0]" */;
   input clka;
   input [0:0]wea;
-  input [8:0]addra;
+  input [10:0]addra;
   input [15:0]dina;
   output [15:0]douta;
 endmodule

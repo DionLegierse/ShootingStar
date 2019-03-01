@@ -22,7 +22,7 @@ begin
     SYNTHESIZER_CONTROLLER_1 : entity work.SYNTHESIZER_CONTROLLER(Behavioral)
     port map(
         clk => clk,
-        startAddress => b"000000000",
+        startAddress => b"00000000000",
         start_music => start_music,
         reset => reset,
         data => data,

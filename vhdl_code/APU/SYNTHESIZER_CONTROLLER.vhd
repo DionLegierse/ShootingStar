@@ -5,7 +5,7 @@ use work.APU.all;
 
 entity SYNTHESIZER_CONTROLLER is
     generic(
-        bus_width : integer := 8
+        bus_width : integer := 10
     );
     port (
 ------------------------------------INPUTS--------------------------------------
@@ -24,7 +24,7 @@ architecture Behavioral of SYNTHESIZER_CONTROLLER is
 --------------------------------------------------------------------------------
     component apu_memory is
         port(
-            addra : in std_logic_vector(8 downto 0);
+            addra : in std_logic_vector(10 downto 0);
             clka : in std_logic;
             dina : in std_logic_vector(15 downto 0);
             douta : out std_logic_vector(15 downto 0);

@@ -16,7 +16,7 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param synth.incrementalSynthesisCache C:/Users/hammi/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-776-DESKTOP-7MRF67A/incrSyn
+set_param synth.incrementalSynthesisCache C:/Users/hammi/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-51284-LAPTOP-5GHVJTMA/incrSyn
 set_msg_config -id {Synth 8-256} -limit 10000
 set_msg_config -id {Synth 8-638} -limit 10000
 create_project -in_memory -part xc7a35tcpg236-1
@@ -24,18 +24,24 @@ create_project -in_memory -part xc7a35tcpg236-1
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/wt [current_project]
-set_property parent.project_path C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.xpr [current_project]
+set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
+set_property webtalk.parent_dir C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/wt [current_project]
+set_property parent.project_path C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.xpr [current_project]
+set_property XPM_LIBRARIES XPM_MEMORY [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part digilentinc.com:basys3:part0:1.1 [current_project]
-set_property ip_output_repo c:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/ip [current_project]
+set_property ip_output_repo c:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_vhdl -library xil_defaultlib {
-  C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/new/Memory.vhd
-  C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/new/ReadMemory.vhd
-  C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/new/main.vhd
+  C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/new/Memory.vhd
+  C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/new/RWSELECTOR.vhd
+  C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/new/ReadMemory.vhd
+  C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/new/main.vhd
 }
+read_ip -quiet C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/ip/RAMTHING/RAMTHING.xci
+set_property used_in_implementation false [get_files -all c:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/ip/RAMTHING/RAMTHING_ooc.xdc]
+
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
 # design are intentionally left as such for best results. Dcp files will be
@@ -44,6 +50,9 @@ read_vhdl -library xil_defaultlib {
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
+read_xdc C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/constrs_1/new/PinReadESP.xdc
+set_property used_in_implementation false [get_files C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/constrs_1/new/PinReadESP.xdc]
+
 
 synth_design -top main -part xc7a35tcpg236-1
 

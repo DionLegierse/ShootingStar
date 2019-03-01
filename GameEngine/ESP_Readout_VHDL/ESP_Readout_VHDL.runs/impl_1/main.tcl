@@ -67,16 +67,19 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param synth.incrementalSynthesisCache C:/Users/hammi/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-776-DESKTOP-7MRF67A/incrSyn
+  set_param synth.incrementalSynthesisCache C:/Users/hammi/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-51284-LAPTOP-5GHVJTMA/incrSyn
   create_project -in_memory -part xc7a35tcpg236-1
   set_property board_part digilentinc.com:basys3:part0:1.1 [current_project]
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/wt [current_project]
-  set_property parent.project_path C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.xpr [current_project]
-  set_property ip_output_repo C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/ip [current_project]
+  set_property webtalk.parent_dir C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/wt [current_project]
+  set_property parent.project_path C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.xpr [current_project]
+  set_property ip_output_repo C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
-  add_files -quiet C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.runs/synth_1/main.dcp
+  set_property XPM_LIBRARIES XPM_MEMORY [current_project]
+  add_files -quiet C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.runs/synth_1/main.dcp
+  read_ip -quiet C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/ip/RAMTHING/RAMTHING.xci
+  read_xdc C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/constrs_1/new/PinReadESP.xdc
   link_design -top main -part xc7a35tcpg236-1
   close_msg_db -file init_design.pb
 } RESULT]
@@ -146,6 +149,25 @@ if {$rc} {
   return -code error $RESULT
 } else {
   end_step route_design
+  unset ACTIVE_STEP 
+}
+
+start_step write_bitstream
+set ACTIVE_STEP write_bitstream
+set rc [catch {
+  create_msg_db write_bitstream.pb
+  set_property XPM_LIBRARIES XPM_MEMORY [current_project]
+  catch { write_mem_info -force main.mmi }
+  write_bitstream -force main.bit 
+  catch {write_debug_probes -quiet -force main}
+  catch {file copy -force main.ltx debug_nets.ltx}
+  close_msg_db -file write_bitstream.pb
+} RESULT]
+if {$rc} {
+  step_failed write_bitstream
+  return -code error $RESULT
+} else {
+  end_step write_bitstream
   unset ACTIVE_STEP 
 }
 

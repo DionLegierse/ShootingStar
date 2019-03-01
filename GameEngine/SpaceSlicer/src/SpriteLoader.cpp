@@ -30,7 +30,7 @@ void SpriteLoader::loadSpriteOntoFPGA()
 			printf("\n");
             
 		spi_flash_read(0x100000 + i, data, sizeof(uint8_t) );
-        GPIO.out_w1ts |= 0xF; //write enable high
+        GPIO.out_w1ts |= 0b100; //write enable high
         GPIO.out_w1ts |= convertToGPIO(data);        
 	    GPIO.out_w1ts &= 0xF9F0FFCB; //reset outputs
 	}

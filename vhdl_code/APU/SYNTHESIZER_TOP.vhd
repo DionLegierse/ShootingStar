@@ -8,6 +8,7 @@ entity SYNTHESIZER_TOP is
         clk : in std_logic;
         start_music : in std_logic;
         reset : in std_logic;
+        soundEffect : in std_logic_vector(7 downto 0);
 ------------------------------------OUTPUTS-------------------------------------
         sound_out : out std_logic
     );
@@ -36,6 +37,7 @@ begin
         write_enable => write_enable,
         register_select => register_select,
         data => data,
+        soundEffect => soundEffect,
         sound_out => sound_out
     );
 

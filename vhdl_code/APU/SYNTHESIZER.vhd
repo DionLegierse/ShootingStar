@@ -9,6 +9,7 @@ entity SYNTHESIZER is
         write_enable : in std_logic;
         register_select : in std_logic_vector(3 downto 0);
         data : in std_logic_vector(10 downto 0);
+        soundEffect : in std_logic_vector(7 downto 0);
 ----------------------------------OUTPUTS-----------------------------
         sound_out : out std_logic
     );
@@ -103,7 +104,7 @@ begin
         square2 => square2_out,
         triangle => triangle_out,
         noise => noise_out,
-        soundEffect => x"00",
+        soundEffect => soundEffect,
         mixed => mixed_out
     );
 

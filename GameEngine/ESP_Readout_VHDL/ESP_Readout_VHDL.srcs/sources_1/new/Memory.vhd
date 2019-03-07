@@ -42,15 +42,15 @@ begin
     w_RAM : process(clk)
     begin
         if rising_edge(clk) then
-
-            if (ESPClkOld = '1' and ESPClkNew = '0' and cmd = "11") then
-                addra <= count;
-                douta <= ESPDataStable;
-                count <= count + '1';
-            else
-                addra <= (others=>'Z');
+            if (ESPClkOld = '0' and ESPClkNew = '1') then
+                if (cmd = "11") then
+                    addra <= count;
+                    douta <= ESPDataStable;
+                    count <= count + '1';
+                else
+                    count <= (others=>'0');
+                end if;
             end if;
-
         end if;
     end process;
 end Behavioral;

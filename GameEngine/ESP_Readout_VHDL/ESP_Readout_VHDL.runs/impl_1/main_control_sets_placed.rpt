@@ -1,8 +1,8 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-| Date         : Fri Mar  1 15:36:12 2019
-| Host         : LAPTOP-5GHVJTMA running 64-bit major release  (build 9200)
+| Date         : Sat Mar  2 16:24:15 2019
+| Host         : DESKTOP-7MRF67A running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file main_control_sets_placed.rpt
 | Design       : main
 | Device       : xc7a35t
@@ -22,8 +22,8 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Number of unique control sets                            |     2 |
-| Unused register locations in slices containing registers |     5 |
+| Number of unique control sets                            |     8 |
+| Unused register locations in slices containing registers |    10 |
 +----------------------------------------------------------+-------+
 
 
@@ -33,31 +33,37 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |               0 |            0 |
+| No           | No                    | No                     |              20 |            9 |
 | No           | No                    | Yes                    |               0 |            0 |
 | No           | Yes                   | No                     |               0 |            0 |
-| Yes          | No                    | No                     |              35 |           10 |
+| Yes          | No                    | No                     |              40 |           12 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |               0 |            0 |
+| Yes          | Yes                   | No                     |              50 |           14 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 3. Detailed Control Set Information
 -----------------------------------
 
-+----------------+--------------------------+------------------+------------------+----------------+
-|  Clock Signal  |       Enable Signal      | Set/Reset Signal | Slice Load Count | Bel Load Count |
-+----------------+--------------------------+------------------+------------------+----------------+
-|  CLK_IBUF_BUFG | readMem/douta[7]_i_1_n_0 |                  |                3 |              8 |
-|  CLK_IBUF_BUFG | readMem/cnt[0]_i_1_n_0   |                  |                7 |             27 |
-+----------------+--------------------------+------------------+------------------+----------------+
++----------------+-----------------------------+--------------------------+------------------+----------------+
+|  Clock Signal  |        Enable Signal        |     Set/Reset Signal     | Slice Load Count | Bel Load Count |
++----------------+-----------------------------+--------------------------+------------------+----------------+
+|  CLK_IBUF_BUFG | writeMem/count[7]_i_2_n_0   | writeMem/count           |                2 |              8 |
+|  CLK_IBUF_BUFG | readMem/addra[7]_i_1_n_0    |                          |                1 |              8 |
+|  CLK_IBUF_BUFG | readMem/douta[7]_i_2_n_0    | readMem/douta[7]_i_1_n_0 |                2 |              8 |
+|  CLK_IBUF_BUFG | readMem/count[7]_i_2__0_n_0 | readMem/clear            |                3 |              8 |
+|  CLK_IBUF_BUFG | writeMem/douta[7]_i_1_n_0   |                          |                4 |             16 |
+|  CLK_IBUF_BUFG | Switch_IBUF[1]              |                          |                7 |             16 |
+|  CLK_IBUF_BUFG |                             |                          |                9 |             20 |
+|  CLK_IBUF_BUFG | readMem/eqOp                | readMem/cnt[26]_i_1_n_0  |                7 |             26 |
++----------------+-----------------------------+--------------------------+------------------+----------------+
 
 
 +--------+-----------------------+
 | Fanout | Number of ControlSets |
 +--------+-----------------------+
-| 8      |                     1 |
-| 16+    |                     1 |
+| 8      |                     4 |
+| 16+    |                     4 |
 +--------+-----------------------+
 
 

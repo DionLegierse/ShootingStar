@@ -89,7 +89,7 @@ output wire [7 : 0] douta;
     .C_HAS_AXI_ID(0),
     .C_AXI_ID_WIDTH(4),
     .C_MEM_TYPE(0),
-    .C_BYTE_SIZE(9),
+    .C_BYTE_SIZE(8),
     .C_ALGORITHM(1),
     .C_PRIM_TYPE(1),
     .C_LOAD_INIT_FILE(0),
@@ -103,9 +103,9 @@ output wire [7 : 0] douta;
     .C_INITA_VAL("0"),
     .C_HAS_ENA(1),
     .C_HAS_REGCEA(0),
-    .C_USE_BYTE_WEA(0),
+    .C_USE_BYTE_WEA(1),
     .C_WEA_WIDTH(1),
-    .C_WRITE_MODE_A("NO_CHANGE"),
+    .C_WRITE_MODE_A("WRITE_FIRST"),
     .C_WRITE_WIDTH_A(8),
     .C_READ_WIDTH_A(8),
     .C_WRITE_DEPTH_A(256),
@@ -117,7 +117,7 @@ output wire [7 : 0] douta;
     .C_INITB_VAL("0"),
     .C_HAS_ENB(0),
     .C_HAS_REGCEB(0),
-    .C_USE_BYTE_WEB(0),
+    .C_USE_BYTE_WEB(1),
     .C_WEB_WIDTH(1),
     .C_WRITE_MODE_B("WRITE_FIRST"),
     .C_WRITE_WIDTH_B(8),
@@ -149,7 +149,7 @@ output wire [7 : 0] douta;
     .C_DISABLE_WARN_BHV_RANGE(0),
     .C_COUNT_36K_BRAM("0"),
     .C_COUNT_18K_BRAM("1"),
-    .C_EST_POWER_SUMMARY("Estimated Power for IP     :     2.3883 mW")
+    .C_EST_POWER_SUMMARY("Estimated Power for IP     :     2.54005 mW")
   ) inst (
     .clka(clka),
     .rsta(1'D0),

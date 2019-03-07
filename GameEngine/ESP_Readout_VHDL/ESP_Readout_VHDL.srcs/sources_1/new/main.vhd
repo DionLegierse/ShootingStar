@@ -10,7 +10,8 @@ Port
     ESPData     : in std_logic_vector(7 downto 0);
 
     DataOut     : out std_logic_vector(7 downto 0);
-    Switch      : in std_logic_vector(1 downto 0)
+    Switch      : in std_logic_vector(1 downto 0);
+    addOut      : out std_logic_vector(7 downto 0)
 );
 end main;
 
@@ -37,7 +38,7 @@ begin
     port map
     (
         clka    => clk,
-        ena     => switch(1),
+        ena     => '1',
         wea     => switch(0),
         addra   => tAddress,
         dina    => tDataIn,
@@ -62,7 +63,7 @@ begin
         clk     => CLK,
 
         addra   => tRAddress,
-        dina    => ESPData,
+        dina    => tDataOut,
         douta   => DataOut,
         cmd     => Switch
     );
@@ -76,4 +77,6 @@ begin
         outAdd      => tAddress,
         cmd         => Switch
    );
+
+   addOut <= tAddress;
 end Behavioral;

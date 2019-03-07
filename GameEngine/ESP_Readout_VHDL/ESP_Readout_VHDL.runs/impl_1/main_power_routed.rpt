@@ -1,8 +1,8 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-| Date             : Fri Mar  1 15:36:39 2019
-| Host             : LAPTOP-5GHVJTMA running 64-bit major release  (build 9200)
+| Date             : Sat Mar  2 16:24:33 2019
+| Host             : DESKTOP-7MRF67A running 64-bit major release  (build 9200)
 | Command          : report_power -file main_power_routed.rpt -pb main_power_summary_routed.pb -rpx main_power_routed.rpx
 | Design           : main
 | Device           : xc7a35tcpg236-1
@@ -29,20 +29,20 @@ Table of Contents
 1. Summary
 ----------
 
-+--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.294        |
-| Design Power Budget (W)  | Unspecified* |
-| Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.222        |
-| Device Static (W)        | 0.072        |
-| Effective TJA (C/W)      | 5.0          |
-| Max Ambient (C)          | 83.5         |
-| Junction Temperature (C) | 26.5         |
-| Confidence Level         | Low          |
-| Setting File             | ---          |
-| Simulation Activity File | ---          |
-| Design Nets Matched      | NA           |
-+--------------------------+--------------+
++--------------------------+----------------------------------+
+| Total On-Chip Power (W)  | 13.867 (Junction temp exceeded!) |
+| Design Power Budget (W)  | Unspecified*                     |
+| Power Budget Margin (W)  | NA                               |
+| Dynamic (W)              | 13.645                           |
+| Device Static (W)        | 0.221                            |
+| Effective TJA (C/W)      | 5.0                              |
+| Max Ambient (C)          | 15.7                             |
+| Junction Temperature (C) | 94.3                             |
+| Confidence Level         | Low                              |
+| Setting File             | ---                              |
+| Simulation Activity File | ---                              |
+| Design Nets Matched      | NA                               |
++--------------------------+----------------------------------+
 * Specify Design Power Budget using, set_operating_conditions -design_power_budget <value in Watts>
 
 
@@ -52,16 +52,17 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Slice Logic    |     0.031 |       55 |       --- |             --- |
-|   CARRY4       |     0.015 |        7 |      8150 |            0.09 |
-|   LUT as Logic |     0.008 |       10 |     20800 |            0.05 |
+| Slice Logic    |     0.106 |      175 |       --- |             --- |
+|   LUT as Logic |     0.066 |       37 |     20800 |            0.18 |
+|   Register     |     0.022 |      110 |     41600 |            0.26 |
+|   CARRY4       |     0.013 |        7 |      8150 |            0.09 |
 |   BUFG         |     0.006 |        1 |        32 |            3.13 |
-|   Register     |     0.003 |       35 |     41600 |            0.08 |
-|   Others       |     0.000 |        2 |       --- |             --- |
-| Signals        |     0.147 |       62 |       --- |             --- |
-| I/O            |     0.044 |       19 |       106 |           17.92 |
-| Static Power   |     0.072 |          |           |                 |
-| Total          |     0.294 |          |           |                 |
+|   Others       |     0.000 |        9 |       --- |             --- |
+| Signals        |     0.442 |      168 |       --- |             --- |
+| Block RAM      |     0.107 |      0.5 |        50 |            1.00 |
+| I/O            |    12.990 |       28 |       106 |           26.42 |
+| Static Power   |     0.221 |          |           |                 |
+| Total          |    13.867 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -71,16 +72,16 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.232 |       0.222 |      0.010 |
-| Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |
-| Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |
+| Vccint    |       1.000 |     0.823 |       0.692 |      0.131 |
+| Vccaux    |       1.800 |     0.501 |       0.474 |      0.027 |
+| Vcco33    |       3.300 |     3.665 |       3.664 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |
 | Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccbram   |       1.000 |     0.000 |       0.000 |      0.000 |
+| Vccbram   |       1.000 |     0.010 |       0.007 |      0.003 |
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
 | Vccadc    |       1.800 |     0.020 |       0.000 |      0.020 |
@@ -135,11 +136,20 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+-----------+-----------+
-| Name      | Power (W) |
-+-----------+-----------+
-| main      |     0.222 |
-|   readMem |     0.052 |
-+-----------+-----------+
++----------------------------------------------+-----------+
+| Name                                         | Power (W) |
++----------------------------------------------+-----------+
+| main                                         |    13.645 |
+|   RAM                                        |     0.175 |
+|     U0                                       |     0.175 |
+|       inst_blk_mem_gen                       |     0.175 |
+|         gnbram.gnativebmg.native_blk_mem_gen |     0.175 |
+|           valid.cstr                         |     0.175 |
+|             ramloop[0].ram.r                 |     0.175 |
+|               prim_noinit.ram                |     0.175 |
+|   SEL                                        |     0.150 |
+|   readMem                                    |     0.129 |
+|   writeMem                                   |     0.123 |
++----------------------------------------------+-----------+
 
 

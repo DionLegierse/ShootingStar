@@ -17,16 +17,20 @@ end ReadMemory;
 
 architecture Behavioral of ReadMemory is
     signal count    : std_logic_vector(7 downto 0) := (others=>'0');
-    signal cnt      : integer range 0 to 100000000 := 0;
+    signal cnt      : integer range 0 to 10000000 := 0;
 begin
     r_RAM : process(clk)
     begin
         if rising_edge(clk) then
             if (cmd = "10") then
-                if (cnt = 100000000) then
+                if (cnt = 10000000) then
                     addra <= count;
                     douta <= dina;
                     count <= count + '1';
+                    cnt <= 0;
+                elsif (cnt = 5000000) then
+                    douta <= (others=>'0');
+                    cnt <= cnt + 1;
                 else
                     cnt <= cnt + 1;
                 end if;

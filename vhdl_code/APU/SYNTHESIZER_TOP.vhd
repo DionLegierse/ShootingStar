@@ -9,6 +9,7 @@ entity SYNTHESIZER_TOP is
         start_music : in std_logic;
         reset : in std_logic;
         soundEffect : in std_logic_vector(7 downto 0);
+		startAddress : in std_logic_vector(10 downto 0);
 ------------------------------------OUTPUTS-------------------------------------
         sound_out : out std_logic
     );
@@ -23,7 +24,7 @@ begin
     SYNTHESIZER_CONTROLLER_1 : entity work.SYNTHESIZER_CONTROLLER(Behavioral)
     port map(
         clk => clk,
-        startAddress => b"00000000000",
+        startAddress => startAddress,
         start_music => start_music,
         reset => reset,
         data => data,

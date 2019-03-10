@@ -1,10 +1,10 @@
 -- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
--- Date        : Fri Mar  1 14:14:46 2019
--- Host        : LAPTOP-5GHVJTMA running 64-bit major release  (build 9200)
+-- Date        : Sat Mar  2 16:20:23 2019
+-- Host        : DESKTOP-7MRF67A running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               c:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/ip/RAMTHING/RAMTHING_sim_netlist.vhdl
+--               C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.srcs/sources_1/ip/RAMTHING/RAMTHING_sim_netlist.vhdl
 -- Design      : RAMTHING
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -30,10 +30,6 @@ end RAMTHING_blk_mem_gen_prim_wrapper;
 architecture STRUCTURE of RAMTHING_blk_mem_gen_prim_wrapper is
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_0\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_1\ : STD_LOGIC;
-  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_10\ : STD_LOGIC;
-  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_11\ : STD_LOGIC;
-  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_12\ : STD_LOGIC;
-  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_13\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_16\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_17\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_18\ : STD_LOGIC;
@@ -41,6 +37,8 @@ architecture STRUCTURE of RAMTHING_blk_mem_gen_prim_wrapper is
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_2\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_20\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_21\ : STD_LOGIC;
+  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_22\ : STD_LOGIC;
+  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_23\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_24\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_25\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_26\ : STD_LOGIC;
@@ -48,14 +46,16 @@ architecture STRUCTURE of RAMTHING_blk_mem_gen_prim_wrapper is
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_28\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_29\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_3\ : STD_LOGIC;
+  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_30\ : STD_LOGIC;
+  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_31\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_32\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_33\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_34\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_35\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_4\ : STD_LOGIC;
   signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_5\ : STD_LOGIC;
-  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_8\ : STD_LOGIC;
-  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_9\ : STD_LOGIC;
+  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_6\ : STD_LOGIC;
+  signal \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_7\ : STD_LOGIC;
   attribute box_type : string;
   attribute box_type of \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram\ : label is "PRIMITIVE";
 begin
@@ -156,8 +156,8 @@ begin
       SIM_DEVICE => "7SERIES",
       SRVAL_A => X"00000",
       SRVAL_B => X"00000",
-      WRITE_MODE_A => "NO_CHANGE",
-      WRITE_MODE_B => "NO_CHANGE",
+      WRITE_MODE_A => "WRITE_FIRST",
+      WRITE_MODE_B => "WRITE_FIRST",
       WRITE_WIDTH_A => 18,
       WRITE_WIDTH_B => 18
     )
@@ -170,14 +170,9 @@ begin
       ADDRBWRADDR(4 downto 0) => B"10000",
       CLKARDCLK => clka,
       CLKBWRCLK => clka,
-      DIADI(15 downto 10) => B"000000",
-      DIADI(9 downto 8) => dina(3 downto 2),
-      DIADI(7 downto 2) => B"000000",
-      DIADI(1 downto 0) => dina(1 downto 0),
-      DIBDI(15 downto 10) => B"000000",
-      DIBDI(9 downto 8) => dina(7 downto 6),
-      DIBDI(7 downto 2) => B"000000",
-      DIBDI(1 downto 0) => dina(5 downto 4),
+      DIADI(15 downto 8) => B"00000000",
+      DIADI(7 downto 0) => dina(7 downto 0),
+      DIBDI(15 downto 0) => B"0000000000000000",
       DIPADIP(1 downto 0) => B"00",
       DIPBDIP(1 downto 0) => B"00",
       DOADO(15) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_0\,
@@ -186,28 +181,25 @@ begin
       DOADO(12) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_3\,
       DOADO(11) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_4\,
       DOADO(10) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_5\,
-      DOADO(9 downto 8) => douta(3 downto 2),
-      DOADO(7) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_8\,
-      DOADO(6) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_9\,
-      DOADO(5) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_10\,
-      DOADO(4) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_11\,
-      DOADO(3) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_12\,
-      DOADO(2) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_13\,
-      DOADO(1 downto 0) => douta(1 downto 0),
+      DOADO(9) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_6\,
+      DOADO(8) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_7\,
+      DOADO(7 downto 0) => douta(7 downto 0),
       DOBDO(15) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_16\,
       DOBDO(14) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_17\,
       DOBDO(13) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_18\,
       DOBDO(12) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_19\,
       DOBDO(11) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_20\,
       DOBDO(10) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_21\,
-      DOBDO(9 downto 8) => douta(7 downto 6),
+      DOBDO(9) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_22\,
+      DOBDO(8) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_23\,
       DOBDO(7) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_24\,
       DOBDO(6) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_25\,
       DOBDO(5) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_26\,
       DOBDO(4) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_27\,
       DOBDO(3) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_28\,
       DOBDO(2) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_29\,
-      DOBDO(1 downto 0) => douta(5 downto 4),
+      DOBDO(1) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_30\,
+      DOBDO(0) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_31\,
       DOPADOP(1) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_32\,
       DOPADOP(0) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_33\,
       DOPBDOP(1) => \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram_n_34\,
@@ -426,7 +418,7 @@ entity RAMTHING_blk_mem_gen_v8_4_1 is
   attribute C_AXI_TYPE : integer;
   attribute C_AXI_TYPE of RAMTHING_blk_mem_gen_v8_4_1 : entity is 1;
   attribute C_BYTE_SIZE : integer;
-  attribute C_BYTE_SIZE of RAMTHING_blk_mem_gen_v8_4_1 : entity is 9;
+  attribute C_BYTE_SIZE of RAMTHING_blk_mem_gen_v8_4_1 : entity is 8;
   attribute C_COMMON_CLK : integer;
   attribute C_COMMON_CLK of RAMTHING_blk_mem_gen_v8_4_1 : entity is 0;
   attribute C_COUNT_18K_BRAM : string;
@@ -460,7 +452,7 @@ entity RAMTHING_blk_mem_gen_v8_4_1 is
   attribute C_EN_SLEEP_PIN : integer;
   attribute C_EN_SLEEP_PIN of RAMTHING_blk_mem_gen_v8_4_1 : entity is 0;
   attribute C_EST_POWER_SUMMARY : string;
-  attribute C_EST_POWER_SUMMARY of RAMTHING_blk_mem_gen_v8_4_1 : entity is "Estimated Power for IP     :     2.3883 mW";
+  attribute C_EST_POWER_SUMMARY of RAMTHING_blk_mem_gen_v8_4_1 : entity is "Estimated Power for IP     :     2.54005 mW";
   attribute C_FAMILY : string;
   attribute C_FAMILY of RAMTHING_blk_mem_gen_v8_4_1 : entity is "artix7";
   attribute C_HAS_AXI_ID : integer;
@@ -530,9 +522,9 @@ entity RAMTHING_blk_mem_gen_v8_4_1 is
   attribute C_USE_BRAM_BLOCK : integer;
   attribute C_USE_BRAM_BLOCK of RAMTHING_blk_mem_gen_v8_4_1 : entity is 0;
   attribute C_USE_BYTE_WEA : integer;
-  attribute C_USE_BYTE_WEA of RAMTHING_blk_mem_gen_v8_4_1 : entity is 0;
+  attribute C_USE_BYTE_WEA of RAMTHING_blk_mem_gen_v8_4_1 : entity is 1;
   attribute C_USE_BYTE_WEB : integer;
-  attribute C_USE_BYTE_WEB of RAMTHING_blk_mem_gen_v8_4_1 : entity is 0;
+  attribute C_USE_BYTE_WEB of RAMTHING_blk_mem_gen_v8_4_1 : entity is 1;
   attribute C_USE_DEFAULT_DATA : integer;
   attribute C_USE_DEFAULT_DATA of RAMTHING_blk_mem_gen_v8_4_1 : entity is 0;
   attribute C_USE_ECC : integer;
@@ -550,7 +542,7 @@ entity RAMTHING_blk_mem_gen_v8_4_1 is
   attribute C_WRITE_DEPTH_B : integer;
   attribute C_WRITE_DEPTH_B of RAMTHING_blk_mem_gen_v8_4_1 : entity is 256;
   attribute C_WRITE_MODE_A : string;
-  attribute C_WRITE_MODE_A of RAMTHING_blk_mem_gen_v8_4_1 : entity is "NO_CHANGE";
+  attribute C_WRITE_MODE_A of RAMTHING_blk_mem_gen_v8_4_1 : entity is "WRITE_FIRST";
   attribute C_WRITE_MODE_B : string;
   attribute C_WRITE_MODE_B of RAMTHING_blk_mem_gen_v8_4_1 : entity is "WRITE_FIRST";
   attribute C_WRITE_WIDTH_A : integer;
@@ -695,7 +687,7 @@ architecture STRUCTURE of RAMTHING is
   attribute C_AXI_TYPE : integer;
   attribute C_AXI_TYPE of U0 : label is 1;
   attribute C_BYTE_SIZE : integer;
-  attribute C_BYTE_SIZE of U0 : label is 9;
+  attribute C_BYTE_SIZE of U0 : label is 8;
   attribute C_COMMON_CLK : integer;
   attribute C_COMMON_CLK of U0 : label is 0;
   attribute C_COUNT_18K_BRAM : string;
@@ -729,7 +721,7 @@ architecture STRUCTURE of RAMTHING is
   attribute C_EN_SLEEP_PIN : integer;
   attribute C_EN_SLEEP_PIN of U0 : label is 0;
   attribute C_EST_POWER_SUMMARY : string;
-  attribute C_EST_POWER_SUMMARY of U0 : label is "Estimated Power for IP     :     2.3883 mW";
+  attribute C_EST_POWER_SUMMARY of U0 : label is "Estimated Power for IP     :     2.54005 mW";
   attribute C_FAMILY : string;
   attribute C_FAMILY of U0 : label is "artix7";
   attribute C_HAS_AXI_ID : integer;
@@ -799,9 +791,9 @@ architecture STRUCTURE of RAMTHING is
   attribute C_USE_BRAM_BLOCK : integer;
   attribute C_USE_BRAM_BLOCK of U0 : label is 0;
   attribute C_USE_BYTE_WEA : integer;
-  attribute C_USE_BYTE_WEA of U0 : label is 0;
+  attribute C_USE_BYTE_WEA of U0 : label is 1;
   attribute C_USE_BYTE_WEB : integer;
-  attribute C_USE_BYTE_WEB of U0 : label is 0;
+  attribute C_USE_BYTE_WEB of U0 : label is 1;
   attribute C_USE_DEFAULT_DATA : integer;
   attribute C_USE_DEFAULT_DATA of U0 : label is 0;
   attribute C_USE_ECC : integer;
@@ -819,7 +811,7 @@ architecture STRUCTURE of RAMTHING is
   attribute C_WRITE_DEPTH_B : integer;
   attribute C_WRITE_DEPTH_B of U0 : label is 256;
   attribute C_WRITE_MODE_A : string;
-  attribute C_WRITE_MODE_A of U0 : label is "NO_CHANGE";
+  attribute C_WRITE_MODE_A of U0 : label is "WRITE_FIRST";
   attribute C_WRITE_MODE_B : string;
   attribute C_WRITE_MODE_B of U0 : label is "WRITE_FIRST";
   attribute C_WRITE_WIDTH_A : integer;

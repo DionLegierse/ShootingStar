@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/hammi/Documents/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.runs/RAMTHING_synth_1'
+HD_PWD='C:/Users/hammi/OneDrive/Documenten/ShootingStar/GameEngine/ESP_Readout_VHDL/ESP_Readout_VHDL.runs/RAMTHING_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

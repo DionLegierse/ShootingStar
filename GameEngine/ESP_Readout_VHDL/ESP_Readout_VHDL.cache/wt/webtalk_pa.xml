@@ -31,66 +31,117 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="ProgramDevice" value="1" type="JavaHandler"/>
 <property name="RecustomizeCore" value="4" type="JavaHandler"/>
 <property name="RunBitgen" value="2" type="JavaHandler"/>
+=======
+<property name="AutoConnectTarget" value="13" type="JavaHandler"/>
+<property name="CoreView" value="3" type="JavaHandler"/>
+<property name="CustomizeCore" value="4" type="JavaHandler"/>
+<property name="EditDelete" value="1" type="JavaHandler"/>
+<property name="EditUndo" value="4" type="JavaHandler"/>
+<property name="LaunchOpenTarget" value="1" type="JavaHandler"/>
+<property name="LaunchProgramFpga" value="26" type="JavaHandler"/>
+<property name="NewProject" value="1" type="JavaHandler"/>
+<property name="OpenHardwareManager" value="42" type="JavaHandler"/>
+<property name="OpenProject" value="1" type="JavaHandler"/>
+<property name="OpenRecentTarget" value="19" type="JavaHandler"/>
+<property name="ProgramDevice" value="28" type="JavaHandler"/>
+<property name="RecustomizeCore" value="6" type="JavaHandler"/>
+<property name="RunBitgen" value="21" type="JavaHandler"/>
+>>>>>>> b2605d37ffe4effd343a486ce57fa4ed485ff3be
 <property name="RunImplementation" value="1" type="JavaHandler"/>
-<property name="RunSchematic" value="21" type="JavaHandler"/>
+<property name="RunSchematic" value="26" type="JavaHandler"/>
 <property name="RunSynthesis" value="2" type="JavaHandler"/>
-<property name="ShowView" value="2" type="JavaHandler"/>
+<property name="ShowView" value="4" type="JavaHandler"/>
 <property name="ViewTaskSynthesis" value="2" type="JavaHandler"/>
 <property name="ZoomOut" value="2" type="JavaHandler"/>
 </item>
 <item name="Gui Handlers">
 <property name="AbstractFileView_RELOAD" value="8" type="GuiHandlerData"/>
 <property name="BaseDialog_CANCEL" value="2" type="GuiHandlerData"/>
-<property name="BaseDialog_OK" value="20" type="GuiHandlerData"/>
+<property name="BaseDialog_OK" value="25" type="GuiHandlerData"/>
 <property name="ClosePlanner_YES" value="2" type="GuiHandlerData"/>
+<<<<<<< HEAD
 <property name="CmdMsgDialog_OK" value="38" type="GuiHandlerData"/>
+=======
+<property name="CmdMsgDialog_OK" value="61" type="GuiHandlerData"/>
+>>>>>>> b2605d37ffe4effd343a486ce57fa4ed485ff3be
 <property name="ConfirmSaveTextEditsDialog_NO" value="1" type="GuiHandlerData"/>
 <property name="CoreTreeTablePanel_CORE_TREE_TABLE" value="29" type="GuiHandlerData"/>
 <property name="CreateConstraintsFilePanel_FILE_NAME" value="1" type="GuiHandlerData"/>
 <property name="CreateSrcFileDialog_FILE_NAME" value="4" type="GuiHandlerData"/>
 <property name="CreateSrcFileDialog_FILE_TYPE" value="5" type="GuiHandlerData"/>
+<<<<<<< HEAD
 <property name="FileSetPanel_FILE_SET_PANEL_TREE" value="80" type="GuiHandlerData"/>
 <property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="65" type="GuiHandlerData"/>
+=======
+<property name="FileSetPanel_FILE_SET_PANEL_TREE" value="85" type="GuiHandlerData"/>
+<property name="FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE" value="143" type="GuiHandlerData"/>
+>>>>>>> b2605d37ffe4effd343a486ce57fa4ed485ff3be
 <property name="GettingStartedView_CREATE_NEW_PROJECT" value="1" type="GuiHandlerData"/>
 <property name="GettingStartedView_OPEN_PROJECT" value="1" type="GuiHandlerData"/>
+<property name="HACGCTabbedPane_TABBED_PANE" value="2" type="GuiHandlerData"/>
 <property name="HPopupTitle_CLOSE" value="1" type="GuiHandlerData"/>
-<property name="MsgTreePanel_MESSAGE_VIEW_TREE" value="73" type="GuiHandlerData"/>
+<property name="MessageWithOptionDialog_DONT_SHOW_THIS_DIALOG_AGAIN" value="2" type="GuiHandlerData"/>
+<property name="MsgTreePanel_MESSAGE_VIEW_TREE" value="75" type="GuiHandlerData"/>
 <property name="MsgView_CRITICAL_WARNINGS" value="2" type="GuiHandlerData"/>
+<property name="MsgView_ERROR_MESSAGES" value="2" type="GuiHandlerData"/>
 <property name="MsgView_INFORMATION_MESSAGES" value="2" type="GuiHandlerData"/>
 <property name="MsgView_WARNING_MESSAGES" value="2" type="GuiHandlerData"/>
-<property name="NetlistSchematicView_SHOW_IO_PORTS_IN_THIS_SCHEMATIC" value="1" type="GuiHandlerData"/>
+<property name="NetlistSchematicView_SHOW_IO_PORTS_IN_THIS_SCHEMATIC" value="4" type="GuiHandlerData"/>
 <property name="OpenFileAction_OK" value="2" type="GuiHandlerData"/>
+<<<<<<< HEAD
 <property name="PACommandNames_AUTO_CONNECT_TARGET" value="1" type="GuiHandlerData"/>
+=======
+<property name="OpenTargetWizard_CONNECT_TO" value="2" type="GuiHandlerData"/>
+<property name="PACommandNames_AUTO_CONNECT_TARGET" value="14" type="GuiHandlerData"/>
+>>>>>>> b2605d37ffe4effd343a486ce57fa4ed485ff3be
 <property name="PACommandNames_AUTO_UPDATE_HIER" value="3" type="GuiHandlerData"/>
 <property name="PACommandNames_GOTO_NETLIST_DESIGN" value="1" type="GuiHandlerData"/>
 <property name="PACommandNames_LOG_WINDOW" value="1" type="GuiHandlerData"/>
+<property name="PACommandNames_OPEN_TARGET_WIZARD" value="1" type="GuiHandlerData"/>
 <property name="PACommandNames_RUN_IMPLEMENTATION" value="2" type="GuiHandlerData"/>
 <property name="PACommandNames_SHOW_LICENSE_STATUS" value="1" type="GuiHandlerData"/>
 <property name="PACommandNames_ZOOM_OUT" value="2" type="GuiHandlerData"/>
 <property name="PAViews_CODE" value="33" type="GuiHandlerData"/>
 <property name="PAViews_DEVICE" value="1" type="GuiHandlerData"/>
-<property name="PAViews_IP_CATALOG" value="1" type="GuiHandlerData"/>
+<property name="PAViews_IP_CATALOG" value="2" type="GuiHandlerData"/>
 <property name="PAViews_PROJECT_SUMMARY" value="1" type="GuiHandlerData"/>
 <property name="PAViews_SCHEMATIC" value="20" type="GuiHandlerData"/>
 <property name="PartChooser_BOARDS" value="2" type="GuiHandlerData"/>
+<<<<<<< HEAD
 <property name="ProgramFpgaDialog_PROGRAM" value="1" type="GuiHandlerData"/>
+=======
+<property name="ProgramFpgaDialog_PROGRAM" value="26" type="GuiHandlerData"/>
+>>>>>>> b2605d37ffe4effd343a486ce57fa4ed485ff3be
 <property name="ProgressDialog_CANCEL" value="3" type="GuiHandlerData"/>
 <property name="ProjectNameChooser_CHOOSE_PROJECT_LOCATION" value="1" type="GuiHandlerData"/>
 <property name="ProjectNameChooser_CREATE_PROJECT_SUBDIRECTORY" value="1" type="GuiHandlerData"/>
 <property name="ProjectNameChooser_PROJECT_NAME" value="2" type="GuiHandlerData"/>
-<property name="ProjectTab_RELOAD" value="52" type="GuiHandlerData"/>
+<property name="ProjectTab_RELOAD" value="55" type="GuiHandlerData"/>
 <property name="RDICommands_COPY" value="2" type="GuiHandlerData"/>
 <property name="RDICommands_DELETE" value="1" type="GuiHandlerData"/>
 <property name="RDICommands_PASTE" value="1" type="GuiHandlerData"/>
-<property name="SaveProjectUtils_SAVE" value="1" type="GuiHandlerData"/>
-<property name="SignalTablePanel_SIGNAL_TABLE" value="53" type="GuiHandlerData"/>
-<property name="SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY" value="5" type="GuiHandlerData"/>
+<property name="RDICommands_SAVE_FILE" value="1" type="GuiHandlerData"/>
+<property name="SaveProjectUtils_SAVE" value="2" type="GuiHandlerData"/>
+<property name="SignalTablePanel_SIGNAL_TABLE" value="72" type="GuiHandlerData"/>
+<property name="SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY" value="6" type="GuiHandlerData"/>
 <property name="SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT" value="3" type="GuiHandlerData"/>
 <property name="SrcChooserPanel_CREATE_FILE" value="4" type="GuiHandlerData"/>
 <property name="SrcChooserPanel_MAKE_LOCAL_COPY_OF_THESE_FILES_INTO" value="1" type="GuiHandlerData"/>
+<<<<<<< HEAD
 <property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="3" type="GuiHandlerData"/>
 <property name="SyntheticaStateMonitor_CANCEL" value="1" type="GuiHandlerData"/>
 <property name="TaskBanner_CLOSE" value="2" type="GuiHandlerData"/>
+=======
+<property name="StateMonitor_RESET_RUN" value="1" type="GuiHandlerData"/>
+<property name="SyntheticaGettingStartedView_RECENT_PROJECTS" value="5" type="GuiHandlerData"/>
+<property name="SyntheticaStateMonitor_CANCEL" value="2" type="GuiHandlerData"/>
+<property name="TaskBanner_CLOSE" value="4" type="GuiHandlerData"/>
+</item>
+<item name="Other">
+<property name="GuiMode" value="46" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="39" type="TclMode"/>
+>>>>>>> b2605d37ffe4effd343a486ce57fa4ed485ff3be
 </item>
 <item name="Other">
 <property name="GuiMode" value="64" type="GuiMode"/>

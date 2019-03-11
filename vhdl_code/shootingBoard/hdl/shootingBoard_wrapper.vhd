@@ -1,8 +1,8 @@
 --Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
---Date        : Sat Mar  9 15:56:26 2019
---Host        : DESKTOP-24KCCOQ running 64-bit major release  (build 9200)
+--Date        : Mon Mar 11 15:33:09 2019
+--Host        : LAPTOP-MCELIKGK running 64-bit major release  (build 9200)
 --Command     : generate_target shootingBoard_wrapper.bd
 --Design      : shootingBoard_wrapper
 --Purpose     : IP block netlist
@@ -13,7 +13,8 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity shootingBoard_wrapper is
   port (
-    data_0 : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    mc_clk_0 : in STD_LOGIC;
+    mc_data_0 : in STD_LOGIC_VECTOR ( 7 downto 0 );
     sound_out_0 : out STD_LOGIC;
     sys_clock : in STD_LOGIC
   );
@@ -23,14 +24,16 @@ architecture STRUCTURE of shootingBoard_wrapper is
   component shootingBoard is
   port (
     sys_clock : in STD_LOGIC;
-    data_0 : in STD_LOGIC_VECTOR ( 7 downto 0 );
-    sound_out_0 : out STD_LOGIC
+    sound_out_0 : out STD_LOGIC;
+    mc_clk_0 : in STD_LOGIC;
+    mc_data_0 : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
   end component shootingBoard;
 begin
 shootingBoard_i: component shootingBoard
      port map (
-      data_0(7 downto 0) => data_0(7 downto 0),
+      mc_clk_0 => mc_clk_0,
+      mc_data_0(7 downto 0) => mc_data_0(7 downto 0),
       sound_out_0 => sound_out_0,
       sys_clock => sys_clock
     );

@@ -1,8 +1,13 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
 entity COMMAND_PROCESSOR is
     port (
 -------------------------------------INPUTS_MICROCONTROLLER---------------------
         clk : in std_logic;
-        data : in std_logic_vector(7 downto 0);
+        mc_data : in std_logic_vector(7 downto 0);
+        mc_clk : in std_logic;
 -------------------------------------OUTPUTS_GPU--------------------------------
 -------------------------------------OUTPUTS_APU--------------------------------
         start_music : out std_logic;
@@ -13,10 +18,64 @@ end entity;
 
 architecture Behavioral of COMMAND_PROCESSOR is
 
+type controller_states is (SET_ADDRESS, SET_DATA, SEND_DATA);
 
+signal controllerState : controller_states := SET_ADDRESS;
+
+signal address : std_logic_vector(7 downto 0);
+signal data : std_logic_vector(7 downto 0);
+
+signal mc_clk_meta, mc_clk_stable_new, mc_clk_stable_old : std_logic;
+signal mc_data_meta, mc_data_stable : std_logic_vector(7 downto 0);
 
 begin
-
-
-
+    SYNCHRONYSER : process(clk)
+    begin
+        if rising_edge(clk) then
+            mc_clk_meta <= mc_clk;
+            mc_clk_stable_new <= mc_clk_meta;
+            mc_clk_stable_old <= mc_clk_stable_new;
+            
+            mc_data_meta <= mc_data;
+            mc_data_stable <= mc_data_stable;
+        end if;
+    end process;
+    
+    CONTROLLER_FSM : process(clk)
+    
+    begin
+   
+    if rising_edge(clk) then
+        if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then 
+            case (controllerState) is
+                when SET_ADDRESS=>
+                    address <= mc_data_stable;
+                    
+                    if mc_data_stable(7) = '1' then
+                        controllerState <= SEND_DATA;
+                    else
+                        controllerState <= SET_DATA;
+                    end if;
+                when SET_DATA =>
+                    case (address) is
+                        when x"00" =>
+                        when x"01" =>
+                        when x"02" =>
+                        when x"03" =>
+                        when x"04" =>
+                        when x"05" =>
+                        when x"06" =>
+                        when x"07" =>
+                        when x"08" =>
+                        when x"09" =>
+                        when others => 
+                    end case;
+                    controllerState <= SET_ADDRESS;
+                when SEND_DATA =>
+                    controllerState <= SET_ADDRESS;
+                when others => NULL;
+            end case;
+        end if;
+    end if;
+    end process;
 end architecture;

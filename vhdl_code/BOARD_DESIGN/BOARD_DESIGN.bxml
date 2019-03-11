@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root MajorVersion="0" MinorVersion="33">
-  <CompositeFile CompositeFileTopName="shootingBoard" CanBeSetAsTop="false" CanDisplayChildGraph="true">
+  <CompositeFile CompositeFileTopName="BOARD_DESIGN" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="RESET" Timestamp="1552314767"/>
-    <Generation Name="IMPLEMENTATION" State="RESET" Timestamp="1552314767"/>
-    <Generation Name="SIMULATION" State="RESET" Timestamp="1552314767"/>
-    <Generation Name="HW_HANDOFF" State="RESET" Timestamp="1552314767"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1552335298"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1552335298"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1552335298"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1552335298"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
-      <File Name="ip\shootingBoard_SYNTHESIZER_TOP_0_0\shootingBoard_SYNTHESIZER_TOP_0_0.xci" Type="IP">
+      <File Name="ip\BOARD_DESIGN_SYNTHESIZER_TOP_0_0\BOARD_DESIGN_SYNTHESIZER_TOP_0_0.xci" Type="IP">
         <Instance HierarchyPath="SYNTHESIZER_TOP_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
@@ -15,7 +15,7 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\shootingBoard_COMMAND_PROCESSOR_0_0\shootingBoard_COMMAND_PROCESSOR_0_0.xci" Type="IP">
+      <File Name="ip\BOARD_DESIGN_COMMAND_PROCESSOR_0_0\BOARD_DESIGN_COMMAND_PROCESSOR_0_0.xci" Type="IP">
         <Instance HierarchyPath="COMMAND_PROCESSOR_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
@@ -23,34 +23,34 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="synth\shootingBoard.vhd" Type="VHDL">
+      <File Name="synth\BOARD_DESIGN.vhd" Type="VHDL">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
       </File>
-      <File Name="sim\shootingBoard.vhd" Type="VHDL">
+      <File Name="sim\BOARD_DESIGN.vhd" Type="VHDL">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="shootingBoard_ooc.xdc" Type="XDC">
+      <File Name="BOARD_DESIGN_ooc.xdc" Type="XDC">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="OUT_OF_CONTEXT"/>
       </File>
-      <File Name="hw_handoff\shootingBoard.hwh" Type="HwHandoff">
+      <File Name="hw_handoff\BOARD_DESIGN.hwh" Type="HwHandoff">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="HW_HANDOFF"/>
       </File>
-      <File Name="hw_handoff\shootingBoard_bd.tcl">
+      <File Name="hw_handoff\BOARD_DESIGN_bd.tcl">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="HW_HANDOFF"/>
       </File>
-      <File Name="synth\shootingBoard.hwdef">
+      <File Name="synth\BOARD_DESIGN.hwdef">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="HW_HANDOFF"/>

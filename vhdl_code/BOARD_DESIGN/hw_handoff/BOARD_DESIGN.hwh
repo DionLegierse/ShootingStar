@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Mar 11 11:14:20 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Mar 11 21:14:58 2019" VIVADOVERSION="2017.4">
 
-  <SYSTEMINFO ARCH="artix7" BOARD="digilentinc.com:basys3:part0:1.1" DEVICE="7a35t" NAME="shootingBoard" PACKAGE="cpg236" SPEEDGRADE="-1"/>
+  <SYSTEMINFO ARCH="artix7" BOARD="digilentinc.com:basys3:part0:1.1" DEVICE="7a35t" NAME="BOARD_DESIGN" PACKAGE="cpg236" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
-    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="sys_clock" SIGIS="clk" SIGNAME="External_Ports_sys_clock">
+    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk">
       <CONNECTIONS>
         <CONNECTION INSTANCE="SYNTHESIZER_TOP_0" PORT="clk"/>
         <CONNECTION INSTANCE="COMMAND_PROCESSOR_0" PORT="clk"/>
@@ -15,14 +15,19 @@
         <CONNECTION INSTANCE="SYNTHESIZER_TOP_0" PORT="sound_out"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" LEFT="7" NAME="mc_data_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_mc_data_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="COMMAND_PROCESSOR_0" PORT="mc_data"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="mc_clk_0" SIGIS="clk" SIGNAME="External_Ports_mc_clk_0">
       <CONNECTIONS>
         <CONNECTION INSTANCE="COMMAND_PROCESSOR_0" PORT="mc_clk"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" LEFT="7" NAME="mc_data_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_mc_data_0">
+    <PORT DIR="O" LEFT="7" NAME="sprite_attribute_0" RIGHT="0" SIGIS="undef" SIGNAME="COMMAND_PROCESSOR_0_sprite_attribute">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="COMMAND_PROCESSOR_0" PORT="mc_data"/>
+        <CONNECTION INSTANCE="COMMAND_PROCESSOR_0" PORT="sprite_attribute"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -33,13 +38,13 @@
     <MODULE FULLNAME="/COMMAND_PROCESSOR_0" HWVERSION="1.0" INSTANCE="COMMAND_PROCESSOR_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="COMMAND_PROCESSOR" VLNV="xilinx.com:module_ref:COMMAND_PROCESSOR:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="shootingBoard_COMMAND_PROCESSOR_0_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="BOARD_DESIGN_COMMAND_PROCESSOR_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_sys_clock">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="sys_clock"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="7" NAME="mc_data" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_mc_data_0">
@@ -52,6 +57,15 @@
             <CONNECTION INSTANCE="External_Ports" PORT="mc_clk_0"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="O" LEFT="8" NAME="x_loc_sprite" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="8" NAME="y_loc_sprite" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="12" NAME="sprite_memory_loc" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="7" NAME="sprite_attribute" RIGHT="0" SIGIS="undef" SIGNAME="COMMAND_PROCESSOR_0_sprite_attribute">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="sprite_attribute_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="6" NAME="sprite_register_loc" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="O" NAME="start_music" SIGIS="undef" SIGNAME="COMMAND_PROCESSOR_0_start_music">
           <CONNECTIONS>
             <CONNECTION INSTANCE="SYNTHESIZER_TOP_0" PORT="start_music"/>
@@ -73,13 +87,13 @@
     <MODULE FULLNAME="/SYNTHESIZER_TOP_0" HWVERSION="1.0" INSTANCE="SYNTHESIZER_TOP_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SYNTHESIZER_TOP" VLNV="xilinx.com:module_ref:SYNTHESIZER_TOP:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="shootingBoard_SYNTHESIZER_TOP_0_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="BOARD_DESIGN_SYNTHESIZER_TOP_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_sys_clock">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="sys_clock"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="start_music" SIGIS="undef" SIGNAME="COMMAND_PROCESSOR_0_start_music">

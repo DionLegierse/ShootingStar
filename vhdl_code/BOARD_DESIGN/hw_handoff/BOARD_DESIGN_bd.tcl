@@ -1,6 +1,6 @@
 
 ################################################################
-# This is a generated script based on design: shootingBoard
+# This is a generated script based on design: BOARD_DESIGN
 #
 # Though there are limitations about the generated script,
 # the main purpose of this utility is to make learning
@@ -35,7 +35,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 ################################################################
 
 # To test this script, run the following commands from Vivado Tcl console:
-# source shootingBoard_script.tcl
+# source BOARD_DESIGN_script.tcl
 
 
 # The design that will be created by this Tcl script contains the following 
@@ -57,7 +57,7 @@ if { $list_projs eq "" } {
 
 # CHANGE DESIGN NAME HERE
 variable design_name
-set design_name shootingBoard
+set design_name BOARD_DESIGN
 
 # This script was generated for a remote BD. To create a non-remote design,
 # change the variable <run_remote_bd_flow> to <0>.
@@ -163,14 +163,14 @@ proc create_root_design { parentCell } {
   # Create interface ports
 
   # Create ports
+  set clk [ create_bd_port -dir I -type clk clk ]
+  set_property -dict [ list \
+   CONFIG.FREQ_HZ {100000000} \
+ ] $clk
   set mc_clk_0 [ create_bd_port -dir I -type clk mc_clk_0 ]
   set mc_data_0 [ create_bd_port -dir I -from 7 -to 0 mc_data_0 ]
   set sound_out_0 [ create_bd_port -dir O sound_out_0 ]
-  set sys_clock [ create_bd_port -dir I -type clk sys_clock ]
-  set_property -dict [ list \
-   CONFIG.FREQ_HZ {100000000} \
-   CONFIG.PHASE {0.000} \
- ] $sys_clock
+  set sprite_attribute_0 [ create_bd_port -dir O -from 7 -to 0 sprite_attribute_0 ]
 
   # Create instance: COMMAND_PROCESSOR_0, and set properties
   set block_name COMMAND_PROCESSOR
@@ -196,10 +196,11 @@ proc create_root_design { parentCell } {
   
   # Create port connections
   connect_bd_net -net COMMAND_PROCESSOR_0_reset_APU [get_bd_pins COMMAND_PROCESSOR_0/reset_APU] [get_bd_pins SYNTHESIZER_TOP_0/reset]
+  connect_bd_net -net COMMAND_PROCESSOR_0_sprite_attribute [get_bd_ports sprite_attribute_0] [get_bd_pins COMMAND_PROCESSOR_0/sprite_attribute]
   connect_bd_net -net COMMAND_PROCESSOR_0_start_addres_APU [get_bd_pins COMMAND_PROCESSOR_0/start_addres_APU] [get_bd_pins SYNTHESIZER_TOP_0/startAddress]
   connect_bd_net -net COMMAND_PROCESSOR_0_start_music [get_bd_pins COMMAND_PROCESSOR_0/start_music] [get_bd_pins SYNTHESIZER_TOP_0/start_music]
   connect_bd_net -net SYNTHESIZER_TOP_0_sound_out [get_bd_ports sound_out_0] [get_bd_pins SYNTHESIZER_TOP_0/sound_out]
-  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_ports sys_clock] [get_bd_pins COMMAND_PROCESSOR_0/clk] [get_bd_pins SYNTHESIZER_TOP_0/clk]
+  connect_bd_net -net clk_1 [get_bd_ports clk] [get_bd_pins COMMAND_PROCESSOR_0/clk] [get_bd_pins SYNTHESIZER_TOP_0/clk]
   connect_bd_net -net mc_clk_0_1 [get_bd_ports mc_clk_0] [get_bd_pins COMMAND_PROCESSOR_0/mc_clk]
   connect_bd_net -net mc_data_0_1 [get_bd_ports mc_data_0] [get_bd_pins COMMAND_PROCESSOR_0/mc_data]
 

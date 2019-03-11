@@ -9,6 +9,11 @@ entity COMMAND_PROCESSOR is
         mc_data : in std_logic_vector(7 downto 0);
         mc_clk : in std_logic;
 -------------------------------------OUTPUTS_GPU--------------------------------
+        x_loc_sprite : out std_logic_vector(8 downto 0);
+        y_loc_sprite : out std_logic_vector(8 downto 0);
+        sprite_memory_loc : out std_logic_vector(12 downto 0);
+        sprite_attribute : out std_logic_vector(7 downto 0);
+        sprite_register_loc : out std_logic_vector(6 downto 0);
 -------------------------------------OUTPUTS_APU--------------------------------
         start_music : out std_logic;
         reset_APU : out std_logic;
@@ -35,22 +40,22 @@ begin
             mc_clk_meta <= mc_clk;
             mc_clk_stable_new <= mc_clk_meta;
             mc_clk_stable_old <= mc_clk_stable_new;
-            
+
             mc_data_meta <= mc_data;
             mc_data_stable <= mc_data_stable;
         end if;
     end process;
-    
+
     CONTROLLER_FSM : process(clk)
-    
+
     begin
-   
+
     if rising_edge(clk) then
-        if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then 
+        if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then
             case (controllerState) is
                 when SET_ADDRESS=>
                     address <= mc_data_stable;
-                    
+
                     if mc_data_stable(7) = '1' then
                         controllerState <= SEND_DATA;
                     else
@@ -59,16 +64,26 @@ begin
                 when SET_DATA =>
                     case (address) is
                         when x"00" =>
+                            start_addres_APU(7 downto 0) <= mc_data_stable;
                         when x"01" =>
+                            start_addres_APU(10 downto 8) <= mc_data_stable(2 downto 0);
                         when x"02" =>
+                            x_loc_sprite(7 downto 0) <= mc_data_stable;
                         when x"03" =>
+                            x_loc_sprite(8) <= mc_data_stable(0);
                         when x"04" =>
+                            y_loc_sprite(7 downto 0) <= mc_data_stable;
                         when x"05" =>
+                            y_loc_sprite(8) <= mc_data_stable(0);
                         when x"06" =>
+                            sprite_memory_loc(7 downto 0) <= mc_data_stable;
                         when x"07" =>
+                            sprite_memory_loc(12 downto 8) <= mc_data_stable(4 downto 0);
                         when x"08" =>
+                            sprite_attribute <= mc_data_stable;
                         when x"09" =>
-                        when others => 
+                            sprite_register_loc <= mc_data_stable(6 downto 0);
+                        when others =>
                     end case;
                     controllerState <= SET_ADDRESS;
                 when SEND_DATA =>
@@ -77,5 +92,25 @@ begin
             end case;
         end if;
     end if;
+    end process;
+
+
+    OPCODE_TRANSLATOR : process(clk)
+    begin
+        if rising_edge(clk) then
+
+            start_music <= '0';
+            reset_APU <= '0';
+
+            if controllerState = SEND_DATA then
+                case( mc_data_stable ) is
+                    when x"80" =>
+                        start_music <= '1';
+                    when x"81" =>
+                        reset_APU <= '1';
+                    when others => NULL;
+                end case;
+            end if;
+        end if;
     end process;
 end architecture;

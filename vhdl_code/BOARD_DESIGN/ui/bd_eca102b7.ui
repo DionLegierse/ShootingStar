@@ -1,0 +1,23 @@
+{
+   ExpandedHierarchyInLayout: "",
+   guistr: "# # String gsaved with Nlview 6.6.11  2017-06-12 bk=1.3860 VDI=40 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port mc_clk_0 -pg 1 -y 150 -defaultsOSRD
+preplace port clk -pg 1 -y 20 -defaultsOSRD
+preplace port sound_out_0 -pg 1 -y 180 -defaultsOSRD
+preplace portBus sprite_attribute_0 -pg 1 -y 90 -defaultsOSRD
+preplace portBus mc_data_0 -pg 1 -y 130 -defaultsOSRD
+preplace inst SYNTHESIZER_TOP_0 -pg 1 -lvl 2 -y 180 -defaultsOSRD
+preplace inst COMMAND_PROCESSOR_0 -pg 1 -lvl 1 -y 130 -defaultsOSRD
+preplace netloc mc_data_0_1 1 0 1 NJ
+preplace netloc COMMAND_PROCESSOR_0_sprite_attribute 1 1 2 400J 90 NJ
+preplace netloc SYNTHESIZER_TOP_0_sound_out 1 2 1 NJ
+preplace netloc clk_1 1 0 2 20 10 410
+preplace netloc mc_clk_0_1 1 0 1 NJ
+preplace netloc COMMAND_PROCESSOR_0_start_music 1 1 1 N
+preplace netloc COMMAND_PROCESSOR_0_reset_APU 1 1 1 N
+preplace netloc COMMAND_PROCESSOR_0_start_addres_APU 1 1 1 400
+levelinfo -pg 1 0 210 570 750 -top 0 -bot 270
+",
+}
+

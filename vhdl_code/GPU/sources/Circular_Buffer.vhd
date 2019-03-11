@@ -4,8 +4,8 @@ use		ieee.numeric_std.all;
 
 entity circular_buffer is
 	generic(
-	data_depth		: integer range 2 to 15 := 3; -- log2(fifo_length)
-	data_width		: integer range 1 to 32 := 4);
+	data_depth		: integer range 2 to 15 := 9; -- log2(fifo_length)
+	data_width		: integer range 1 to 32 := 8);
 	port(
 
 
@@ -39,9 +39,9 @@ architecture Behavioral of circular_buffer is
 		err <= '1' when (empty0='1' and ren='1') or (full0='1' and wen='1')
 	else '0';
 
-	fifo0: process(clk,rst)
+	fifo0: process(clk,reset)
 	begin
-		if rst='1' then
+		if reset='1' then
 			memory <= (others => (others => '0'));
 			readptr <= to_unsigned(0, data_depth);
 			writeptr <= to_unsigned(0, data_depth);
@@ -49,12 +49,12 @@ architecture Behavioral of circular_buffer is
 			empty0 <= '1';
 		elsif rising_edge(clk) then
 			if (wen='1' and full0='0') then
-				memory(to_integer(writeptr)) <= datain ;
+				memory(to_integer(writeptr)) <= Din ;
 				writeptr <= writeptr+1;
 			end if;
 
 			if (ren='1' and empty0='0') then
-				dataout <= memory(to_integer(readptr));
+				Dout <= memory(to_integer(readptr));
 				readptr <= readptr+1;
 			end if ;
 

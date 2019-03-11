@@ -8,37 +8,45 @@ entity ScanlineOAM is
 
     --scanline
     scanline : in STD_LOGIC_VECTOR (9 downto 0);
+    ENDscanline : in STD_LOGIC;
 
     --Object Attribute Memory
     OAMin : in STD_LOGIC_VECTOR (31 downto 0);
     OAMadd : out STD_LOGIC_VECTOR (6 downto 0);
 
     --Secondary Object Attribute Memory
+    SOAMfull : in STD_LOGIC;
     SOAMout : out STD_LOGIC_VECTOR (31 downto 0);
-    SOAMadd : out STD_LOGIC
+    SOAMpush : out STD_LOGIC;
+    SOAMclear : out STD_LOGIC
+
     );
 end ScanlineOAM;
 
 architecture Behavioral of ScanlineOAM is
     signal objectIndex : STD_LOGIC_VECTOR (6 downto 0);
     begin
-
         process(clk)
         variable objY : STD_LOGIC_VECTOR (8 downto 0);
 
         begin
             if (rising_edge(clk)) then
-                objY := OAMin(31 downto 23);
-                if ( (unsigned(objY) <= unsigned(scanline)) AND (unsigned(objY) >=unsigned(scanline) - 7) ) then
-                    if(not SOAMfull) then
-                        SOAMout <= OAMin;
-                        SOAMpush <= '1';
-                    end if;
+                if ENDscanline = '1' then
+                    OAMadd <= (others => '0');
+                    SOAMclear <= '1';
                 else
-                    SOAMpush <= '0';
+                    SOAMclear <= '0';
+                    objY := OAMin(31 downto 23);
+                    OAMadd <= std_logic_vector(unsigned(objectIndex) + 1);
+                    if ( (unsigned(objY) <= unsigned(scanline)) AND (unsigned(objY) >=unsigned(scanline) - 7) ) then
+                        if(SOAMfull = '0') then
+                            SOAMout <= OAMin;
+                            SOAMpush <= '1';
+                        else
+                            SOAMpush <= '0';
+                        end if;
+                    end if;
                 end if;
-            elsif (falling_edge(clk)) then
-                SOAMpush <= '0';
             end if;
         end process;
 

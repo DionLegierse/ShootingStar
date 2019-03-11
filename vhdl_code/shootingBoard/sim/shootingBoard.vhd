@@ -1,7 +1,7 @@
 --Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
---Date        : Sat Mar  9 15:51:07 2019
+--Date        : Sat Mar  9 15:56:26 2019
 --Host        : DESKTOP-24KCCOQ running 64-bit major release  (build 9200)
 --Command     : generate_target shootingBoard.bd
 --Design      : shootingBoard
@@ -13,6 +13,8 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity shootingBoard is
   port (
+    data_0 : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    sound_out_0 : out STD_LOGIC;
     sys_clock : in STD_LOGIC
   );
   attribute HW_HANDOFF : string;
@@ -50,19 +52,22 @@ architecture STRUCTURE of shootingBoard is
   signal COMMAND_PROCESSOR_0_reset_APU : STD_LOGIC;
   signal COMMAND_PROCESSOR_0_start_addres_APU : STD_LOGIC_VECTOR ( 10 downto 0 );
   signal COMMAND_PROCESSOR_0_start_music : STD_LOGIC;
+  signal SYNTHESIZER_TOP_0_sound_out : STD_LOGIC;
   signal clk_wiz_0_clk_out1 : STD_LOGIC;
+  signal data_0_1 : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal sys_clock_1 : STD_LOGIC;
-  signal NLW_SYNTHESIZER_TOP_0_sound_out_UNCONNECTED : STD_LOGIC;
   attribute x_interface_info : string;
   attribute x_interface_info of sys_clock : signal is "xilinx.com:signal:clock:1.0 CLK.SYS_CLOCK CLK";
   attribute x_interface_parameter : string;
   attribute x_interface_parameter of sys_clock : signal is "XIL_INTERFACENAME CLK.SYS_CLOCK, CLK_DOMAIN shootingBoard_sys_clock, FREQ_HZ 100000000, PHASE 0.000";
 begin
+  data_0_1(7 downto 0) <= data_0(7 downto 0);
+  sound_out_0 <= SYNTHESIZER_TOP_0_sound_out;
   sys_clock_1 <= sys_clock;
 COMMAND_PROCESSOR_0: component shootingBoard_COMMAND_PROCESSOR_0_0
      port map (
       clk => clk_wiz_0_clk_out1,
-      data(7 downto 0) => B"00000000",
+      data(7 downto 0) => data_0_1(7 downto 0),
       reset_APU => COMMAND_PROCESSOR_0_reset_APU,
       start_addres_APU(10 downto 0) => COMMAND_PROCESSOR_0_start_addres_APU(10 downto 0),
       start_music => COMMAND_PROCESSOR_0_start_music
@@ -72,7 +77,7 @@ SYNTHESIZER_TOP_0: component shootingBoard_SYNTHESIZER_TOP_0_0
       clk => clk_wiz_0_clk_out1,
       reset => COMMAND_PROCESSOR_0_reset_APU,
       soundEffect(7 downto 0) => B"00000000",
-      sound_out => NLW_SYNTHESIZER_TOP_0_sound_out_UNCONNECTED,
+      sound_out => SYNTHESIZER_TOP_0_sound_out,
       startAddress(10 downto 0) => COMMAND_PROCESSOR_0_start_addres_APU(10 downto 0),
       start_music => COMMAND_PROCESSOR_0_start_music
     );

@@ -5,21 +5,23 @@ class Entity
 {
 // Constructors/Destructor
 public:
-            Entity();
-            ~Entity();
+                    Entity();
+                    ~Entity();
 
 protected:
-            Entity(int);
+                    Entity(int);
+                    Entity(int, Vector2);
 
 // Position methods
 public:
-    void        setPosition(Vector2);
-    Vector2&    getPosition();
+    void            setPosition(Vector2);
+    Vector2&        getPosition();
 
 // Collision methods
 public:
-    bool        checkCollision(Entity*);
-    int         getColliderRadius();
+    bool            checkCollision(Entity*);
+    int             getColliderRadius();
+    virtual void    collisionEvent() = 0;
 
 // Virtual methods
 public:
@@ -27,16 +29,16 @@ public:
 
 // Movement variables
 protected:
-    Vector2 _position;
-    int     _speed;
+    Vector2         _position;
+    int             _speed;
 
 // Collider variables
 protected:
-    int     _colliderRadius;
-    int     _colliderTag;
+    int             _colliderRadius;
+    int             _colliderTag;
 
 // Sprite variables
 private:
-    int     _spriteAddr;
-    int     _spriteSize;
+    int             _spriteAddr;
+    int             _spriteSize;
 };

@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include <stdio.h>
+
 class Player : public Entity
 {
 // Constructors/destructors
@@ -20,6 +22,10 @@ public:
 public:
     int     getFuel();
     void    setFuel(int);
+
+// Collision methods
+public:
+    void    collisionEvent()    override;
 
 // Laser variables
 private:

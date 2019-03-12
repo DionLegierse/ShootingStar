@@ -2,7 +2,7 @@
 
 //>-----------{ Contructors/destructor }-----------<<
 
-Astroid::Astroid (int aSpeed, Vector2 aDirection) : NPC (aSpeed, aDirection)
+Astroid::Astroid (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpeed, aDirection, aPosition)
 {
     this->_colliderRadius = 2;
 }
@@ -16,4 +16,9 @@ Astroid::~Astroid () {}
 void Astroid::move ()
 {
     this->_position += this->_direction * this->_speed;
+}
+
+void Astroid::collisionEvent()
+{
+    printf("Astroid exploded!\n");
 }

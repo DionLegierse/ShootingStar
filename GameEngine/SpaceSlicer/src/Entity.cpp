@@ -9,6 +9,12 @@ Entity::Entity (int aSpeed)
     this->_speed = aSpeed;
 }
 
+Entity::Entity (int aSpeed, Vector2 aPosition)
+{
+    this->_speed = aSpeed;
+    this->_position = aPosition;
+}
+
 Entity::~Entity() {}
 
 //>-----------{ Position methods }-----------<<

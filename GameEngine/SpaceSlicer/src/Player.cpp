@@ -37,3 +37,9 @@ int Player::getFuel ()
 {
     return this->_fuel;
 }
+
+//>-----------{ Collision methods }-----------<
+void Player::collisionEvent()
+{
+    printf("YOU DIED!\n");
+}

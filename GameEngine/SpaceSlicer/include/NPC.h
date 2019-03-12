@@ -1,3 +1,4 @@
+#pragma once
 #include "Entity.h"
 #include "Vector2.h"
 
@@ -6,6 +7,7 @@ class NPC : public Entity
 // Constructors/destructors
 public:
             NPC(int, Vector2);
+            NPC(int, Vector2, Vector2);
             ~NPC();
 
 protected:

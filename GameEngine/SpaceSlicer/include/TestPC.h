@@ -1,24 +1,20 @@
 #include "Entity.h"
+#include "GameLoop.h"
+#include "CollisionHandler.h"
 
-class TestPC
+class TestPC : public GameLoop
 {
 public:
             TestPC();
             ~TestPC();
 
 public:
-    void    setup();
-    void    loop();
+    void    setup() override;
+    void    loop()  override;
 
 private:
-    void    addEntity(Entity*, Vector2);
-    void    moveEntity(int);
-    void    removeEntity(int);
+    void    updateNPC();
 
 private:
-    void    serialPrint(int);
-
-private:
-    Entity* _entities[100];
-    int     _count  = 0;
+    CollisionHandler*   _collision;
 };

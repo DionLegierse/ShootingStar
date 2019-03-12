@@ -46,57 +46,71 @@
 -- 
 -- DO NOT MODIFY THIS FILE.
 
--- IP VLNV: xilinx.com:module_ref:SYNTHESIZER_TOP:1.0
+-- IP VLNV: xilinx.com:module_ref:COMMAND_PROCESSOR:1.0
 -- IP Revision: 1
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
-ENTITY BOARD_DESIGN_SYNTHESIZER_TOP_0_0 IS
+ENTITY BOARD_DESIGN_COMMAND_PROCESSOR_0_1 IS
   PORT (
     clk : IN STD_LOGIC;
-    start_music : IN STD_LOGIC;
-    reset : IN STD_LOGIC;
-    soundEffect : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-    startAddress : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
-    sound_out : OUT STD_LOGIC
+    mc_data : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    mc_clk : IN STD_LOGIC;
+    mc_register_select : IN STD_LOGIC;
+    x_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
+    y_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
+    sprite_memory_loc : OUT STD_LOGIC_VECTOR(12 DOWNTO 0);
+    sprite_attribute : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    sprite_register_loc : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+    start_music : OUT STD_LOGIC;
+    reset_APU : OUT STD_LOGIC;
+    start_addres_APU : OUT STD_LOGIC_VECTOR(10 DOWNTO 0)
   );
-END BOARD_DESIGN_SYNTHESIZER_TOP_0_0;
+END BOARD_DESIGN_COMMAND_PROCESSOR_0_1;
 
-ARCHITECTURE BOARD_DESIGN_SYNTHESIZER_TOP_0_0_arch OF BOARD_DESIGN_SYNTHESIZER_TOP_0_0 IS
+ARCHITECTURE BOARD_DESIGN_COMMAND_PROCESSOR_0_1_arch OF BOARD_DESIGN_COMMAND_PROCESSOR_0_1 IS
   ATTRIBUTE DowngradeIPIdentifiedWarnings : STRING;
-  ATTRIBUTE DowngradeIPIdentifiedWarnings OF BOARD_DESIGN_SYNTHESIZER_TOP_0_0_arch: ARCHITECTURE IS "yes";
-  COMPONENT SYNTHESIZER_TOP IS
+  ATTRIBUTE DowngradeIPIdentifiedWarnings OF BOARD_DESIGN_COMMAND_PROCESSOR_0_1_arch: ARCHITECTURE IS "yes";
+  COMPONENT COMMAND_PROCESSOR IS
     PORT (
       clk : IN STD_LOGIC;
-      start_music : IN STD_LOGIC;
-      reset : IN STD_LOGIC;
-      soundEffect : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-      startAddress : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
-      sound_out : OUT STD_LOGIC
+      mc_data : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+      mc_clk : IN STD_LOGIC;
+      mc_register_select : IN STD_LOGIC;
+      x_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
+      y_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
+      sprite_memory_loc : OUT STD_LOGIC_VECTOR(12 DOWNTO 0);
+      sprite_attribute : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+      sprite_register_loc : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+      start_music : OUT STD_LOGIC;
+      reset_APU : OUT STD_LOGIC;
+      start_addres_APU : OUT STD_LOGIC_VECTOR(10 DOWNTO 0)
     );
-  END COMPONENT SYNTHESIZER_TOP;
-  ATTRIBUTE X_CORE_INFO : STRING;
-  ATTRIBUTE X_CORE_INFO OF BOARD_DESIGN_SYNTHESIZER_TOP_0_0_arch: ARCHITECTURE IS "SYNTHESIZER_TOP,Vivado 2017.4";
-  ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
-  ATTRIBUTE CHECK_LICENSE_TYPE OF BOARD_DESIGN_SYNTHESIZER_TOP_0_0_arch : ARCHITECTURE IS "BOARD_DESIGN_SYNTHESIZER_TOP_0_0,SYNTHESIZER_TOP,{}";
-  ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF BOARD_DESIGN_SYNTHESIZER_TOP_0_0_arch: ARCHITECTURE IS "BOARD_DESIGN_SYNTHESIZER_TOP_0_0,SYNTHESIZER_TOP,{x_ipProduct=Vivado 2017.4,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=SYNTHESIZER_TOP,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED}";
+  END COMPONENT COMMAND_PROCESSOR;
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
-  ATTRIBUTE X_INTERFACE_PARAMETER OF reset: SIGNAL IS "XIL_INTERFACENAME reset, POLARITY ACTIVE_LOW";
-  ATTRIBUTE X_INTERFACE_INFO OF reset: SIGNAL IS "xilinx.com:signal:reset:1.0 reset RST";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF clk: SIGNAL IS "XIL_INTERFACENAME clk, ASSOCIATED_RESET reset, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN BOARD_DESIGN_clk";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF reset_APU: SIGNAL IS "XIL_INTERFACENAME reset_APU, POLARITY ACTIVE_LOW";
+  ATTRIBUTE X_INTERFACE_INFO OF reset_APU: SIGNAL IS "xilinx.com:signal:reset:1.0 reset_APU RST";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF mc_clk: SIGNAL IS "XIL_INTERFACENAME mc_clk, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN BOARD_DESIGN_mc_clk_0";
+  ATTRIBUTE X_INTERFACE_INFO OF mc_clk: SIGNAL IS "xilinx.com:signal:clock:1.0 mc_clk CLK";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF clk: SIGNAL IS "XIL_INTERFACENAME clk, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN BOARD_DESIGN_clk";
   ATTRIBUTE X_INTERFACE_INFO OF clk: SIGNAL IS "xilinx.com:signal:clock:1.0 clk CLK";
 BEGIN
-  U0 : SYNTHESIZER_TOP
+  U0 : COMMAND_PROCESSOR
     PORT MAP (
       clk => clk,
+      mc_data => mc_data,
+      mc_clk => mc_clk,
+      mc_register_select => mc_register_select,
+      x_loc_sprite => x_loc_sprite,
+      y_loc_sprite => y_loc_sprite,
+      sprite_memory_loc => sprite_memory_loc,
+      sprite_attribute => sprite_attribute,
+      sprite_register_loc => sprite_register_loc,
       start_music => start_music,
-      reset => reset,
-      soundEffect => soundEffect,
-      startAddress => startAddress,
-      sound_out => sound_out
+      reset_APU => reset_APU,
+      start_addres_APU => start_addres_APU
     );
-END BOARD_DESIGN_SYNTHESIZER_TOP_0_0_arch;
+END BOARD_DESIGN_COMMAND_PROCESSOR_0_1_arch;

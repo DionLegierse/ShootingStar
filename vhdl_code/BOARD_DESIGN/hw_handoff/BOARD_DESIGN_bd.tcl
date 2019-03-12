@@ -167,10 +167,11 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.FREQ_HZ {100000000} \
  ] $clk
-  set mc_clk_0 [ create_bd_port -dir I -type clk mc_clk_0 ]
-  set mc_data_0 [ create_bd_port -dir I -from 7 -to 0 mc_data_0 ]
-  set sound_out_0 [ create_bd_port -dir O sound_out_0 ]
-  set sprite_attribute_0 [ create_bd_port -dir O -from 7 -to 0 sprite_attribute_0 ]
+  set mc_clk [ create_bd_port -dir I -type clk mc_clk ]
+  set mc_data [ create_bd_port -dir I -from 7 -to 0 mc_data ]
+  set mc_register_select [ create_bd_port -dir I mc_register_select ]
+  set sound_out [ create_bd_port -dir O sound_out ]
+  set sprite_attribute [ create_bd_port -dir O -from 7 -to 0 sprite_attribute ]
 
   # Create instance: COMMAND_PROCESSOR_0, and set properties
   set block_name COMMAND_PROCESSOR
@@ -196,13 +197,14 @@ proc create_root_design { parentCell } {
   
   # Create port connections
   connect_bd_net -net COMMAND_PROCESSOR_0_reset_APU [get_bd_pins COMMAND_PROCESSOR_0/reset_APU] [get_bd_pins SYNTHESIZER_TOP_0/reset]
-  connect_bd_net -net COMMAND_PROCESSOR_0_sprite_attribute [get_bd_ports sprite_attribute_0] [get_bd_pins COMMAND_PROCESSOR_0/sprite_attribute]
+  connect_bd_net -net COMMAND_PROCESSOR_0_sprite_attribute [get_bd_ports sprite_attribute] [get_bd_pins COMMAND_PROCESSOR_0/sprite_attribute]
   connect_bd_net -net COMMAND_PROCESSOR_0_start_addres_APU [get_bd_pins COMMAND_PROCESSOR_0/start_addres_APU] [get_bd_pins SYNTHESIZER_TOP_0/startAddress]
   connect_bd_net -net COMMAND_PROCESSOR_0_start_music [get_bd_pins COMMAND_PROCESSOR_0/start_music] [get_bd_pins SYNTHESIZER_TOP_0/start_music]
-  connect_bd_net -net SYNTHESIZER_TOP_0_sound_out [get_bd_ports sound_out_0] [get_bd_pins SYNTHESIZER_TOP_0/sound_out]
+  connect_bd_net -net SYNTHESIZER_TOP_0_sound_out [get_bd_ports sound_out] [get_bd_pins SYNTHESIZER_TOP_0/sound_out]
   connect_bd_net -net clk_1 [get_bd_ports clk] [get_bd_pins COMMAND_PROCESSOR_0/clk] [get_bd_pins SYNTHESIZER_TOP_0/clk]
-  connect_bd_net -net mc_clk_0_1 [get_bd_ports mc_clk_0] [get_bd_pins COMMAND_PROCESSOR_0/mc_clk]
-  connect_bd_net -net mc_data_0_1 [get_bd_ports mc_data_0] [get_bd_pins COMMAND_PROCESSOR_0/mc_data]
+  connect_bd_net -net mc_clk_1 [get_bd_ports mc_clk] [get_bd_pins COMMAND_PROCESSOR_0/mc_clk]
+  connect_bd_net -net mc_data_1 [get_bd_ports mc_data] [get_bd_pins COMMAND_PROCESSOR_0/mc_data]
+  connect_bd_net -net mc_register_select_1 [get_bd_ports mc_register_select] [get_bd_pins COMMAND_PROCESSOR_0/mc_register_select]
 
   # Create address segments
 

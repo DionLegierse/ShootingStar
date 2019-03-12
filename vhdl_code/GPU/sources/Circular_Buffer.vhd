@@ -24,7 +24,7 @@ end circular_buffer;
 
 architecture Behavioral of circular_buffer is
 
-	type memory_type is array (0 to 2**data_depth-1) of std_logic_vector(data_width-1 downto 0);
+	type memory_type is array (0 to 2*data_depth-1) of std_logic_vector(data_width-1 downto 0);
 
 	signal memory			: memory_type := (others => (others => '0'));
 

@@ -24,7 +24,7 @@ entity SOAM is
 end SOAM;
 
 architecture Behavioral of SOAM is
-    type memory_type is array (0 to 2**31) of std_logic_vector(31 downto 0);
+    type memory_type is array (0 to 31) of std_logic_vector(31 downto 0);
     signal memory : memory_type := (others => (others => '0'));
     signal toppointer : integer range 0 to 32;
     begin

@@ -6,11 +6,9 @@ preplace port sound_out -pg 1 -y 20 -defaultsOSRD
 preplace port mc_register_select -pg 1 -y 160 -defaultsOSRD
 preplace port mc_clk -pg 1 -y 140 -defaultsOSRD
 preplace port clk -pg 1 -y 100 -defaultsOSRD
-preplace portBus sprite_attribute -pg 1 -y 40 -defaultsOSRD
 preplace portBus mc_data -pg 1 -y 120 -defaultsOSRD
 preplace inst SYNTHESIZER_TOP_0 -pg 1 -lvl 2 -y 160 -defaultsOSRD
 preplace inst COMMAND_PROCESSOR_0 -pg 1 -lvl 1 -y 130 -defaultsOSRD
-preplace netloc COMMAND_PROCESSOR_0_sprite_attribute 1 1 2 410J 40 N
 preplace netloc mc_data_1 1 0 1 NJ
 preplace netloc SYNTHESIZER_TOP_0_sound_out 1 2 1 750
 preplace netloc clk_1 1 0 2 10 250 420

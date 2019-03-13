@@ -1,4 +1,4 @@
-#include "GameLoop.h"
+#include "GameLoops/GameLoop.h"
 
 GameLoop::GameLoop() {}
 GameLoop::~GameLoop() {}

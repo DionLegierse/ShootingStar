@@ -1,6 +1,6 @@
-#include "Entity.h"
+#include "Entity/Entity.h"
 #include "GameLoop.h"
-#include "CollisionHandler.h"
+#include "Handlers/CollisionHandler.h"
 
 class TestPC : public GameLoop
 {

@@ -1,7 +1,7 @@
 #include <cmath>
 #include <stdio.h>
 
-#include "Vector2.h"
+#include "Utils/Vector2.h"
 
 Vector2::Vector2()
 {

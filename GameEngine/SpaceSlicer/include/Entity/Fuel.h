@@ -1,5 +1,4 @@
 #include "NPC.h"
-#include "Vector2.h"
 
 class Fuel : public NPC
 {

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "TestPC.h"
+#include "GameLoops/TestPC.h"
 
 TestPC::TestPC () {}
 TestPC::~TestPC () {}

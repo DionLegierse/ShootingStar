@@ -4,11 +4,11 @@
 
 #include "esp_system.h"
 #include "esp_spi_flash.h"
-#include "Vector2.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#include "TestPC.h"
+#include "GameLoops/TestPC.h"
+#include "GameLoops/TestProcessing.h"
 
 void createMainTask();
 void mainTask(void*);
@@ -35,7 +35,8 @@ void createMainTask()
 
 void mainTask(void* vParam)
 {
-	TestPC *test = new TestPC();
+	// TestPC *test = new TestPC();
+	TestProcessing * test = new TestProcessing;
 
 	test->setup();
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "NPC.h"
-#include "Vector2.h"
 
 #include <stdio.h>
 

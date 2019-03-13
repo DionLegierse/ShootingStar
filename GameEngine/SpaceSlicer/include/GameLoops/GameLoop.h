@@ -1,9 +1,9 @@
 #pragma once
-#include "Astroid.h"
-#include "Bloop.h"
-#include "Fuel.h"
-#include "Player.h"
-#include "EntityList.h"
+#include "Entity/Astroid.h"
+#include "Entity/Bloop.h"
+#include "Entity/Fuel.h"
+#include "Entity/Player.h"
+#include "Utils/EntityList.h"
 
 class GameLoop
 {

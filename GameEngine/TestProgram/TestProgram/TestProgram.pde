@@ -12,7 +12,7 @@ void setup()
   size (512, 448);
   background (0);
   printArray (Serial.list());
-  serPort = new Serial (this, Serial.list()[32], 115200);
+  serPort = new Serial (this, Serial.list()[1], 115200);
 }
 
 void draw()

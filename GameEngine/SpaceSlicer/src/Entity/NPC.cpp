@@ -1,4 +1,4 @@
-#include "NPC.h"
+#include "Entity/NPC.h"
 
 //>-----------{ Constructors/destructor }-----------<
 

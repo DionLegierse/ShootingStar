@@ -1,6 +1,5 @@
 #pragma once
 #include "Entity.h"
-#include "Vector2.h"
 
 class NPC : public Entity
 {

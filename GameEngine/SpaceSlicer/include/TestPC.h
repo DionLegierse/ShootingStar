@@ -16,5 +16,5 @@ private:
     void    updateNPC();
 
 private:
-    CollisionHandler*   _collision;
+    CollisionHandler*   _collision  = nullptr;
 };

@@ -18,7 +18,7 @@ void TestPC::setup()
 void TestPC::loop()
 {
     updateNPC();
-    // _collision->checkAllCollision();
+    _collision->checkAllCollision();
 }
 
 void TestPC::updateNPC()

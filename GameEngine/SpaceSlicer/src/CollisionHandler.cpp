@@ -25,11 +25,11 @@ void CollisionHandler::checkAstroidCollision()
 {
     EntityLink* curAst = this->_astroidList->getFirst();
 
-    while (curAst != nullptr)
-    {
-        if (curAst->getEntity()->checkCollision(_playerOne))
-            _playerOne->collisionEvent();
+    // while (curAst != nullptr)
+    // {
+    //     if (curAst->getEntity()->checkCollision(_playerOne))
+    //         // _playerOne->collisionEvent();
         
-        curAst = curAst->getNext();
-    }
+    //     curAst = curAst->getNext();
+    // }
 }

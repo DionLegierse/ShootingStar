@@ -27,7 +27,11 @@ architecture Behavioral of SOAM is
     type memory_type is array (0 to 31) of std_logic_vector(31 downto 0);
     signal memory : memory_type := (others => (others => '0'));
     signal toppointer : integer range 0 to 32;
+    signal SOAMfull0 : std_logic := '0';
     begin
+    
+    SOAMfull <= SOAMfull0;
+    
         SOAMwrite : process(clk)
         begin
             if (rising_edge(clk)) then
@@ -36,18 +40,18 @@ architecture Behavioral of SOAM is
                 if SOAMclear = '1' then
                     memory <= (others => (others => '0'));
                     toppointer <= 0;
-                    SOAMfull <= '0';
+                    SOAMfull0 <= '0';
 
                 --Push Conditionals
-                elsif SOAMpush = '1' then
+                elsif (SOAMpush = '1' and SOAMfull0 = '0') then
                     toppointer <= toppointer + 1;
                     memory(toppointer) <= SOAMin;
 
                     --Check if SOAM is full
                     if toppointer >= 31 then
-                        SOAMFull <= '1';
+                        SOAMFull0 <= '1';
                     else
-                        SOAMFull <= '0';
+                        SOAMFull0 <= '0';
                     end if;
 
                 end if;

@@ -171,7 +171,6 @@ proc create_root_design { parentCell } {
   set mc_data [ create_bd_port -dir I -from 7 -to 0 mc_data ]
   set mc_register_select [ create_bd_port -dir I mc_register_select ]
   set sound_out [ create_bd_port -dir O sound_out ]
-  set sprite_attribute [ create_bd_port -dir O -from 7 -to 0 sprite_attribute ]
 
   # Create instance: COMMAND_PROCESSOR_0, and set properties
   set block_name COMMAND_PROCESSOR
@@ -197,7 +196,6 @@ proc create_root_design { parentCell } {
   
   # Create port connections
   connect_bd_net -net COMMAND_PROCESSOR_0_reset_APU [get_bd_pins COMMAND_PROCESSOR_0/reset_APU] [get_bd_pins SYNTHESIZER_TOP_0/reset]
-  connect_bd_net -net COMMAND_PROCESSOR_0_sprite_attribute [get_bd_ports sprite_attribute] [get_bd_pins COMMAND_PROCESSOR_0/sprite_attribute]
   connect_bd_net -net COMMAND_PROCESSOR_0_start_addres_APU [get_bd_pins COMMAND_PROCESSOR_0/start_addres_APU] [get_bd_pins SYNTHESIZER_TOP_0/startAddress]
   connect_bd_net -net COMMAND_PROCESSOR_0_start_music [get_bd_pins COMMAND_PROCESSOR_0/start_music] [get_bd_pins SYNTHESIZER_TOP_0/start_music]
   connect_bd_net -net SYNTHESIZER_TOP_0_sound_out [get_bd_ports sound_out] [get_bd_pins SYNTHESIZER_TOP_0/sound_out]

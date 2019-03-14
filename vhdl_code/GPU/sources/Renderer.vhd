@@ -16,7 +16,7 @@ port(
 	SOAMReadEnable : out std_logic;
 	Scanline : out std_logic_vector(9 downto 0);
 	BufferData : out std_logic_vector(7 downto 0);
-	SpriteROMAddr : out std_logic_vector(12 downto 0);
+	SpriteROMAddr : out std_logic_vector(15 downto 0);
 	BufferEnableWrite : out std_logic
 );
 end Renderer;
@@ -25,9 +25,9 @@ architecture Behavioral of Renderer is
 type memory is array (0 to 31) of std_logic_vector(31 downto 0);
 
 signal ScanlineCounter : unsigned(9 downto 0) := (others => '0');
-signal LastScanLine : unsigned(9 downto 0) := (others => '1');
+signal LastScanLine : unsigned(9 downto 0) := (others => '0');
 
-signal SOAMAddressCounter : unsigned(4 downto 0) := (others => '1');
+signal SOAMAddressCounter : unsigned(5 downto 0) := (others => '1');
 signal isSOAMReadReady : BOOLEAN := FALSE;
 
 signal SOAMBuffer : memory := (others => (others => '0'));
@@ -58,7 +58,7 @@ begin
 		end if;
 	end process;
 ------------------SOAM GETTER-----------------------------------------------------
-	SOAMAddress <= std_logic_vector(SOAMAddressCounter);
+	SOAMAddress <= std_logic_vector(SOAMAddressCounter(4 downto 0));
 
 	SOAM_HANDLER : process(clk)
 	begin
@@ -66,14 +66,18 @@ begin
 
 			isSOAMReadReady <= TRUE;
 
+			if SOAMAddressCounter = 32 then
+				SOAMReadEnable <= '0';
+				isSOAMReadReady <= FALSE;
+			end if;
+
 			if ScanlineCounter /= LastScanline then
 				SOAMAddressCounter <= (others => '0');
 				SOAMReadEnable <= '1';
-				isSOAMReadReady <= FALSE;
 				LastScanline <= ScanlineCounter;
 			end if;
 
-			if SOAMAddressCounter < 31 and isSOAMReadReady then
+			if SOAMAddressCounter < 32 and isSOAMReadReady then
 				SOAMBuffer(to_integer(SOAMAddressCounter)) <= SOAMData;
 				SOAMAddressCounter <= SOAMAddressCounter + 1;
 			end if;
@@ -99,6 +103,12 @@ begin
 			else
 				xCounter <= (others => '0');
 			end if;
+
+			if isSOAMReadReady then
+				xCounter <= (others => '0');
+			end if;
+
+			SpriteROMAddr <= std_logic_vector((spriteAddress * 64) + (xOffsetAddres(3 downto 0) + (yOffsetAddres(3 downto 0) * 8)));
 		end if;
 	end process;
 end architecture;

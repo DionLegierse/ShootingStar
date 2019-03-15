@@ -34,6 +34,16 @@ signal SOAMBuffer : memory := (others => (others => '1'));
 
 signal xCounter : unsigned(9 downto 0) := (others => '0');
 
+signal isRendering : BOOLEAN := FALSE;
+
+type memory_states is (WAIT_ADDRESS, WAIT_DATA, DATA_READY);
+
+signal memory_state : memory_states := WAIT_ADDRESS;
+
+signal current_address : unsigned(15 downto 0) := (others=>'1');
+signal old_address : unsigned(15 downto 0) := (others=>'1');
+signal isFetchDone : boolean := false;
+
 begin
 ------------------SCANLINE HANDLING---------------------------------------------
 	SCAN_LINE_HANDLER : process (clk)
@@ -104,18 +114,68 @@ begin
 			for i in 0 to 31 loop
 				if unsigned(SOAMBuffer(i)(22 downto 13)) >= xCounter and (unsigned(SOAMBuffer(i)(22 downto 13)) + 7) <= xCounter then
 					spriteAddress := unsigned(SOAMBuffer(i)(7 downto 0));
-					xOffsetAddres := xCounter - unsigned(SOAMBuffer(i)(22 downto 13));
+					xOffsetAddres := xCounter - unsigned(SOAMBuffer(i)(22 downto 14));
 					yOffsetAddres := ScanlineCounter - unsigned(SOAMBuffer(i)(31 downto 23));
 				end if;
 			end loop;
 
-			if xCounter < 511 and SOAMAddressCounter >= 32 then
+			if xCounter < 511 and SOAMAddressCounter >= 32 and bufferFull = '0' then
 				xCounter <= xCounter + 1;
-			else
+			elsif (xCounter >= 511 or SOAMAddressCounter < 32) then
 				xCounter <= (others => '0');
 			end if;
 
-			SpriteROMAddr <= std_logic_vector((spriteAddress * 64) + (xOffsetAddres(3 downto 0) + (yOffsetAddres(3 downto 0) * 8)));
+			current_address <= (spriteAddress * 64) + (xOffsetAddres(3 downto 0) + (yOffsetAddres(3 downto 0) * 8));
+		end if;
+	end process;
+
+	process (clk) begin
+		if rising_edge(clk) then
+			if xCounter = 511 then
+				isRendering <= FALSE;
+			end if;
+
+			if SOAMAddressCounter = 31 then
+				isRendering <= TRUE;
+			end if;
+		end if;
+	end process;
+
+	SpriteROMAddr <= std_logic_vector(current_address);
+
+	MEMORY_ACCESSOR : process(clk)
+	begin
+	if rising_edge(clk) then
+		isFetchDone <= false;
+		case( memory_state ) is
+			when WAIT_ADDRESS =>
+				if current_address /= old_address and isRendering then
+					memory_state <= WAIT_DATA;
+					old_address <= current_address;
+				end if;
+			when WAIT_DATA =>
+				memory_state <= DATA_READY;
+			when DATA_READY =>
+				isFetchDone <= true;
+				memory_state <= WAIT_ADDRESS;
+			when others =>
+				memory_state <= WAIT_ADDRESS;
+				isFetchDone <= false;
+		end case;
+	end if;
+	end process;
+
+
+
+	PIXEL_WRITER : process(clk)
+	begin
+		if rising_edge(clk) then
+			if isFetchDone and bufferFull /= '1' then
+				BufferEnableWrite <= '1';
+				BufferData <= SpriteROMDatout;
+			else
+				BufferEnableWrite <= '0';
+			end if;
 		end if;
 	end process;
 end architecture;

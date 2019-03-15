@@ -33,6 +33,8 @@ signal ScanLineCounter : unsigned(8 downto 0) := b"1_1011_1111";
 
 signal SOAMAddressCounter : unsigned(4 downto 0) := (others => '0');
 
+signal CurrentSprite : std_logic_vector(31 downto 0) := (others => '0');
+
 begin
 	X_Counter : process(clk)
 	begin
@@ -94,6 +96,42 @@ begin
 				end if;
 			end if;
 
+		end if;
+	end process;
+
+	Object_Picker : process(clk)
+	begin
+		if rising_edge(clk) then
+			if SOAMData(0)(22 downto 14) >= xCounter and (SOAMData(0)(22 downto 14) + 8) < xCounter then
+
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(2)(22 downto 14) >= xCounter and (SOAMData(2)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(3)(22 downto 14) >= xCounter and (SOAMData(3)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(4)(22 downto 14) >= xCounter and (SOAMData(4)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(5)(22 downto 14) >= xCounter and (SOAMData(5)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(6)(22 downto 14) >= xCounter and (SOAMData(6)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(7)(22 downto 14) >= xCounter and (SOAMData(7)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(8)(22 downto 14) >= xCounter and (SOAMData(8)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(9)(22 downto 14) >= xCounter and (SOAMData(9)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(10)(22 downto 14) >= xCounter and (SOAMData(10)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+			elsif SOAMData(1)(22 downto 14) >= xCounter and (SOAMData(1)(22 downto 14) + 8) < xCounter then
+
+			end if;
 		end if;
 	end process;
 end architecture;

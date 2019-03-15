@@ -10,6 +10,7 @@ public:
 public:
     void        insert(Entity*);
     void        removeFirst();
+    void        removeLink(EntityLink*);
     EntityLink* getFirst();
     bool        isEmpty();
 

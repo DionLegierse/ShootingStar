@@ -28,7 +28,12 @@ void CollisionHandler::checkAstroidCollision()
     while (curAst != nullptr)
     {
         if (curAst->getEntity()->checkCollision(this->_gameLoop->getPlayer(1)))
+        {
+            curAst->getEntity()->collisionEvent();
             this->_gameLoop->getPlayer(1)->collisionEvent();
+            this->_gameLoop->getAstroidList()->removeLink(curAst);
+            return;
+        }
         
         curAst = curAst->getNext();
     }

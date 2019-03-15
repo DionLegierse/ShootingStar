@@ -17,9 +17,12 @@ void TestPC::setup()
 
 void TestPC::loop()
 {
-    if (this->_astroidList->getFirst()->getEntity()->getPosition().getX() > -10)
-        updateNPC();
-    _collision->checkAllCollision();
+    if (!this->_astroidList->isEmpty())
+    {
+        if (this->_astroidList->getFirst()->getEntity()->getPosition().getX() > -10)
+            updateNPC();
+        _collision->checkAllCollision();
+    }
 }
 
 void TestPC::updateNPC()

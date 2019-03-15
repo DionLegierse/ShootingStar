@@ -13,6 +13,6 @@ Player* GameLoop::getPlayer(int aNumber)
         return this->_playerOne;
     else if (aNumber == 2)
         return this->_playerTwo;
-
+        
     return nullptr;
 }

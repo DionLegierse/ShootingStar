@@ -18,6 +18,28 @@ void EntityList::removeFirst()
     }
 }
 
+void EntityList::removeLink(EntityLink* aLink)
+{
+    EntityLink* curLink = this->_firstLink;
+    EntityLink* prevLink = nullptr;
+
+    while (curLink != nullptr)
+    {
+        if (curLink == aLink)
+        {
+            if (curLink == this->_firstLink)
+                this->_firstLink = curLink->getNext();
+            else
+                prevLink->setNext(curLink->getNext());
+
+            delete curLink;            
+        }
+
+        prevLink = curLink;
+        curLink = curLink->getNext();
+    }
+}
+
 EntityLink* EntityList::getFirst()
 {
     return this->_firstLink;

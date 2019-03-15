@@ -6,7 +6,6 @@ entity Renderer is
 port(
 -----------------INPUTS------------------
 	clk : in std_logic;
-	isEndLine : in std_logic;
 	SOAMData : in std_logic_vector(31 downto 0);
 	SpriteROMDatout : in std_logic_vector(7 downto 0);
 	bufferFull : in std_logic;
@@ -14,9 +13,10 @@ port(
 -----------------OUTPUT------------------
 	SOAMAddress : out std_logic_vector(4 downto 0);
 	SOAMReadEnable : out std_logic;
-	Scanline : out std_logic_vector(9 downto 0);
+	NextScanline : out std_logic_vector(8 downto 0);
 	BufferData : out std_logic_vector(7 downto 0);
 	SpriteROMAddr : out std_logic_vector(15 downto 0);
+	isEndLine : out std_logic;
 	BufferEnableWrite : out std_logic
 );
 end Renderer;
@@ -24,32 +24,41 @@ end Renderer;
 architecture Behavioral of Renderer is
 type memory is array (0 to 31) of std_logic_vector(31 downto 0);
 
-signal ScanlineCounter : unsigned(9 downto 0) := (others => '0');
-signal LastScanLine : unsigned(9 downto 0) := (others => '0');
+signal ScanlineCounter : unsigned(9 downto 0) := (others => '1');
+signal LastScanLine : unsigned(9 downto 0) := (others => '1');
 
 signal SOAMAddressCounter : unsigned(5 downto 0) := (others => '1');
 signal isSOAMReadReady : BOOLEAN := FALSE;
 
-signal SOAMBuffer : memory := (others => (others => '0'));
+signal SOAMBuffer : memory := (others => (others => '1'));
 
 signal xCounter : unsigned(9 downto 0) := (others => '0');
 
-signal uSpriteRomAddr : unsigned(12 downto 0);
-signal uSpriteRomOffset : unsigned(12 downto 0);
-
 begin
 ------------------SCANLINE HANDLING---------------------------------------------
-	Scanline <= std_logic_vector(ScanlineCounter);
-
 	SCAN_LINE_HANDLER : process (clk)
+	variable result : std_logic_vector(9 downto 0);
 	begin
 		if rising_edge(clk) then
+
+			isEndLine <= '0';
+
+			--TODO add NextScanline statement here
+			if ScanlineCounter >= 447 then
+				NextScanline <= b"0_0000_0000";
+			else
+				result := std_logic_vector(ScanlineCounter + 1);
+				NextScanline <= result(8 downto 0);
+			end if;
+
 			if (bufferFull = '1') then
 				NULL;
 			elsif(bufferClear = '1') then
 			 	ScanlineCounter <= (others => '0');
-			elsif(isEndLine = '1') then
-				if ScanlineCounter < b"1_1100_0000" then
+			elsif(xCounter = 511) then
+				isEndLine <= '1';
+
+				if ScanlineCounter < 447 then
 					ScanlineCounter <= ScanlineCounter + 1;
 				else
 					ScanlineCounter <= (others => '0');
@@ -64,7 +73,9 @@ begin
 	begin
 		if rising_edge(clk) then
 
-			isSOAMReadReady <= TRUE;
+			if SOAMAddressCounter = 0 then
+				isSOAMReadReady <= TRUE;
+			end if;
 
 			if SOAMAddressCounter = 32 then
 				SOAMReadEnable <= '0';
@@ -98,13 +109,9 @@ begin
 				end if;
 			end loop;
 
-			if xCounter < 511 then
+			if xCounter < 511 and SOAMAddressCounter >= 32 then
 				xCounter <= xCounter + 1;
 			else
-				xCounter <= (others => '0');
-			end if;
-
-			if isSOAMReadReady then
 				xCounter <= (others => '0');
 			end if;
 

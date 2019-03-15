@@ -7,9 +7,18 @@ force bufferClear 0
 
 run 5200 ns
 
+
 force SOAMData 2#001000000_000000010_00000_00000000
 
-run 5200 ns
+run 2400 ns
+
+force bufferFull 1
+
+run 100 ns
+
+force bufferFull 0
+
+run 2600 ns
 
 force SOAMData 2#000001000_001000000_00000_00000000
 

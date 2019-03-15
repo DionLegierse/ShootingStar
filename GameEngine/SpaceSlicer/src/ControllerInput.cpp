@@ -55,25 +55,40 @@ uint8_t ControllerInput::readControllerData()
 
 bool ControllerInput::getUp()
 {   
-    return (readControllerData() & (0x10));
+    if ((readControllerData() & 0x10))
+        return 0;
+    else 
+        return 1;
 }
 
 bool ControllerInput::getDown()
 {
-    return (readControllerData() & (0x4F));
+    if (readControllerData() & 0x40)
+        return 0;
+    else 
+        return 1;
 }
 
 bool ControllerInput::getLeft()
 {
-    return (readControllerData() & (0x8F)); 
+    if (readControllerData() & 0x80) 
+        return 0;
+    else 
+        return 1;
 }
 
 bool ControllerInput::getRight()
 {    
-    return (readControllerData() & (0x2F)); 
+    if (readControllerData() & 0x20)
+        return 0;
+    else 
+        return 1;
 }
 
 bool ControllerInput::getButton()
 {    
-    return (readControllerData() & (0xF1)); 
+    if (readControllerData() & 0x01)
+        return 0;
+    else 
+        return 1;
 }

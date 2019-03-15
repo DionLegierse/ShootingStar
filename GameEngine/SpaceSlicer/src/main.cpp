@@ -16,7 +16,6 @@
 #include "nvs.h"
 
 //costum
-#include "DataWriter.h"
 #include "ControllerInput.h"
 
 extern "C" 
@@ -34,7 +33,17 @@ void app_main(void)
 
 	for(;;)
 	{
-		printf("Up: %x \n", CI.getUp());
+		if (CI.getUp())
+			printf("up\n");
+
+		if (CI.getDown())
+			printf("down\n");
+
+		if (CI.getLeft())
+			printf("left\n");
+
+		if (CI.getRight())
+			printf("right\n");
 	}
 }
 

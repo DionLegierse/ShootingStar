@@ -27,7 +27,15 @@ extern "C" {
  
 void doTask(void *pvParameter)
 {			
-	printf("Dis een task!");
+	ConsoleInterface CI;
+
+	CI.setData(0x01);
+	CI.clockDelay();
+	CI.setData(0x80);
+	CI.clockDelay();
+	CI.clockDelay();
+
+	CI.resetOutput(true, true, true);
 }
 
 void app_main(void)

@@ -19,8 +19,8 @@ public:
     void setClock(bool);
     void setRegister(bool);
     void resetOutput(bool, bool, bool);
-    void setData(uint8_t*);
-    void writeCommand(uint8_t*, uint8_t*);
+    void setData(uint8_t);
+    void writeCommand(uint8_t, uint8_t);
 
 //Sprite handling
 public:
@@ -35,6 +35,4 @@ public:
 
 //delay constants
 private:
-    const float delay = 1;
-    const float clkDelay = 1;
 };

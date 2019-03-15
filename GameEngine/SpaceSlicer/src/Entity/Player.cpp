@@ -4,6 +4,11 @@
 
 Player::Player () {}
 
+Player::Player (int aSpeed, Vector2 aPosition) : Entity (aSpeed, aPosition)
+{
+    this->_colliderRadius = 2;
+}
+
 Player::~Player () {}
 
 

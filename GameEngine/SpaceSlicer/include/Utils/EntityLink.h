@@ -17,6 +17,6 @@ public:
     EntityLink* getNext();
 
 private:
-    Entity*     _entity;
-    EntityLink* _nextEntity;
+    Entity*     _entity     = nullptr;
+    EntityLink* _nextEntity = nullptr;
 };

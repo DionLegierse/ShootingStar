@@ -9,7 +9,7 @@ void TestPC::setup()
 {
     printf("I HAVE COMMENCED\n");
     this->_collision = new CollisionHandler(this);
-    this->_playerOne = new Player();
+    this->_playerOne = new Player(0, {1, 0});
     this->_astroidList = new EntityList();
 
     this->_astroidList->insert(new Astroid(1, {-1, 0}, {18, 0}));
@@ -17,7 +17,8 @@ void TestPC::setup()
 
 void TestPC::loop()
 {
-    updateNPC();
+    if (this->_astroidList->getFirst()->getEntity()->getPosition().getX() > -10)
+        updateNPC();
     _collision->checkAllCollision();
 }
 

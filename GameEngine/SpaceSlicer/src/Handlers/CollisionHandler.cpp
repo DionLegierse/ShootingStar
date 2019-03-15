@@ -23,13 +23,13 @@ void CollisionHandler::checkAllCollision()
 
 void CollisionHandler::checkAstroidCollision()
 {
-    EntityLink* curAst = this->_astroidList->getFirst();
+    EntityLink* curAst = this->_gameLoop->getAstroidList()->getFirst();
 
-    // while (curAst != nullptr)
-    // {
-    //     if (curAst->getEntity()->checkCollision(_playerOne))
-    //         // _playerOne->collisionEvent();
+    while (curAst != nullptr)
+    {
+        if (curAst->getEntity()->checkCollision(this->_gameLoop->getPlayer(1)))
+            this->_gameLoop->getPlayer(1)->collisionEvent();
         
-    //     curAst = curAst->getNext();
-    // }
+        curAst = curAst->getNext();
+    }
 }

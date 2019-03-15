@@ -35,8 +35,8 @@ void createMainTask()
 
 void mainTask(void* vParam)
 {
-	// TestPC *test = new TestPC();
-	TestProcessing * test = new TestProcessing;
+	TestPC *test = new TestPC();
+	// TestProcessing * test = new TestProcessing;
 
 	test->setup();
 

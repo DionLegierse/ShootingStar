@@ -7,6 +7,7 @@ class Player : public Entity
 // Constructors/destructors
 public:
             Player();
+            Player(int, Vector2);
             ~Player();
 
 // Movement methods

@@ -23,11 +23,11 @@ private:
     GameLoop*   _gameLoop;
 
 private:
-    EntityList* _astroidList;
-    EntityList* _bloopList;
-    EntityList* _fuelList;
+    EntityList* _astroidList    = nullptr;
+    EntityList* _bloopList      = nullptr;
+    EntityList* _fuelList       = nullptr;
 
 private:
-    Player*     _playerOne;
-    Player*     _playerTwo;
+    Player*     _playerOne      = nullptr;
+    Player*     _playerTwo      = nullptr;
 };

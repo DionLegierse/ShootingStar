@@ -4,7 +4,7 @@ use		ieee.numeric_std.all;
 
 entity circular_buffer is
 	generic(
-	data_depth		: integer range 2 to 15 := 9; -- log2(fifo_length)
+	data_depth		: integer range 2 to 15 := 9;
 	data_width		: integer range 1 to 32 := 8);
 	port(
 

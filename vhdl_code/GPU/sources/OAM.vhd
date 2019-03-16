@@ -7,7 +7,7 @@ entity OAM is
     clk : in STD_LOGIC;
 
     --Flags
-    OAMclear : in STD_LOGIC;
+    OAMreset : in STD_LOGIC;
 
     --Write
     OAMin : in STD_LOGIC_VECTOR (31 downto 0);
@@ -25,7 +25,7 @@ end OAM;
 
 architecture Behavioral of OAM is
     type memory_type is array (0 to 127) of std_logic_vector(31 downto 0);
-    signal memory : memory_type := (others => (others => '0'));
+    signal memory : memory_type := (others => (others => '1'));
     signal toppointer : integer range 0 to 32;
     begin
 
@@ -51,5 +51,13 @@ architecture Behavioral of OAM is
             end if;
         end process;
 
-
+        --reset process
+        OAMWrite : process(clk)
+        begin
+            if (rising_edge(clk)) then
+                if OAMreset = '1' then
+                    memory <= (others => (others => '1'));
+                end if;
+            end if;
+        end process;
     end Behavioral;

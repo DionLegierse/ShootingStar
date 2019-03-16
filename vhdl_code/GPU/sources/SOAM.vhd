@@ -3,6 +3,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity SOAM is
+    generic(
+    data_depth		: integer range 2 to 15 := 9; -- log2(fifo_length)
+	data_width		: integer range 1 to 32 := 8);
+    );
     Port (
     clk : in STD_LOGIC;
 
@@ -24,21 +28,21 @@ entity SOAM is
 end SOAM;
 
 architecture Behavioral of SOAM is
-    type memory_type is array (0 to 31) of std_logic_vector(31 downto 0);
-    signal memory : memory_type := (others => (others => '0'));
+    type memory_type is array (0 to 2**data_depth-1) of std_logic_vector(data_width-1 downto 0);
+    signal memory : memory_type := (others => (others => '1'));
     signal toppointer : integer range 0 to 32;
     signal SOAMfull0 : std_logic := '0';
     begin
-    
+
     SOAMfull <= SOAMfull0;
-    
+
         SOAMwrite : process(clk)
         begin
             if (rising_edge(clk)) then
 
                 --Reset Conditionals
                 if SOAMclear = '1' then
-                    memory <= (others => (others => '0'));
+                    memory <= (others => (others => '1'));
                     toppointer <= 0;
                     SOAMfull0 <= '0';
 

@@ -17,7 +17,7 @@ port(
 	NextScanline : out std_logic_vector(8 downto 0);
 	BufferData : out std_logic_vector(7 downto 0);
 	SpriteROMAddr : out std_logic_vector(15 downto 0);
-	isEndLine : out std_logic;
+	isEndLine : inout std_logic;
 	BufferEnableWrite : out std_logic
 );
 end Renderer;
@@ -38,6 +38,13 @@ signal CurrentSprite : std_logic_vector(31 downto 0) := (others => '0');
 
 signal SpriteY : unsigned(2 downto 0) := (others => '1');
 signal SpriteOffset : unsigned(15 downto 0) := (others => '1');
+
+signal isStarted : BOOLEAN := FALSE;
+
+signal pixelData1, pixelData2, pixelData3, pixelData4 : std_logic_vector(7 downto 0) := (others => '0');
+signal isBufferReady1, isBufferReady2, isBufferReady3, isBufferReady4 : BOOLEAN := FALSE;
+signal isStarted1, isStarted2, isStarted3, isStarted4 : BOOLEAN := FALSE;
+signal bufferFull1, bufferFull2, bufferFull3, bufferFull4 : std_logic := '0';
 
 begin
 	X_Counter : process(clk)
@@ -203,11 +210,57 @@ begin
 		end if;
 	end process;
 
-	Pixel_Writer : process(clk)
+	Start_Writing : process(clk)
 	begin
 		if rising_edge(clk) then
-			if isBufferReady and xCounter >= 4 then
+			if isEndLine = '1' then
+				isStarted <= TRUE;
+			end if;
+		end if;
+	end process;
 
+	Writer_Synchronyser : process(clk)
+	begin
+		if rising_edge(clk) then
+			if bufferFull3 /= '1' then
+				pixelData1 <= SpriteROMDatout;
+				pixelData2 <= pixelData1;
+				pixelData3 <= pixelData2;
+				pixelData4 <= pixelData3;
+
+				isBufferReady1 <= isBufferReady;
+				isBufferReady2 <= isBufferReady1;
+				isBufferReady3 <= isBufferReady2;
+				isBufferReady4 <= isBufferReady3;
+
+				isStarted1 <= isStarted;
+				isStarted2 <= isStarted1;
+				isStarted3 <= isStarted2;
+				isStarted4 <= isStarted3;
+			end if;
+
+			if bufferFull3 = '1' and bufferFull = '0' then
+					pixelData1 <= SpriteROMDatout;
+					pixelData2 <= pixelData1;
+					pixelData3 <= pixelData2;
+					pixelData4 <= pixelData3;
+			end if;
+
+			bufferFull1 <= bufferFull;
+			bufferFull2 <= bufferFull1;
+			bufferFull3 <= bufferFull2;
+			bufferFull4 <= bufferFull3;
+		end if;
+	end process;
+
+	buffer_writer : process(clk)
+	begin
+		if rising_edge(clk) then
+			if bufferFull /= '1' then
+				BufferData <= pixelData4;
+				BufferEnableWrite <= '1';
+			else
+				BufferEnableWrite <= '0';
 			end if;
 		end if;
 	end process;

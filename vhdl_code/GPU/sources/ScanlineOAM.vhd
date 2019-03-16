@@ -7,7 +7,7 @@ entity ScanlineOAM is
     clk : in STD_LOGIC;
 
     --scanline
-    scanline : in STD_LOGIC_VECTOR (9 downto 0);
+    scanline : in STD_LOGIC_VECTOR (8 downto 0);
     ENDscanline : in STD_LOGIC;
 
     --Object Attribute Memory
@@ -24,19 +24,20 @@ entity ScanlineOAM is
 end ScanlineOAM;
 
 architecture Behavioral of ScanlineOAM is
-    signal objectIndex : STD_LOGIC_VECTOR (6 downto 0);
+    signal objectIndex : STD_LOGIC_VECTOR (6 downto 0) := (others => '0');
     begin
+    OAMadd <= objectIndex;
         process(clk)
         variable objY : STD_LOGIC_VECTOR (8 downto 0);
         begin
             if (rising_edge(clk)) then
                 if (ENDscanline = '1') then
-                    OAMadd <= (others => '0');
+                    objectIndex <= (others => '0');
                     SOAMclear <= '1';
                 else
                     SOAMclear <= '0';
-                    objY := OAMin(31 downto 22);
-                    OAMadd <= std_logic_vector(unsigned(objectIndex) + 1);
+                    objY := OAMin(31 downto 23);
+                    objectIndex <= std_logic_vector(unsigned(objectIndex) + 1);
                     if ( (unsigned(objY) <= unsigned(scanline)) AND (unsigned(objY) >= unsigned(scanline) - 7) ) then
                         SOAMout <= OAMin;
                         SOAMpush <= '1';

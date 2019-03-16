@@ -4,8 +4,8 @@ use		ieee.numeric_std.all;
 
 entity circular_buffer is
 	generic(
-	data_depth		: integer range 2 to 15 := 9; -- log2(fifo_length)
-	data_width		: integer range 1 to 32 := 32);
+	data_depth		: integer range 2 to 15 := 9;
+	data_width		: integer range 1 to 32 := 8);
 	port(
 
 
@@ -24,7 +24,7 @@ end circular_buffer;
 
 architecture Behavioral of circular_buffer is
 
-	type memory_type is array (0 to 2*data_depth-1) of std_logic_vector(data_width-1 downto 0);
+	type memory_type is array (0 to data_depth-1) of std_logic_vector(data_width-1 downto 0);
 
 	signal memory			: memory_type := (others => (others => '0'));
 
@@ -50,21 +50,29 @@ architecture Behavioral of circular_buffer is
 		elsif rising_edge(clk) then
 			if (wen='1' and full0='0') then
 				memory(to_integer(writeptr)) <= Din ;
-				writeptr <= writeptr+1;
+				if writeptr = data_depth-1 then
+                    writeptr <= to_unsigned(0, data_depth);
+                else
+                    writeptr <= writeptr+1;
+                end if;
 			end if;
 
 			if (ren='1' and empty0='0') then
 				Dout <= memory(to_integer(readptr));
-				readptr <= readptr+1;
+				if readptr = data_depth-1 then
+				    readptr <= to_unsigned(0, data_depth);
+				    else
+				    readptr <= readptr+1;
+				end if;
 			end if ;
 
-			if (writeptr+1=readptr) and (ren='0') and (wen='1') then
+			if ((writeptr+2=readptr) or ((writeptr>=data_depth-2) and (readptr=0))) and (ren='0') and (wen='1') then
 				full0 <= '1';
 			else
 				full0 <= '0';
 			end if;
 
-			if (readptr+1=writeptr) and (wen='0') and (ren='1') then
+			if ((readptr+2=writeptr) or ((readptr>=data_depth-2) and (writeptr=0))) and (wen='0') and (ren='1') then
 				empty0 <= '1';
 			else
 				empty0 <= '0';

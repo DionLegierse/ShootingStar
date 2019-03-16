@@ -8,16 +8,17 @@ preplace port mc_clk -pg 1 -y 140 -defaultsOSRD
 preplace port clk -pg 1 -y 100 -defaultsOSRD
 preplace portBus mc_data -pg 1 -y 120 -defaultsOSRD
 preplace inst SYNTHESIZER_TOP_0 -pg 1 -lvl 2 -y 160 -defaultsOSRD
+preplace inst OAM_0 -pg 1 -lvl 2 -y -220 -defaultsOSRD
 preplace inst COMMAND_PROCESSOR_0 -pg 1 -lvl 1 -y 130 -defaultsOSRD
 preplace netloc mc_data_1 1 0 1 NJ
-preplace netloc SYNTHESIZER_TOP_0_sound_out 1 2 1 750
-preplace netloc clk_1 1 0 2 10 250 420
+preplace netloc SYNTHESIZER_TOP_0_sound_out 1 2 1 770
+preplace netloc clk_1 1 0 2 0 10 410
 preplace netloc COMMAND_PROCESSOR_0_start_music 1 1 1 410
 preplace netloc mc_register_select_1 1 0 1 NJ
 preplace netloc mc_clk_1 1 0 1 NJ
-preplace netloc COMMAND_PROCESSOR_0_reset_APU 1 1 1 430
+preplace netloc COMMAND_PROCESSOR_0_reset_APU 1 1 1 420
 preplace netloc COMMAND_PROCESSOR_0_start_addres_APU 1 1 1 N
-levelinfo -pg 1 -10 210 590 770 -top -120 -bot 260
+levelinfo -pg 1 -20 210 610 800 -top -330 -bot 260
 ",
 }
 0

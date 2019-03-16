@@ -34,7 +34,7 @@ architecture Behavioral of OAM is
         begin
             if (rising_edge(clk)) then
                 if OAMwen = '1' then
-                    memory(OAMwadd) <= OAMin;
+                    memory(to_integer(unsigned(OAMwadd))) <= OAMin;
                 end if;
             end if;
         end process;
@@ -46,13 +46,13 @@ architecture Behavioral of OAM is
                 if (OAMren = '1') then
                     OAMout <= memory(to_integer(unsigned(OAMradd)));
                 else
-                    OAMout <= others => '0';
+                    OAMout <= (others => '0');
                 end if;
             end if;
         end process;
 
         --reset process
-        OAMWrite : process(clk)
+        OAMWriter : process(clk)
         begin
             if (rising_edge(clk)) then
                 if OAMreset = '1' then

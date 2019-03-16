@@ -12,12 +12,12 @@ entity OAM is
     --Write
     OAMin : in STD_LOGIC_VECTOR (31 downto 0);
     OAMwen : in STD_LOGIC;
-    OAMwadd : in STD_LOGIC_VECTOR (3 downto 0);
+    OAMwadd : in STD_LOGIC_VECTOR (6 downto 0);
 
     --Read
     OAMout : out STD_LOGIC_VECTOR (31 downto 0);
     OAMren : in STD_LOGIC;
-    OAMradd : in STD_LOGIC_VECTOR (3 downto 0)
+    OAMradd : in STD_LOGIC_VECTOR (6 downto 0)
 
 
     );
@@ -33,9 +33,15 @@ architecture Behavioral of OAM is
         OAMWrite : process(clk)
         begin
             if (rising_edge(clk)) then
+
+                if OAMreset = '1' then
+                    memory <= (others => (others => '1'));
+                end if;
+
                 if OAMwen = '1' then
                     memory(to_integer(unsigned(OAMwadd))) <= OAMin;
                 end if;
+
             end if;
         end process;
 
@@ -47,16 +53,6 @@ architecture Behavioral of OAM is
                     OAMout <= memory(to_integer(unsigned(OAMradd)));
                 else
                     OAMout <= (others => '0');
-                end if;
-            end if;
-        end process;
-
-        --reset process
-        OAMWriter : process(clk)
-        begin
-            if (rising_edge(clk)) then
-                if OAMreset = '1' then
-                    memory <= (others => (others => '1'));
                 end if;
             end if;
         end process;

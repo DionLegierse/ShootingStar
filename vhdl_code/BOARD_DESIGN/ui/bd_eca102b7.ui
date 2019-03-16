@@ -2,23 +2,56 @@
    ExpandedHierarchyInLayout: "",
    guistr: "# # String gsaved with Nlview 6.6.11  2017-06-12 bk=1.3860 VDI=40 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port sound_out -pg 1 -y 20 -defaultsOSRD
-preplace port mc_register_select -pg 1 -y 160 -defaultsOSRD
-preplace port mc_clk -pg 1 -y 140 -defaultsOSRD
-preplace port clk -pg 1 -y 100 -defaultsOSRD
-preplace portBus mc_data -pg 1 -y 120 -defaultsOSRD
-preplace inst SYNTHESIZER_TOP_0 -pg 1 -lvl 2 -y 160 -defaultsOSRD
-preplace inst OAM_0 -pg 1 -lvl 2 -y -220 -defaultsOSRD
-preplace inst COMMAND_PROCESSOR_0 -pg 1 -lvl 1 -y 130 -defaultsOSRD
+preplace port sound_out -pg 1 -y 630 -defaultsOSRD
+preplace port mc_register_select -pg 1 -y 600 -defaultsOSRD
+preplace port mc_clk -pg 1 -y 580 -defaultsOSRD
+preplace port Err_0 -pg 1 -y 550 -defaultsOSRD
+preplace port clk -pg 1 -y 440 -defaultsOSRD
+preplace portBus mc_data -pg 1 -y 560 -defaultsOSRD
+preplace portBus Dout_0 -pg 1 -y 510 -defaultsOSRD
+preplace inst sprite_rom_wrapper_0 -pg 1 -lvl 4 -y 70 -defaultsOSRD
+preplace inst Renderer_0 -pg 1 -lvl 4 -y 260 -defaultsOSRD
+preplace inst SYNTHESIZER_TOP_0 -pg 1 -lvl 2 -y 630 -defaultsOSRD
+preplace inst dataToSprite_0 -pg 1 -lvl 1 -y 90 -defaultsOSRD
+preplace inst ScanlineOAM_0 -pg 1 -lvl 3 -y 80 -defaultsOSRD
+preplace inst circular_buffer_0 -pg 1 -lvl 5 -y 540 -defaultsOSRD
+preplace inst OAM_0 -pg 1 -lvl 2 -y 110 -defaultsOSRD
+preplace inst SOAM_0 -pg 1 -lvl 3 -y 250 -defaultsOSRD
+preplace inst COMMAND_PROCESSOR_0 -pg 1 -lvl 1 -y 570 -defaultsOSRD
+preplace netloc COMMAND_PROCESSOR_0_OAMEnable 1 1 1 500
+preplace netloc COMMAND_PROCESSOR_0_sprite_memory_loc 1 0 2 50 170 470
+preplace netloc Renderer_0_SOAMReadEnable 1 2 3 880 430 NJ 430 1750
+preplace netloc Renderer_0_BufferEnableWrite 1 4 1 1770
+preplace netloc COMMAND_PROCESSOR_0_sprite_register_loc 1 1 1 510
+preplace netloc COMMAND_PROCESSOR_0_sprite_attribute 1 0 2 40 10 480
+preplace netloc ScanlineOAM_0_SOAMclear 1 2 2 920 350 1260
+preplace netloc ScanlineOAM_0_OAMadd 1 1 3 530 410 NJ 410 1290
 preplace netloc mc_data_1 1 0 1 NJ
-preplace netloc SYNTHESIZER_TOP_0_sound_out 1 2 1 770
-preplace netloc clk_1 1 0 2 0 10 410
-preplace netloc COMMAND_PROCESSOR_0_start_music 1 1 1 410
+preplace netloc Renderer_0_SpriteROMAddr 1 3 2 1310 150 1740
+preplace netloc ScanlineOAM_0_SOAMpush 1 2 2 900 370 1270
+preplace netloc circular_buffer_0_Full 1 3 3 1310 420 NJ 420 2050
+preplace netloc SYNTHESIZER_TOP_0_sound_out 1 2 4 NJ 630 NJ 630 NJ 630 NJ
+preplace netloc COMMAND_PROCESSOR_0_y_loc_sprite 1 0 2 30 190 450
+preplace netloc Renderer_0_BufferData 1 4 1 1780
+preplace netloc clk_1 1 0 5 40 440 520 220 850 420 1300 440 1740J
+preplace netloc circular_buffer_0_Dout 1 5 1 NJ
+preplace netloc Renderer_0_SOAMAddress 1 2 3 910 400 NJ 400 1760
+preplace netloc OAM_0_OAMout 1 2 1 N
+preplace netloc COMMAND_PROCESSOR_0_start_music 1 1 1 N
 preplace netloc mc_register_select_1 1 0 1 NJ
+preplace netloc dataToSprite_0_sprite_data 1 1 1 N
+preplace netloc circular_buffer_0_Err 1 5 1 NJ
+preplace netloc COMMAND_PROCESSOR_0_x_loc_sprite 1 0 2 20 180 460
+preplace netloc SOAM_0_SOAMout 1 3 1 N
+preplace netloc circular_buffer_0_Empty 1 3 3 1320 450 NJ 450 2040
+preplace netloc Renderer_0_NextScanline 1 2 3 860 380 NJ 380 1730
 preplace netloc mc_clk_1 1 0 1 NJ
-preplace netloc COMMAND_PROCESSOR_0_reset_APU 1 1 1 420
-preplace netloc COMMAND_PROCESSOR_0_start_addres_APU 1 1 1 N
-levelinfo -pg 1 -20 210 610 800 -top -330 -bot 260
+preplace netloc sprite_rom_wrapper_0_douta 1 3 2 1320 140 1780
+preplace netloc Renderer_0_isEndLine 1 2 3 870 390 NJ 390 1720
+preplace netloc COMMAND_PROCESSOR_0_reset_APU 1 1 4 490 520 NJ 520 NJ 520 NJ
+preplace netloc ScanlineOAM_0_SOAMout 1 2 2 890 360 1280
+preplace netloc COMMAND_PROCESSOR_0_start_addres_APU 1 1 1 490
+levelinfo -pg 1 0 250 690 1090 1520 1910 2070 -top 0 -bot 720
 ",
 }
 0

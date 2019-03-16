@@ -12,9 +12,10 @@ entity COMMAND_PROCESSOR is
 -------------------------------------OUTPUTS_GPU--------------------------------
         x_loc_sprite : out std_logic_vector(8 downto 0);
         y_loc_sprite : out std_logic_vector(8 downto 0);
-        sprite_memory_loc : out std_logic_vector(12 downto 0);
+        sprite_memory_loc : out std_logic_vector(7 downto 0);
         sprite_attribute : out std_logic_vector(7 downto 0);
         sprite_register_loc : out std_logic_vector(6 downto 0);
+        OAMEnable : out std_logic;
 -------------------------------------OUTPUTS_APU--------------------------------
         start_music : out std_logic;
         reset_APU : out std_logic;
@@ -58,16 +59,19 @@ begin
 
         start_music <= '0';
         reset_APU <= '0';
+        OAMEnable <= '0';
 
         if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then
             if mc_select_stable = '1' then
                 address <= mc_data_stable;
-            elsif (mc_data_stable(7) = '1') and mc_select_stable = '0' then
+            elsif (mc_data_stable(7) = '1') and mc_select_stable = '1' then
                 case (mc_data_stable) is
                     when x"80" =>
                         start_music <= '1';
                     when x"81" =>
                         reset_APU <= '1';
+                    when x"82" =>
+                        OAMEnable <= '1';
                     when others => NULL;
                 end case;
             else
@@ -85,12 +89,10 @@ begin
                 when x"05" =>
                     y_loc_sprite(8) <= mc_data_stable(0);
                 when x"06" =>
-                    sprite_memory_loc(7 downto 0) <= mc_data_stable;
+                    sprite_memory_loc <= mc_data_stable;
                 when x"07" =>
-                    sprite_memory_loc(12 downto 8) <= mc_data_stable(4 downto 0);
-                when x"08" =>
                     sprite_attribute <= mc_data_stable;
-                when x"09" =>
+                when x"08" =>
                     sprite_register_loc <= mc_data_stable(6 downto 0);
                 when others => NULL;
                 end case;

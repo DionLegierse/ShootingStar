@@ -61,9 +61,10 @@ ENTITY BOARD_DESIGN_COMMAND_PROCESSOR_0_1 IS
     mc_register_select : IN STD_LOGIC;
     x_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
     y_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
-    sprite_memory_loc : OUT STD_LOGIC_VECTOR(12 DOWNTO 0);
+    sprite_memory_loc : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     sprite_attribute : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     sprite_register_loc : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+    OAMEnable : OUT STD_LOGIC;
     start_music : OUT STD_LOGIC;
     reset_APU : OUT STD_LOGIC;
     start_addres_APU : OUT STD_LOGIC_VECTOR(10 DOWNTO 0)
@@ -81,9 +82,10 @@ ARCHITECTURE BOARD_DESIGN_COMMAND_PROCESSOR_0_1_arch OF BOARD_DESIGN_COMMAND_PRO
       mc_register_select : IN STD_LOGIC;
       x_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
       y_loc_sprite : OUT STD_LOGIC_VECTOR(8 DOWNTO 0);
-      sprite_memory_loc : OUT STD_LOGIC_VECTOR(12 DOWNTO 0);
+      sprite_memory_loc : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
       sprite_attribute : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
       sprite_register_loc : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+      OAMEnable : OUT STD_LOGIC;
       start_music : OUT STD_LOGIC;
       reset_APU : OUT STD_LOGIC;
       start_addres_APU : OUT STD_LOGIC_VECTOR(10 DOWNTO 0)
@@ -109,6 +111,7 @@ BEGIN
       sprite_memory_loc => sprite_memory_loc,
       sprite_attribute => sprite_attribute,
       sprite_register_loc => sprite_register_loc,
+      OAMEnable => OAMEnable,
       start_music => start_music,
       reset_APU => reset_APU,
       start_addres_APU => start_addres_APU

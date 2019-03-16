@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0xFD31075C710DDE96" bd:device="xc7a35tcpg236-1" bd:synthFlowMode="Hierarchical" bd:tool_version="2017.4" bd:top="BOARD_DESIGN" bd:version="1.00.a">
+<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0xE508CBD2A898F2E7" bd:device="xc7a35tcpg236-1" bd:isValidated="true" bd:synthFlowMode="Hierarchical" bd:tool_version="2017.4" bd:top="BOARD_DESIGN" bd:version="1.00.a">
 
   <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
     <spirit:vendor>xilinx.com</spirit:vendor>
@@ -34,6 +34,29 @@
           <spirit:parameter>
             <spirit:name>FREQ_HZ</spirit:name>
             <spirit:value>100000000</spirit:value>
+            <spirit:vendorExtensions>
+              <bd:configElementInfos>
+                <bd:configElementInfo bd:valueSource="user"/>
+              </bd:configElementInfos>
+            </spirit:vendorExtensions>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>PHASE</spirit:name>
+            <spirit:value>0.000</spirit:value>
+            <spirit:vendorExtensions>
+              <bd:configElementInfos>
+                <bd:configElementInfo bd:valueSource="default"/>
+              </bd:configElementInfos>
+            </spirit:vendorExtensions>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>CLK_DOMAIN</spirit:name>
+            <spirit:value>BOARD_DESIGN_clk</spirit:value>
+            <spirit:vendorExtensions>
+              <bd:configElementInfos>
+                <bd:configElementInfo bd:valueSource="default"/>
+              </bd:configElementInfos>
+            </spirit:vendorExtensions>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:busInterface>
@@ -54,7 +77,35 @@
             </spirit:physicalPort>
           </spirit:portMap>
         </spirit:portMaps>
-        <spirit:parameters/>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>FREQ_HZ</spirit:name>
+            <spirit:value>100000000</spirit:value>
+            <spirit:vendorExtensions>
+              <bd:configElementInfos>
+                <bd:configElementInfo bd:valueSource="default"/>
+              </bd:configElementInfos>
+            </spirit:vendorExtensions>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>PHASE</spirit:name>
+            <spirit:value>0.000</spirit:value>
+            <spirit:vendorExtensions>
+              <bd:configElementInfos>
+                <bd:configElementInfo bd:valueSource="default"/>
+              </bd:configElementInfos>
+            </spirit:vendorExtensions>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>CLK_DOMAIN</spirit:name>
+            <spirit:value>BOARD_DESIGN_mc_clk</spirit:value>
+            <spirit:vendorExtensions>
+              <bd:configElementInfos>
+                <bd:configElementInfo bd:valueSource="default"/>
+              </bd:configElementInfos>
+            </spirit:vendorExtensions>
+          </spirit:parameter>
+        </spirit:parameters>
       </spirit:busInterface>
     </spirit:busInterfaces>
     <spirit:model>
@@ -100,6 +151,28 @@
             <spirit:direction>out</spirit:direction>
           </spirit:wire>
         </spirit:port>
+        <spirit:port>
+          <spirit:name>Dout_0</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+            <spirit:vector>
+              <spirit:left>7</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>Err_0</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>Ren_0</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
       </spirit:ports>
     </spirit:model>
   </spirit:component>
@@ -116,6 +189,73 @@
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">BOARD_DESIGN_SYNTHESIZER_TOP_0_1</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="bd:referenceName">SYNTHESIZER_TOP</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>ScanlineOAM_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="ScanlineOAM" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">BOARD_DESIGN_ScanlineOAM_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">ScanlineOAM</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>circular_buffer_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="circular_buffer" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">BOARD_DESIGN_circular_buffer_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="data_depth">15</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">circular_buffer</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>SOAM_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="SOAM" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">BOARD_DESIGN_SOAM_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">SOAM</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>Renderer_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="Renderer" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">BOARD_DESIGN_Renderer_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">Renderer</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>dataToSprite_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="dataToSprite" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">BOARD_DESIGN_dataToSprite_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">dataToSprite</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>sprite_rom_wrapper_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="sprite_rom_wrapper" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">BOARD_DESIGN_sprite_rom_wrapper_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">sprite_rom_wrapper</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="bd:BoundaryCRC">0x0</spirit:configurableElementValue>
@@ -149,6 +289,11 @@
         <spirit:name>clk_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="clk"/>
         <spirit:internalPortReference spirit:componentRef="SYNTHESIZER_TOP_0" spirit:portRef="clk"/>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="clk"/>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="clk"/>
+        <spirit:internalPortReference spirit:componentRef="SOAM_0" spirit:portRef="clk"/>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="clk"/>
+        <spirit:internalPortReference spirit:componentRef="sprite_rom_wrapper_0" spirit:portRef="clk"/>
         <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="clk"/>
         <spirit:internalPortReference spirit:componentRef="OAM_0" spirit:portRef="clk"/>
       </spirit:adHocConnection>
@@ -176,6 +321,8 @@
         <spirit:name>COMMAND_PROCESSOR_0_reset_APU</spirit:name>
         <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="reset_APU"/>
         <spirit:internalPortReference spirit:componentRef="SYNTHESIZER_TOP_0" spirit:portRef="reset"/>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="reset"/>
+        <spirit:internalPortReference spirit:componentRef="OAM_0" spirit:portRef="OAMreset"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>COMMAND_PROCESSOR_0_start_addres_APU</spirit:name>
@@ -186,6 +333,136 @@
         <spirit:name>SYNTHESIZER_TOP_0_sound_out</spirit:name>
         <spirit:internalPortReference spirit:componentRef="SYNTHESIZER_TOP_0" spirit:portRef="sound_out"/>
         <spirit:externalPortReference spirit:portRef="sound_out"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>OAM_0_OAMout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="OAM_0" spirit:portRef="OAMout"/>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="OAMin"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>ScanlineOAM_0_OAMadd</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="OAMadd"/>
+        <spirit:internalPortReference spirit:componentRef="OAM_0" spirit:portRef="OAMradd"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Renderer_0_NextScanline</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="NextScanline"/>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="scanline"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Renderer_0_BufferEnableWrite</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="BufferEnableWrite"/>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="Wen"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Renderer_0_BufferData</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="BufferData"/>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="Din"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>circular_buffer_0_Empty</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="Empty"/>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="bufferClear"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>circular_buffer_0_Full</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="Full"/>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="bufferFull"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>SOAM_0_SOAMout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="SOAM_0" spirit:portRef="SOAMout"/>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="SOAMData"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>ScanlineOAM_0_SOAMout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="SOAMout"/>
+        <spirit:internalPortReference spirit:componentRef="SOAM_0" spirit:portRef="SOAMin"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Renderer_0_SOAMAddress</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="SOAMAddress"/>
+        <spirit:internalPortReference spirit:componentRef="SOAM_0" spirit:portRef="SOAMadd"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Renderer_0_SOAMReadEnable</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="SOAMReadEnable"/>
+        <spirit:internalPortReference spirit:componentRef="SOAM_0" spirit:portRef="SOAMren"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>ScanlineOAM_0_SOAMpush</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="SOAMpush"/>
+        <spirit:internalPortReference spirit:componentRef="SOAM_0" spirit:portRef="SOAMpush"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>ScanlineOAM_0_SOAMclear</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="SOAMclear"/>
+        <spirit:internalPortReference spirit:componentRef="SOAM_0" spirit:portRef="SOAMclear"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Renderer_0_isEndLine</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="isEndLine"/>
+        <spirit:internalPortReference spirit:componentRef="ScanlineOAM_0" spirit:portRef="ENDscanline"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Renderer_0_SpriteROMAddr</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="SpriteROMAddr"/>
+        <spirit:internalPortReference spirit:componentRef="sprite_rom_wrapper_0" spirit:portRef="addra"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>sprite_rom_wrapper_0_douta</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="sprite_rom_wrapper_0" spirit:portRef="douta"/>
+        <spirit:internalPortReference spirit:componentRef="Renderer_0" spirit:portRef="SpriteROMDatout"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>circular_buffer_0_Dout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="Dout"/>
+        <spirit:externalPortReference spirit:portRef="Dout_0"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>circular_buffer_0_Err</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="Err"/>
+        <spirit:externalPortReference spirit:portRef="Err_0"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>dataToSprite_0_sprite_data</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="dataToSprite_0" spirit:portRef="sprite_data"/>
+        <spirit:internalPortReference spirit:componentRef="OAM_0" spirit:portRef="OAMin"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>COMMAND_PROCESSOR_0_sprite_register_loc</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="sprite_register_loc"/>
+        <spirit:internalPortReference spirit:componentRef="OAM_0" spirit:portRef="OAMwadd"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>COMMAND_PROCESSOR_0_x_loc_sprite</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="x_loc_sprite"/>
+        <spirit:internalPortReference spirit:componentRef="dataToSprite_0" spirit:portRef="x_loc_sprite"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>COMMAND_PROCESSOR_0_y_loc_sprite</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="y_loc_sprite"/>
+        <spirit:internalPortReference spirit:componentRef="dataToSprite_0" spirit:portRef="y_loc_sprite"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>COMMAND_PROCESSOR_0_sprite_memory_loc</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="sprite_memory_loc"/>
+        <spirit:internalPortReference spirit:componentRef="dataToSprite_0" spirit:portRef="sprite_memory_loc"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>COMMAND_PROCESSOR_0_sprite_attribute</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="sprite_attribute"/>
+        <spirit:internalPortReference spirit:componentRef="dataToSprite_0" spirit:portRef="sprite_atttribute"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>COMMAND_PROCESSOR_0_OAMEnable</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="COMMAND_PROCESSOR_0" spirit:portRef="OAMEnable"/>
+        <spirit:internalPortReference spirit:componentRef="OAM_0" spirit:portRef="OAMwen"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Ren_0_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="Ren_0"/>
+        <spirit:internalPortReference spirit:componentRef="circular_buffer_0" spirit:portRef="Ren"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
   </spirit:design>

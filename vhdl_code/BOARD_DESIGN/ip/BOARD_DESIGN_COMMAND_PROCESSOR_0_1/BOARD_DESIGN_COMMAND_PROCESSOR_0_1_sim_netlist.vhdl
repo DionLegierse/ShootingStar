@@ -1,10 +1,10 @@
 -- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
--- Date        : Wed Mar 13 21:14:10 2019
--- Host        : LAPTOP-MCELIKGK running 64-bit major release  (build 9200)
+-- Date        : Sat Mar 16 14:45:57 2019
+-- Host        : DESKTOP-24KCCOQ running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               C:/Users/djleg/Documents/ShootingStar/vhdl_code/BOARD_DESIGN/ip/BOARD_DESIGN_COMMAND_PROCESSOR_0_1/BOARD_DESIGN_COMMAND_PROCESSOR_0_1_sim_netlist.vhdl
+--               F:/ShootingStar/vhdl_code/BOARD_DESIGN/ip/BOARD_DESIGN_COMMAND_PROCESSOR_0_1/BOARD_DESIGN_COMMAND_PROCESSOR_0_1_sim_netlist.vhdl
 -- Design      : BOARD_DESIGN_COMMAND_PROCESSOR_0_1
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -18,12 +18,10 @@ entity BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR is
   port (
     x_loc_sprite : out STD_LOGIC_VECTOR ( 8 downto 0 );
     y_loc_sprite : out STD_LOGIC_VECTOR ( 8 downto 0 );
-    sprite_memory_loc : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    sprite_memory_loc : out STD_LOGIC_VECTOR ( 7 downto 0 );
     sprite_attribute : out STD_LOGIC_VECTOR ( 7 downto 0 );
     sprite_register_loc : out STD_LOGIC_VECTOR ( 6 downto 0 );
     start_addres_APU : out STD_LOGIC_VECTOR ( 10 downto 0 );
-    start_music : out STD_LOGIC;
-    reset_APU : out STD_LOGIC;
     mc_data : in STD_LOGIC_VECTOR ( 7 downto 0 );
     clk : in STD_LOGIC;
     mc_register_select : in STD_LOGIC;
@@ -51,41 +49,33 @@ architecture STRUCTURE of BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR i
   signal \mc_data_stable_reg_n_0_[4]\ : STD_LOGIC;
   signal \mc_data_stable_reg_n_0_[5]\ : STD_LOGIC;
   signal \mc_data_stable_reg_n_0_[6]\ : STD_LOGIC;
+  signal \mc_data_stable_reg_n_0_[7]\ : STD_LOGIC;
   signal mc_select_meta : STD_LOGIC;
   signal mc_select_stable : STD_LOGIC;
-  signal p_0_in : STD_LOGIC;
-  signal reset_APU_i_1_n_0 : STD_LOGIC;
   signal \sprite_attribute[7]_i_1_n_0\ : STD_LOGIC;
-  signal \sprite_memory_loc[12]_i_1_n_0\ : STD_LOGIC;
   signal \sprite_memory_loc[7]_i_1_n_0\ : STD_LOGIC;
   signal \sprite_register_loc[6]_i_1_n_0\ : STD_LOGIC;
+  signal \sprite_register_loc[6]_i_2_n_0\ : STD_LOGIC;
   signal \^start_addres_apu\ : STD_LOGIC_VECTOR ( 10 downto 0 );
   signal \start_addres_APU[10]_i_1_n_0\ : STD_LOGIC;
   signal \start_addres_APU[10]_i_2_n_0\ : STD_LOGIC;
   signal \start_addres_APU[7]_i_1_n_0\ : STD_LOGIC;
   signal \start_addres_APU[8]_i_1_n_0\ : STD_LOGIC;
   signal \start_addres_APU[9]_i_1_n_0\ : STD_LOGIC;
-  signal start_music_i_1_n_0 : STD_LOGIC;
-  signal start_music_i_2_n_0 : STD_LOGIC;
-  signal start_music_i_3_n_0 : STD_LOGIC;
   signal \^x_loc_sprite\ : STD_LOGIC_VECTOR ( 8 downto 0 );
   signal \x_loc_sprite[7]_i_1_n_0\ : STD_LOGIC;
   signal \x_loc_sprite[7]_i_2_n_0\ : STD_LOGIC;
   signal \x_loc_sprite[8]_i_1_n_0\ : STD_LOGIC;
   signal \x_loc_sprite[8]_i_2_n_0\ : STD_LOGIC;
-  signal \x_loc_sprite[8]_i_3_n_0\ : STD_LOGIC;
-  signal \x_loc_sprite[8]_i_4_n_0\ : STD_LOGIC;
   signal \^y_loc_sprite\ : STD_LOGIC_VECTOR ( 8 downto 0 );
   signal \y_loc_sprite[7]_i_1_n_0\ : STD_LOGIC;
   signal \y_loc_sprite[8]_i_1_n_0\ : STD_LOGIC;
   signal \y_loc_sprite[8]_i_2_n_0\ : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \start_addres_APU[10]_i_2\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of start_music_i_3 : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \x_loc_sprite[7]_i_2\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \x_loc_sprite[8]_i_3\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \x_loc_sprite[8]_i_4\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \y_loc_sprite[8]_i_2\ : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \start_addres_APU[10]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \start_addres_APU[8]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \x_loc_sprite[8]_i_2\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \y_loc_sprite[8]_i_2\ : label is "soft_lutpair0";
 begin
   start_addres_APU(10 downto 0) <= \^start_addres_apu\(10 downto 0);
   x_loc_sprite(8 downto 0) <= \^x_loc_sprite\(8 downto 0);
@@ -160,7 +150,7 @@ begin
      port map (
       C => clk,
       CE => address_0,
-      D => p_0_in,
+      D => \mc_data_stable_reg_n_0_[7]\,
       Q => address(7),
       R => '0'
     );
@@ -313,7 +303,7 @@ mc_clk_stable_old_reg: unisim.vcomponents.FDRE
       C => clk,
       CE => '1',
       D => mc_data_meta(7),
-      Q => p_0_in,
+      Q => \mc_data_stable_reg_n_0_[7]\,
       R => '0'
     );
 mc_select_meta_reg: unisim.vcomponents.FDRE
@@ -332,38 +322,17 @@ mc_select_stable_reg: unisim.vcomponents.FDRE
       Q => mc_select_stable,
       R => '0'
     );
-reset_APU_i_1: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000000040000"
-    )
-        port map (
-      I0 => \mc_data_stable_reg_n_0_[1]\,
-      I1 => \mc_data_stable_reg_n_0_[0]\,
-      I2 => \mc_data_stable_reg_n_0_[3]\,
-      I3 => \mc_data_stable_reg_n_0_[2]\,
-      I4 => start_music_i_2_n_0,
-      I5 => start_music_i_3_n_0,
-      O => reset_APU_i_1_n_0
-    );
-reset_APU_reg: unisim.vcomponents.FDRE
-     port map (
-      C => clk,
-      CE => '1',
-      D => reset_APU_i_1_n_0,
-      Q => reset_APU,
-      R => '0'
-    );
 \sprite_attribute[7]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000001000000000"
+      INIT => X"0020000000000000"
     )
         port map (
-      I0 => \x_loc_sprite[7]_i_2_n_0\,
-      I1 => \address_reg_n_0_[0]\,
-      I2 => \address_reg_n_0_[3]\,
-      I3 => \address_reg_n_0_[2]\,
-      I4 => \address_reg_n_0_[1]\,
-      I5 => \x_loc_sprite[8]_i_4_n_0\,
+      I0 => \address_reg_n_0_[1]\,
+      I1 => mc_select_stable,
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => address(7),
+      I4 => \address_reg_n_0_[2]\,
+      I5 => \address_reg_n_0_[0]\,
       O => \sprite_attribute[7]_i_1_n_0\
     );
 \sprite_attribute_reg[0]\: unisim.vcomponents.FDRE
@@ -426,34 +395,21 @@ reset_APU_reg: unisim.vcomponents.FDRE
      port map (
       C => clk,
       CE => \sprite_attribute[7]_i_1_n_0\,
-      D => p_0_in,
+      D => \mc_data_stable_reg_n_0_[7]\,
       Q => sprite_attribute(7),
       R => '0'
     );
-\sprite_memory_loc[12]_i_1\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000008000000000"
-    )
-        port map (
-      I0 => \address_reg_n_0_[2]\,
-      I1 => \address_reg_n_0_[0]\,
-      I2 => \address_reg_n_0_[1]\,
-      I3 => \address_reg_n_0_[3]\,
-      I4 => \x_loc_sprite[7]_i_2_n_0\,
-      I5 => \x_loc_sprite[8]_i_4_n_0\,
-      O => \sprite_memory_loc[12]_i_1_n_0\
-    );
 \sprite_memory_loc[7]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000004000000000"
+      INIT => X"0000000000200000"
     )
         port map (
-      I0 => \address_reg_n_0_[0]\,
-      I1 => \address_reg_n_0_[2]\,
-      I2 => \address_reg_n_0_[1]\,
-      I3 => \address_reg_n_0_[3]\,
-      I4 => \x_loc_sprite[7]_i_2_n_0\,
-      I5 => \x_loc_sprite[8]_i_4_n_0\,
+      I0 => \address_reg_n_0_[1]\,
+      I1 => mc_select_stable,
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => address(7),
+      I4 => \address_reg_n_0_[2]\,
+      I5 => \address_reg_n_0_[0]\,
       O => \sprite_memory_loc[7]_i_1_n_0\
     );
 \sprite_memory_loc_reg[0]\: unisim.vcomponents.FDRE
@@ -462,30 +418,6 @@ reset_APU_reg: unisim.vcomponents.FDRE
       CE => \sprite_memory_loc[7]_i_1_n_0\,
       D => \mc_data_stable_reg_n_0_[0]\,
       Q => sprite_memory_loc(0),
-      R => '0'
-    );
-\sprite_memory_loc_reg[10]\: unisim.vcomponents.FDRE
-     port map (
-      C => clk,
-      CE => \sprite_memory_loc[12]_i_1_n_0\,
-      D => \mc_data_stable_reg_n_0_[2]\,
-      Q => sprite_memory_loc(10),
-      R => '0'
-    );
-\sprite_memory_loc_reg[11]\: unisim.vcomponents.FDRE
-     port map (
-      C => clk,
-      CE => \sprite_memory_loc[12]_i_1_n_0\,
-      D => \mc_data_stable_reg_n_0_[3]\,
-      Q => sprite_memory_loc(11),
-      R => '0'
-    );
-\sprite_memory_loc_reg[12]\: unisim.vcomponents.FDRE
-     port map (
-      C => clk,
-      CE => \sprite_memory_loc[12]_i_1_n_0\,
-      D => \mc_data_stable_reg_n_0_[4]\,
-      Q => sprite_memory_loc(12),
       R => '0'
     );
 \sprite_memory_loc_reg[1]\: unisim.vcomponents.FDRE
@@ -540,38 +472,35 @@ reset_APU_reg: unisim.vcomponents.FDRE
      port map (
       C => clk,
       CE => \sprite_memory_loc[7]_i_1_n_0\,
-      D => p_0_in,
+      D => \mc_data_stable_reg_n_0_[7]\,
       Q => sprite_memory_loc(7),
-      R => '0'
-    );
-\sprite_memory_loc_reg[8]\: unisim.vcomponents.FDRE
-     port map (
-      C => clk,
-      CE => \sprite_memory_loc[12]_i_1_n_0\,
-      D => \mc_data_stable_reg_n_0_[0]\,
-      Q => sprite_memory_loc(8),
-      R => '0'
-    );
-\sprite_memory_loc_reg[9]\: unisim.vcomponents.FDRE
-     port map (
-      C => clk,
-      CE => \sprite_memory_loc[12]_i_1_n_0\,
-      D => \mc_data_stable_reg_n_0_[1]\,
-      Q => sprite_memory_loc(9),
       R => '0'
     );
 \sprite_register_loc[6]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000004000000000"
+      INIT => X"0000000000000010"
     )
         port map (
-      I0 => \x_loc_sprite[7]_i_2_n_0\,
-      I1 => \address_reg_n_0_[3]\,
-      I2 => \address_reg_n_0_[0]\,
-      I3 => \address_reg_n_0_[2]\,
-      I4 => \address_reg_n_0_[1]\,
-      I5 => \x_loc_sprite[8]_i_4_n_0\,
+      I0 => \address_reg_n_0_[1]\,
+      I1 => mc_select_stable,
+      I2 => \sprite_register_loc[6]_i_2_n_0\,
+      I3 => address(7),
+      I4 => \address_reg_n_0_[2]\,
+      I5 => \address_reg_n_0_[0]\,
       O => \sprite_register_loc[6]_i_1_n_0\
+    );
+\sprite_register_loc[6]_i_2\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0000000000000040"
+    )
+        port map (
+      I0 => address(5),
+      I1 => \address_reg_n_0_[3]\,
+      I2 => mc_clk_stable_new,
+      I3 => mc_clk_stable_old,
+      I4 => address(4),
+      I5 => address(6),
+      O => \sprite_register_loc[6]_i_2_n_0\
     );
 \sprite_register_loc_reg[0]\: unisim.vcomponents.FDRE
      port map (
@@ -629,65 +558,60 @@ reset_APU_reg: unisim.vcomponents.FDRE
       Q => sprite_register_loc(6),
       R => '0'
     );
-\start_addres_APU[10]_i_1\: unisim.vcomponents.LUT6
+\start_addres_APU[10]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"BFFFFFFF80000000"
+      INIT => X"B8"
     )
         port map (
       I0 => \mc_data_stable_reg_n_0_[2]\,
-      I1 => \address_reg_n_0_[0]\,
-      I2 => \start_addres_APU[10]_i_2_n_0\,
-      I3 => \x_loc_sprite[8]_i_4_n_0\,
-      I4 => \x_loc_sprite[8]_i_3_n_0\,
-      I5 => \^start_addres_apu\(10),
+      I1 => \start_addres_APU[10]_i_2_n_0\,
+      I2 => \^start_addres_apu\(10),
       O => \start_addres_APU[10]_i_1_n_0\
     );
-\start_addres_APU[10]_i_2\: unisim.vcomponents.LUT2
+\start_addres_APU[10]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"1"
+      INIT => X"0000001000000000"
     )
         port map (
       I0 => \address_reg_n_0_[1]\,
-      I1 => \address_reg_n_0_[2]\,
+      I1 => mc_select_stable,
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => address(7),
+      I4 => \address_reg_n_0_[2]\,
+      I5 => \address_reg_n_0_[0]\,
       O => \start_addres_APU[10]_i_2_n_0\
     );
 \start_addres_APU[7]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000000000100"
+      INIT => X"0000000000000010"
     )
         port map (
-      I0 => \address_reg_n_0_[0]\,
-      I1 => \address_reg_n_0_[1]\,
-      I2 => \address_reg_n_0_[2]\,
-      I3 => \x_loc_sprite[8]_i_4_n_0\,
-      I4 => \x_loc_sprite[7]_i_2_n_0\,
-      I5 => \address_reg_n_0_[3]\,
+      I0 => \address_reg_n_0_[1]\,
+      I1 => mc_select_stable,
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => address(7),
+      I4 => \address_reg_n_0_[2]\,
+      I5 => \address_reg_n_0_[0]\,
       O => \start_addres_APU[7]_i_1_n_0\
     );
-\start_addres_APU[8]_i_1\: unisim.vcomponents.LUT6
+\start_addres_APU[8]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"BFFFFFFF80000000"
+      INIT => X"B8"
     )
         port map (
       I0 => \mc_data_stable_reg_n_0_[0]\,
-      I1 => \address_reg_n_0_[0]\,
-      I2 => \start_addres_APU[10]_i_2_n_0\,
-      I3 => \x_loc_sprite[8]_i_4_n_0\,
-      I4 => \x_loc_sprite[8]_i_3_n_0\,
-      I5 => \^start_addres_apu\(8),
+      I1 => \start_addres_APU[10]_i_2_n_0\,
+      I2 => \^start_addres_apu\(8),
       O => \start_addres_APU[8]_i_1_n_0\
     );
-\start_addres_APU[9]_i_1\: unisim.vcomponents.LUT6
+\start_addres_APU[9]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"BFFFFFFF80000000"
+      INIT => X"B8"
     )
         port map (
       I0 => \mc_data_stable_reg_n_0_[1]\,
-      I1 => \address_reg_n_0_[0]\,
-      I2 => \start_addres_APU[10]_i_2_n_0\,
-      I3 => \x_loc_sprite[8]_i_4_n_0\,
-      I4 => \x_loc_sprite[8]_i_3_n_0\,
-      I5 => \^start_addres_apu\(9),
+      I1 => \start_addres_APU[10]_i_2_n_0\,
+      I2 => \^start_addres_apu\(9),
       O => \start_addres_APU[9]_i_1_n_0\
     );
 \start_addres_APU_reg[0]\: unisim.vcomponents.FDRE
@@ -758,7 +682,7 @@ reset_APU_reg: unisim.vcomponents.FDRE
      port map (
       C => clk,
       CE => \start_addres_APU[7]_i_1_n_0\,
-      D => p_0_in,
+      D => \mc_data_stable_reg_n_0_[7]\,
       Q => \^start_addres_apu\(7),
       R => '0'
     );
@@ -778,117 +702,54 @@ reset_APU_reg: unisim.vcomponents.FDRE
       Q => \^start_addres_apu\(9),
       R => '0'
     );
-start_music_i_1: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000000010000"
-    )
-        port map (
-      I0 => \mc_data_stable_reg_n_0_[1]\,
-      I1 => \mc_data_stable_reg_n_0_[0]\,
-      I2 => \mc_data_stable_reg_n_0_[3]\,
-      I3 => \mc_data_stable_reg_n_0_[2]\,
-      I4 => start_music_i_2_n_0,
-      I5 => start_music_i_3_n_0,
-      O => start_music_i_1_n_0
-    );
-start_music_i_2: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"0004"
-    )
-        port map (
-      I0 => \mc_data_stable_reg_n_0_[6]\,
-      I1 => p_0_in,
-      I2 => \mc_data_stable_reg_n_0_[5]\,
-      I3 => \mc_data_stable_reg_n_0_[4]\,
-      O => start_music_i_2_n_0
-    );
-start_music_i_3: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"FDFF"
-    )
-        port map (
-      I0 => mc_clk_stable_new,
-      I1 => mc_clk_stable_old,
-      I2 => mc_select_stable,
-      I3 => p_0_in,
-      O => start_music_i_3_n_0
-    );
-start_music_reg: unisim.vcomponents.FDRE
-     port map (
-      C => clk,
-      CE => '1',
-      D => start_music_i_1_n_0,
-      Q => start_music,
-      R => '0'
-    );
 \x_loc_sprite[7]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000001000000000"
+      INIT => X"0000000000000020"
     )
         port map (
-      I0 => \address_reg_n_0_[2]\,
-      I1 => \address_reg_n_0_[0]\,
-      I2 => \address_reg_n_0_[1]\,
-      I3 => \address_reg_n_0_[3]\,
-      I4 => \x_loc_sprite[7]_i_2_n_0\,
-      I5 => \x_loc_sprite[8]_i_4_n_0\,
+      I0 => \address_reg_n_0_[1]\,
+      I1 => mc_select_stable,
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => address(7),
+      I4 => \address_reg_n_0_[2]\,
+      I5 => \address_reg_n_0_[0]\,
       O => \x_loc_sprite[7]_i_1_n_0\
     );
-\x_loc_sprite[7]_i_2\: unisim.vcomponents.LUT4
+\x_loc_sprite[7]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFE"
+      INIT => X"0000000000000010"
     )
         port map (
       I0 => address(5),
-      I1 => p_0_in,
-      I2 => address(6),
-      I3 => address(7),
+      I1 => \address_reg_n_0_[3]\,
+      I2 => mc_clk_stable_new,
+      I3 => mc_clk_stable_old,
+      I4 => address(4),
+      I5 => address(6),
       O => \x_loc_sprite[7]_i_2_n_0\
     );
-\x_loc_sprite[8]_i_1\: unisim.vcomponents.LUT6
+\x_loc_sprite[8]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"BFFFFFFF80000000"
+      INIT => X"BF80"
     )
         port map (
       I0 => \mc_data_stable_reg_n_0_[0]\,
       I1 => \x_loc_sprite[8]_i_2_n_0\,
-      I2 => \address_reg_n_0_[1]\,
-      I3 => \x_loc_sprite[8]_i_3_n_0\,
-      I4 => \x_loc_sprite[8]_i_4_n_0\,
-      I5 => \^x_loc_sprite\(8),
+      I2 => \address_reg_n_0_[0]\,
+      I3 => \^x_loc_sprite\(8),
       O => \x_loc_sprite[8]_i_1_n_0\
     );
-\x_loc_sprite[8]_i_2\: unisim.vcomponents.LUT2
+\x_loc_sprite[8]_i_2\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"2"
+      INIT => X"00100000"
     )
         port map (
-      I0 => \address_reg_n_0_[0]\,
-      I1 => \address_reg_n_0_[2]\,
+      I0 => \address_reg_n_0_[2]\,
+      I1 => address(7),
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => mc_select_stable,
+      I4 => \address_reg_n_0_[1]\,
       O => \x_loc_sprite[8]_i_2_n_0\
-    );
-\x_loc_sprite[8]_i_3\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"00000001"
-    )
-        port map (
-      I0 => address(7),
-      I1 => address(6),
-      I2 => p_0_in,
-      I3 => address(5),
-      I4 => \address_reg_n_0_[3]\,
-      O => \x_loc_sprite[8]_i_3_n_0\
-    );
-\x_loc_sprite[8]_i_4\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"0002"
-    )
-        port map (
-      I0 => mc_clk_stable_new,
-      I1 => mc_clk_stable_old,
-      I2 => mc_select_stable,
-      I3 => address(4),
-      O => \x_loc_sprite[8]_i_4_n_0\
     );
 \x_loc_sprite_reg[0]\: unisim.vcomponents.FDRE
      port map (
@@ -950,7 +811,7 @@ start_music_reg: unisim.vcomponents.FDRE
      port map (
       C => clk,
       CE => \x_loc_sprite[7]_i_1_n_0\,
-      D => p_0_in,
+      D => \mc_data_stable_reg_n_0_[7]\,
       Q => \^x_loc_sprite\(7),
       R => '0'
     );
@@ -964,38 +825,38 @@ start_music_reg: unisim.vcomponents.FDRE
     );
 \y_loc_sprite[7]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000000000400"
+      INIT => X"0000000000100000"
     )
         port map (
-      I0 => \address_reg_n_0_[0]\,
-      I1 => \address_reg_n_0_[2]\,
-      I2 => \address_reg_n_0_[1]\,
-      I3 => \x_loc_sprite[8]_i_4_n_0\,
-      I4 => \x_loc_sprite[7]_i_2_n_0\,
-      I5 => \address_reg_n_0_[3]\,
+      I0 => \address_reg_n_0_[1]\,
+      I1 => mc_select_stable,
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => address(7),
+      I4 => \address_reg_n_0_[2]\,
+      I5 => \address_reg_n_0_[0]\,
       O => \y_loc_sprite[7]_i_1_n_0\
     );
-\y_loc_sprite[8]_i_1\: unisim.vcomponents.LUT6
+\y_loc_sprite[8]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FFFFFFBF00000080"
+      INIT => X"BF80"
     )
         port map (
       I0 => \mc_data_stable_reg_n_0_[0]\,
       I1 => \y_loc_sprite[8]_i_2_n_0\,
-      I2 => \x_loc_sprite[8]_i_4_n_0\,
-      I3 => \x_loc_sprite[7]_i_2_n_0\,
-      I4 => \address_reg_n_0_[3]\,
-      I5 => \^y_loc_sprite\(8),
+      I2 => \address_reg_n_0_[0]\,
+      I3 => \^y_loc_sprite\(8),
       O => \y_loc_sprite[8]_i_1_n_0\
     );
-\y_loc_sprite[8]_i_2\: unisim.vcomponents.LUT3
+\y_loc_sprite[8]_i_2\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"40"
+      INIT => X"00000020"
     )
         port map (
-      I0 => \address_reg_n_0_[1]\,
-      I1 => \address_reg_n_0_[2]\,
-      I2 => \address_reg_n_0_[0]\,
+      I0 => \address_reg_n_0_[2]\,
+      I1 => address(7),
+      I2 => \x_loc_sprite[7]_i_2_n_0\,
+      I3 => mc_select_stable,
+      I4 => \address_reg_n_0_[1]\,
       O => \y_loc_sprite[8]_i_2_n_0\
     );
 \y_loc_sprite_reg[0]\: unisim.vcomponents.FDRE
@@ -1058,7 +919,7 @@ start_music_reg: unisim.vcomponents.FDRE
      port map (
       C => clk,
       CE => \y_loc_sprite[7]_i_1_n_0\,
-      D => p_0_in,
+      D => \mc_data_stable_reg_n_0_[7]\,
       Q => \^y_loc_sprite\(7),
       R => '0'
     );
@@ -1083,9 +944,10 @@ entity BOARD_DESIGN_COMMAND_PROCESSOR_0_1 is
     mc_register_select : in STD_LOGIC;
     x_loc_sprite : out STD_LOGIC_VECTOR ( 8 downto 0 );
     y_loc_sprite : out STD_LOGIC_VECTOR ( 8 downto 0 );
-    sprite_memory_loc : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    sprite_memory_loc : out STD_LOGIC_VECTOR ( 7 downto 0 );
     sprite_attribute : out STD_LOGIC_VECTOR ( 7 downto 0 );
     sprite_register_loc : out STD_LOGIC_VECTOR ( 6 downto 0 );
+    OAMEnable : out STD_LOGIC;
     start_music : out STD_LOGIC;
     reset_APU : out STD_LOGIC;
     start_addres_APU : out STD_LOGIC_VECTOR ( 10 downto 0 )
@@ -1101,6 +963,7 @@ entity BOARD_DESIGN_COMMAND_PROCESSOR_0_1 is
 end BOARD_DESIGN_COMMAND_PROCESSOR_0_1;
 
 architecture STRUCTURE of BOARD_DESIGN_COMMAND_PROCESSOR_0_1 is
+  signal \<const0>\ : STD_LOGIC;
   attribute x_interface_info : string;
   attribute x_interface_info of clk : signal is "xilinx.com:signal:clock:1.0 clk CLK";
   attribute x_interface_parameter : string;
@@ -1110,18 +973,23 @@ architecture STRUCTURE of BOARD_DESIGN_COMMAND_PROCESSOR_0_1 is
   attribute x_interface_info of reset_APU : signal is "xilinx.com:signal:reset:1.0 reset_APU RST";
   attribute x_interface_parameter of reset_APU : signal is "XIL_INTERFACENAME reset_APU, POLARITY ACTIVE_LOW";
 begin
+  OAMEnable <= \<const0>\;
+  reset_APU <= \<const0>\;
+  start_music <= \<const0>\;
+GND: unisim.vcomponents.GND
+     port map (
+      G => \<const0>\
+    );
 U0: entity work.BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
      port map (
       clk => clk,
       mc_clk => mc_clk,
       mc_data(7 downto 0) => mc_data(7 downto 0),
       mc_register_select => mc_register_select,
-      reset_APU => reset_APU,
       sprite_attribute(7 downto 0) => sprite_attribute(7 downto 0),
-      sprite_memory_loc(12 downto 0) => sprite_memory_loc(12 downto 0),
+      sprite_memory_loc(7 downto 0) => sprite_memory_loc(7 downto 0),
       sprite_register_loc(6 downto 0) => sprite_register_loc(6 downto 0),
       start_addres_APU(10 downto 0) => start_addres_APU(10 downto 0),
-      start_music => start_music,
       x_loc_sprite(8 downto 0) => x_loc_sprite(8 downto 0),
       y_loc_sprite(8 downto 0) => y_loc_sprite(8 downto 0)
     );

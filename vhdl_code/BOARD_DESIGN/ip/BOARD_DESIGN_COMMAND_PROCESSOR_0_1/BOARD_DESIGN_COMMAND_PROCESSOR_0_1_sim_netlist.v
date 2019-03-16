@@ -1,10 +1,10 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.4 (win64) Build 2086221 Fri Dec 15 20:55:39 MST 2017
-// Date        : Wed Mar 13 21:14:10 2019
-// Host        : LAPTOP-MCELIKGK running 64-bit major release  (build 9200)
+// Date        : Sat Mar 16 14:45:57 2019
+// Host        : DESKTOP-24KCCOQ running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               C:/Users/djleg/Documents/ShootingStar/vhdl_code/BOARD_DESIGN/ip/BOARD_DESIGN_COMMAND_PROCESSOR_0_1/BOARD_DESIGN_COMMAND_PROCESSOR_0_1_sim_netlist.v
+//               F:/ShootingStar/vhdl_code/BOARD_DESIGN/ip/BOARD_DESIGN_COMMAND_PROCESSOR_0_1/BOARD_DESIGN_COMMAND_PROCESSOR_0_1_sim_netlist.v
 // Design      : BOARD_DESIGN_COMMAND_PROCESSOR_0_1
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -24,6 +24,7 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1
     sprite_memory_loc,
     sprite_attribute,
     sprite_register_loc,
+    OAMEnable,
     start_music,
     reset_APU,
     start_addres_APU);
@@ -33,37 +34,40 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1
   input mc_register_select;
   output [8:0]x_loc_sprite;
   output [8:0]y_loc_sprite;
-  output [12:0]sprite_memory_loc;
+  output [7:0]sprite_memory_loc;
   output [7:0]sprite_attribute;
   output [6:0]sprite_register_loc;
+  output OAMEnable;
   output start_music;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 reset_APU RST" *) (* x_interface_parameter = "XIL_INTERFACENAME reset_APU, POLARITY ACTIVE_LOW" *) output reset_APU;
   output [10:0]start_addres_APU;
 
+  wire \<const0> ;
   wire clk;
   wire mc_clk;
   wire [7:0]mc_data;
   wire mc_register_select;
-  wire reset_APU;
   wire [7:0]sprite_attribute;
-  wire [12:0]sprite_memory_loc;
+  wire [7:0]sprite_memory_loc;
   wire [6:0]sprite_register_loc;
   wire [10:0]start_addres_APU;
-  wire start_music;
   wire [8:0]x_loc_sprite;
   wire [8:0]y_loc_sprite;
 
+  assign OAMEnable = \<const0> ;
+  assign reset_APU = \<const0> ;
+  assign start_music = \<const0> ;
+  GND GND
+       (.G(\<const0> ));
   BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR U0
        (.clk(clk),
         .mc_clk(mc_clk),
         .mc_data(mc_data),
         .mc_register_select(mc_register_select),
-        .reset_APU(reset_APU),
         .sprite_attribute(sprite_attribute),
         .sprite_memory_loc(sprite_memory_loc),
         .sprite_register_loc(sprite_register_loc),
         .start_addres_APU(start_addres_APU),
-        .start_music(start_music),
         .x_loc_sprite(x_loc_sprite),
         .y_loc_sprite(y_loc_sprite));
 endmodule
@@ -76,20 +80,16 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
     sprite_attribute,
     sprite_register_loc,
     start_addres_APU,
-    start_music,
-    reset_APU,
     mc_data,
     clk,
     mc_register_select,
     mc_clk);
   output [8:0]x_loc_sprite;
   output [8:0]y_loc_sprite;
-  output [12:0]sprite_memory_loc;
+  output [7:0]sprite_memory_loc;
   output [7:0]sprite_attribute;
   output [6:0]sprite_register_loc;
   output [10:0]start_addres_APU;
-  output start_music;
-  output reset_APU;
   input [7:0]mc_data;
   input clk;
   input mc_register_select;
@@ -115,36 +115,28 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
   wire \mc_data_stable_reg_n_0_[4] ;
   wire \mc_data_stable_reg_n_0_[5] ;
   wire \mc_data_stable_reg_n_0_[6] ;
+  wire \mc_data_stable_reg_n_0_[7] ;
   wire mc_register_select;
   wire mc_select_meta;
   wire mc_select_stable;
-  wire p_0_in;
-  wire reset_APU;
-  wire reset_APU_i_1_n_0;
   wire [7:0]sprite_attribute;
   wire \sprite_attribute[7]_i_1_n_0 ;
-  wire [12:0]sprite_memory_loc;
-  wire \sprite_memory_loc[12]_i_1_n_0 ;
+  wire [7:0]sprite_memory_loc;
   wire \sprite_memory_loc[7]_i_1_n_0 ;
   wire [6:0]sprite_register_loc;
   wire \sprite_register_loc[6]_i_1_n_0 ;
+  wire \sprite_register_loc[6]_i_2_n_0 ;
   wire [10:0]start_addres_APU;
   wire \start_addres_APU[10]_i_1_n_0 ;
   wire \start_addres_APU[10]_i_2_n_0 ;
   wire \start_addres_APU[7]_i_1_n_0 ;
   wire \start_addres_APU[8]_i_1_n_0 ;
   wire \start_addres_APU[9]_i_1_n_0 ;
-  wire start_music;
-  wire start_music_i_1_n_0;
-  wire start_music_i_2_n_0;
-  wire start_music_i_3_n_0;
   wire [8:0]x_loc_sprite;
   wire \x_loc_sprite[7]_i_1_n_0 ;
   wire \x_loc_sprite[7]_i_2_n_0 ;
   wire \x_loc_sprite[8]_i_1_n_0 ;
   wire \x_loc_sprite[8]_i_2_n_0 ;
-  wire \x_loc_sprite[8]_i_3_n_0 ;
-  wire \x_loc_sprite[8]_i_4_n_0 ;
   wire [8:0]y_loc_sprite;
   wire \y_loc_sprite[7]_i_1_n_0 ;
   wire \y_loc_sprite[8]_i_1_n_0 ;
@@ -202,7 +194,7 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
   FDRE \address_reg[7] 
        (.C(clk),
         .CE(address_0),
-        .D(p_0_in),
+        .D(\mc_data_stable_reg_n_0_[7] ),
         .Q(address[7]),
         .R(1'b0));
   FDRE mc_clk_meta_reg
@@ -317,7 +309,7 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
        (.C(clk),
         .CE(1'b1),
         .D(mc_data_meta[7]),
-        .Q(p_0_in),
+        .Q(\mc_data_stable_reg_n_0_[7] ),
         .R(1'b0));
   FDRE mc_select_meta_reg
        (.C(clk),
@@ -332,30 +324,14 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
         .Q(mc_select_stable),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h0000000000040000)) 
-    reset_APU_i_1
-       (.I0(\mc_data_stable_reg_n_0_[1] ),
-        .I1(\mc_data_stable_reg_n_0_[0] ),
-        .I2(\mc_data_stable_reg_n_0_[3] ),
-        .I3(\mc_data_stable_reg_n_0_[2] ),
-        .I4(start_music_i_2_n_0),
-        .I5(start_music_i_3_n_0),
-        .O(reset_APU_i_1_n_0));
-  FDRE reset_APU_reg
-       (.C(clk),
-        .CE(1'b1),
-        .D(reset_APU_i_1_n_0),
-        .Q(reset_APU),
-        .R(1'b0));
-  LUT6 #(
-    .INIT(64'h0000001000000000)) 
+    .INIT(64'h0020000000000000)) 
     \sprite_attribute[7]_i_1 
-       (.I0(\x_loc_sprite[7]_i_2_n_0 ),
-        .I1(\address_reg_n_0_[0] ),
-        .I2(\address_reg_n_0_[3] ),
-        .I3(\address_reg_n_0_[2] ),
-        .I4(\address_reg_n_0_[1] ),
-        .I5(\x_loc_sprite[8]_i_4_n_0 ),
+       (.I0(\address_reg_n_0_[1] ),
+        .I1(mc_select_stable),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(address[7]),
+        .I4(\address_reg_n_0_[2] ),
+        .I5(\address_reg_n_0_[0] ),
         .O(\sprite_attribute[7]_i_1_n_0 ));
   FDRE \sprite_attribute_reg[0] 
        (.C(clk),
@@ -402,52 +378,24 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
   FDRE \sprite_attribute_reg[7] 
        (.C(clk),
         .CE(\sprite_attribute[7]_i_1_n_0 ),
-        .D(p_0_in),
+        .D(\mc_data_stable_reg_n_0_[7] ),
         .Q(sprite_attribute[7]),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h0000008000000000)) 
-    \sprite_memory_loc[12]_i_1 
-       (.I0(\address_reg_n_0_[2] ),
-        .I1(\address_reg_n_0_[0] ),
-        .I2(\address_reg_n_0_[1] ),
-        .I3(\address_reg_n_0_[3] ),
-        .I4(\x_loc_sprite[7]_i_2_n_0 ),
-        .I5(\x_loc_sprite[8]_i_4_n_0 ),
-        .O(\sprite_memory_loc[12]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000004000000000)) 
+    .INIT(64'h0000000000200000)) 
     \sprite_memory_loc[7]_i_1 
-       (.I0(\address_reg_n_0_[0] ),
-        .I1(\address_reg_n_0_[2] ),
-        .I2(\address_reg_n_0_[1] ),
-        .I3(\address_reg_n_0_[3] ),
-        .I4(\x_loc_sprite[7]_i_2_n_0 ),
-        .I5(\x_loc_sprite[8]_i_4_n_0 ),
+       (.I0(\address_reg_n_0_[1] ),
+        .I1(mc_select_stable),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(address[7]),
+        .I4(\address_reg_n_0_[2] ),
+        .I5(\address_reg_n_0_[0] ),
         .O(\sprite_memory_loc[7]_i_1_n_0 ));
   FDRE \sprite_memory_loc_reg[0] 
        (.C(clk),
         .CE(\sprite_memory_loc[7]_i_1_n_0 ),
         .D(\mc_data_stable_reg_n_0_[0] ),
         .Q(sprite_memory_loc[0]),
-        .R(1'b0));
-  FDRE \sprite_memory_loc_reg[10] 
-       (.C(clk),
-        .CE(\sprite_memory_loc[12]_i_1_n_0 ),
-        .D(\mc_data_stable_reg_n_0_[2] ),
-        .Q(sprite_memory_loc[10]),
-        .R(1'b0));
-  FDRE \sprite_memory_loc_reg[11] 
-       (.C(clk),
-        .CE(\sprite_memory_loc[12]_i_1_n_0 ),
-        .D(\mc_data_stable_reg_n_0_[3] ),
-        .Q(sprite_memory_loc[11]),
-        .R(1'b0));
-  FDRE \sprite_memory_loc_reg[12] 
-       (.C(clk),
-        .CE(\sprite_memory_loc[12]_i_1_n_0 ),
-        .D(\mc_data_stable_reg_n_0_[4] ),
-        .Q(sprite_memory_loc[12]),
         .R(1'b0));
   FDRE \sprite_memory_loc_reg[1] 
        (.C(clk),
@@ -488,31 +436,29 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
   FDRE \sprite_memory_loc_reg[7] 
        (.C(clk),
         .CE(\sprite_memory_loc[7]_i_1_n_0 ),
-        .D(p_0_in),
+        .D(\mc_data_stable_reg_n_0_[7] ),
         .Q(sprite_memory_loc[7]),
         .R(1'b0));
-  FDRE \sprite_memory_loc_reg[8] 
-       (.C(clk),
-        .CE(\sprite_memory_loc[12]_i_1_n_0 ),
-        .D(\mc_data_stable_reg_n_0_[0] ),
-        .Q(sprite_memory_loc[8]),
-        .R(1'b0));
-  FDRE \sprite_memory_loc_reg[9] 
-       (.C(clk),
-        .CE(\sprite_memory_loc[12]_i_1_n_0 ),
-        .D(\mc_data_stable_reg_n_0_[1] ),
-        .Q(sprite_memory_loc[9]),
-        .R(1'b0));
   LUT6 #(
-    .INIT(64'h0000004000000000)) 
+    .INIT(64'h0000000000000010)) 
     \sprite_register_loc[6]_i_1 
-       (.I0(\x_loc_sprite[7]_i_2_n_0 ),
-        .I1(\address_reg_n_0_[3] ),
-        .I2(\address_reg_n_0_[0] ),
-        .I3(\address_reg_n_0_[2] ),
-        .I4(\address_reg_n_0_[1] ),
-        .I5(\x_loc_sprite[8]_i_4_n_0 ),
+       (.I0(\address_reg_n_0_[1] ),
+        .I1(mc_select_stable),
+        .I2(\sprite_register_loc[6]_i_2_n_0 ),
+        .I3(address[7]),
+        .I4(\address_reg_n_0_[2] ),
+        .I5(\address_reg_n_0_[0] ),
         .O(\sprite_register_loc[6]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000040)) 
+    \sprite_register_loc[6]_i_2 
+       (.I0(address[5]),
+        .I1(\address_reg_n_0_[3] ),
+        .I2(mc_clk_stable_new),
+        .I3(mc_clk_stable_old),
+        .I4(address[4]),
+        .I5(address[6]),
+        .O(\sprite_register_loc[6]_i_2_n_0 ));
   FDRE \sprite_register_loc_reg[0] 
        (.C(clk),
         .CE(\sprite_register_loc[6]_i_1_n_0 ),
@@ -555,52 +501,48 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
         .D(\mc_data_stable_reg_n_0_[6] ),
         .Q(sprite_register_loc[6]),
         .R(1'b0));
-  LUT6 #(
-    .INIT(64'hBFFFFFFF80000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \start_addres_APU[10]_i_1 
        (.I0(\mc_data_stable_reg_n_0_[2] ),
-        .I1(\address_reg_n_0_[0] ),
-        .I2(\start_addres_APU[10]_i_2_n_0 ),
-        .I3(\x_loc_sprite[8]_i_4_n_0 ),
-        .I4(\x_loc_sprite[8]_i_3_n_0 ),
-        .I5(start_addres_APU[10]),
+        .I1(\start_addres_APU[10]_i_2_n_0 ),
+        .I2(start_addres_APU[10]),
         .O(\start_addres_APU[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
+  LUT6 #(
+    .INIT(64'h0000001000000000)) 
     \start_addres_APU[10]_i_2 
        (.I0(\address_reg_n_0_[1] ),
-        .I1(\address_reg_n_0_[2] ),
+        .I1(mc_select_stable),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(address[7]),
+        .I4(\address_reg_n_0_[2] ),
+        .I5(\address_reg_n_0_[0] ),
         .O(\start_addres_APU[10]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000000100)) 
+    .INIT(64'h0000000000000010)) 
     \start_addres_APU[7]_i_1 
-       (.I0(\address_reg_n_0_[0] ),
-        .I1(\address_reg_n_0_[1] ),
-        .I2(\address_reg_n_0_[2] ),
-        .I3(\x_loc_sprite[8]_i_4_n_0 ),
-        .I4(\x_loc_sprite[7]_i_2_n_0 ),
-        .I5(\address_reg_n_0_[3] ),
+       (.I0(\address_reg_n_0_[1] ),
+        .I1(mc_select_stable),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(address[7]),
+        .I4(\address_reg_n_0_[2] ),
+        .I5(\address_reg_n_0_[0] ),
         .O(\start_addres_APU[7]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFFFFFFF80000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \start_addres_APU[8]_i_1 
        (.I0(\mc_data_stable_reg_n_0_[0] ),
-        .I1(\address_reg_n_0_[0] ),
-        .I2(\start_addres_APU[10]_i_2_n_0 ),
-        .I3(\x_loc_sprite[8]_i_4_n_0 ),
-        .I4(\x_loc_sprite[8]_i_3_n_0 ),
-        .I5(start_addres_APU[8]),
+        .I1(\start_addres_APU[10]_i_2_n_0 ),
+        .I2(start_addres_APU[8]),
         .O(\start_addres_APU[8]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFFFFFFF80000000)) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \start_addres_APU[9]_i_1 
        (.I0(\mc_data_stable_reg_n_0_[1] ),
-        .I1(\address_reg_n_0_[0] ),
-        .I2(\start_addres_APU[10]_i_2_n_0 ),
-        .I3(\x_loc_sprite[8]_i_4_n_0 ),
-        .I4(\x_loc_sprite[8]_i_3_n_0 ),
-        .I5(start_addres_APU[9]),
+        .I1(\start_addres_APU[10]_i_2_n_0 ),
+        .I2(start_addres_APU[9]),
         .O(\start_addres_APU[9]_i_1_n_0 ));
   FDRE \start_addres_APU_reg[0] 
        (.C(clk),
@@ -653,7 +595,7 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
   FDRE \start_addres_APU_reg[7] 
        (.C(clk),
         .CE(\start_addres_APU[7]_i_1_n_0 ),
-        .D(p_0_in),
+        .D(\mc_data_stable_reg_n_0_[7] ),
         .Q(start_addres_APU[7]),
         .R(1'b0));
   FDRE \start_addres_APU_reg[8] 
@@ -669,92 +611,43 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
         .Q(start_addres_APU[9]),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h0000000000010000)) 
-    start_music_i_1
-       (.I0(\mc_data_stable_reg_n_0_[1] ),
-        .I1(\mc_data_stable_reg_n_0_[0] ),
-        .I2(\mc_data_stable_reg_n_0_[3] ),
-        .I3(\mc_data_stable_reg_n_0_[2] ),
-        .I4(start_music_i_2_n_0),
-        .I5(start_music_i_3_n_0),
-        .O(start_music_i_1_n_0));
-  LUT4 #(
-    .INIT(16'h0004)) 
-    start_music_i_2
-       (.I0(\mc_data_stable_reg_n_0_[6] ),
-        .I1(p_0_in),
-        .I2(\mc_data_stable_reg_n_0_[5] ),
-        .I3(\mc_data_stable_reg_n_0_[4] ),
-        .O(start_music_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT4 #(
-    .INIT(16'hFDFF)) 
-    start_music_i_3
-       (.I0(mc_clk_stable_new),
-        .I1(mc_clk_stable_old),
-        .I2(mc_select_stable),
-        .I3(p_0_in),
-        .O(start_music_i_3_n_0));
-  FDRE start_music_reg
-       (.C(clk),
-        .CE(1'b1),
-        .D(start_music_i_1_n_0),
-        .Q(start_music),
-        .R(1'b0));
-  LUT6 #(
-    .INIT(64'h0000001000000000)) 
+    .INIT(64'h0000000000000020)) 
     \x_loc_sprite[7]_i_1 
-       (.I0(\address_reg_n_0_[2] ),
-        .I1(\address_reg_n_0_[0] ),
-        .I2(\address_reg_n_0_[1] ),
-        .I3(\address_reg_n_0_[3] ),
-        .I4(\x_loc_sprite[7]_i_2_n_0 ),
-        .I5(\x_loc_sprite[8]_i_4_n_0 ),
+       (.I0(\address_reg_n_0_[1] ),
+        .I1(mc_select_stable),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(address[7]),
+        .I4(\address_reg_n_0_[2] ),
+        .I5(\address_reg_n_0_[0] ),
         .O(\x_loc_sprite[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
+  LUT6 #(
+    .INIT(64'h0000000000000010)) 
     \x_loc_sprite[7]_i_2 
        (.I0(address[5]),
-        .I1(p_0_in),
-        .I2(address[6]),
-        .I3(address[7]),
+        .I1(\address_reg_n_0_[3] ),
+        .I2(mc_clk_stable_new),
+        .I3(mc_clk_stable_old),
+        .I4(address[4]),
+        .I5(address[6]),
         .O(\x_loc_sprite[7]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFFFFFFF80000000)) 
+  LUT4 #(
+    .INIT(16'hBF80)) 
     \x_loc_sprite[8]_i_1 
        (.I0(\mc_data_stable_reg_n_0_[0] ),
         .I1(\x_loc_sprite[8]_i_2_n_0 ),
-        .I2(\address_reg_n_0_[1] ),
-        .I3(\x_loc_sprite[8]_i_3_n_0 ),
-        .I4(\x_loc_sprite[8]_i_4_n_0 ),
-        .I5(x_loc_sprite[8]),
+        .I2(\address_reg_n_0_[0] ),
+        .I3(x_loc_sprite[8]),
         .O(\x_loc_sprite[8]_i_1_n_0 ));
-  LUT2 #(
-    .INIT(4'h2)) 
-    \x_loc_sprite[8]_i_2 
-       (.I0(\address_reg_n_0_[0] ),
-        .I1(\address_reg_n_0_[2] ),
-        .O(\x_loc_sprite[8]_i_2_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT5 #(
-    .INIT(32'h00000001)) 
-    \x_loc_sprite[8]_i_3 
-       (.I0(address[7]),
-        .I1(address[6]),
-        .I2(p_0_in),
-        .I3(address[5]),
-        .I4(\address_reg_n_0_[3] ),
-        .O(\x_loc_sprite[8]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT4 #(
-    .INIT(16'h0002)) 
-    \x_loc_sprite[8]_i_4 
-       (.I0(mc_clk_stable_new),
-        .I1(mc_clk_stable_old),
-        .I2(mc_select_stable),
-        .I3(address[4]),
-        .O(\x_loc_sprite[8]_i_4_n_0 ));
+    .INIT(32'h00100000)) 
+    \x_loc_sprite[8]_i_2 
+       (.I0(\address_reg_n_0_[2] ),
+        .I1(address[7]),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(mc_select_stable),
+        .I4(\address_reg_n_0_[1] ),
+        .O(\x_loc_sprite[8]_i_2_n_0 ));
   FDRE \x_loc_sprite_reg[0] 
        (.C(clk),
         .CE(\x_loc_sprite[7]_i_1_n_0 ),
@@ -800,7 +693,7 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
   FDRE \x_loc_sprite_reg[7] 
        (.C(clk),
         .CE(\x_loc_sprite[7]_i_1_n_0 ),
-        .D(p_0_in),
+        .D(\mc_data_stable_reg_n_0_[7] ),
         .Q(x_loc_sprite[7]),
         .R(1'b0));
   FDRE \x_loc_sprite_reg[8] 
@@ -810,32 +703,32 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
         .Q(x_loc_sprite[8]),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h0000000000000400)) 
+    .INIT(64'h0000000000100000)) 
     \y_loc_sprite[7]_i_1 
-       (.I0(\address_reg_n_0_[0] ),
-        .I1(\address_reg_n_0_[2] ),
-        .I2(\address_reg_n_0_[1] ),
-        .I3(\x_loc_sprite[8]_i_4_n_0 ),
-        .I4(\x_loc_sprite[7]_i_2_n_0 ),
-        .I5(\address_reg_n_0_[3] ),
+       (.I0(\address_reg_n_0_[1] ),
+        .I1(mc_select_stable),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(address[7]),
+        .I4(\address_reg_n_0_[2] ),
+        .I5(\address_reg_n_0_[0] ),
         .O(\y_loc_sprite[7]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFBF00000080)) 
+  LUT4 #(
+    .INIT(16'hBF80)) 
     \y_loc_sprite[8]_i_1 
        (.I0(\mc_data_stable_reg_n_0_[0] ),
         .I1(\y_loc_sprite[8]_i_2_n_0 ),
-        .I2(\x_loc_sprite[8]_i_4_n_0 ),
-        .I3(\x_loc_sprite[7]_i_2_n_0 ),
-        .I4(\address_reg_n_0_[3] ),
-        .I5(y_loc_sprite[8]),
-        .O(\y_loc_sprite[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
-    \y_loc_sprite[8]_i_2 
-       (.I0(\address_reg_n_0_[1] ),
-        .I1(\address_reg_n_0_[2] ),
         .I2(\address_reg_n_0_[0] ),
+        .I3(y_loc_sprite[8]),
+        .O(\y_loc_sprite[8]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  LUT5 #(
+    .INIT(32'h00000020)) 
+    \y_loc_sprite[8]_i_2 
+       (.I0(\address_reg_n_0_[2] ),
+        .I1(address[7]),
+        .I2(\x_loc_sprite[7]_i_2_n_0 ),
+        .I3(mc_select_stable),
+        .I4(\address_reg_n_0_[1] ),
         .O(\y_loc_sprite[8]_i_2_n_0 ));
   FDRE \y_loc_sprite_reg[0] 
        (.C(clk),
@@ -882,7 +775,7 @@ module BOARD_DESIGN_COMMAND_PROCESSOR_0_1_COMMAND_PROCESSOR
   FDRE \y_loc_sprite_reg[7] 
        (.C(clk),
         .CE(\y_loc_sprite[7]_i_1_n_0 ),
-        .D(p_0_in),
+        .D(\mc_data_stable_reg_n_0_[7] ),
         .Q(y_loc_sprite[7]),
         .R(1'b0));
   FDRE \y_loc_sprite_reg[8] 

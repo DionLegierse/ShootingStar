@@ -4,8 +4,8 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity SOAM is
     generic(
-    data_depth		: integer range 2 to 15 := 9; -- log2(fifo_length)
-	data_width		: integer range 1 to 32 := 8);
+    data_depth		: integer range 2 to 15 := 5; -- log2(fifo_length)
+	data_width		: integer range 1 to 32 := 32
     );
     Port (
     clk : in STD_LOGIC;
@@ -19,7 +19,7 @@ entity SOAM is
     --Read
     SOAMout : out STD_LOGIC_VECTOR (31 downto 0);
     SOAMren : in STD_LOGIC;
-    SOAMadd : in STD_LOGIC_VECTOR (3 downto 0);
+    SOAMadd : in STD_LOGIC_VECTOR (data_depth - 1 downto 0);
 
     -- flags
     SOAMfull : out STD_LOGIC

@@ -17,7 +17,7 @@ port(
 	NextScanline : out std_logic_vector(8 downto 0);
 	BufferData : out std_logic_vector(7 downto 0);
 	SpriteROMAddr : out std_logic_vector(15 downto 0);
-	isEndLine : inout std_logic;
+	isEndLine : out std_logic;
 	BufferEnableWrite : out std_logic
 );
 end Renderer;
@@ -46,7 +46,11 @@ signal isBufferReady1, isBufferReady2, isBufferReady3, isBufferReady4 : BOOLEAN 
 signal isStarted1, isStarted2, isStarted3, isStarted4 : BOOLEAN := FALSE;
 signal bufferFull1, bufferFull2, bufferFull3, bufferFull4 : std_logic := '0';
 
+signal endLineBit : std_logic := '0';
+
 begin
+	isEndLine <= endLineBit;
+
 	X_Counter : process(clk)
 	begin
 		if rising_edge(clk) then
@@ -64,7 +68,7 @@ begin
 	begin
 		if rising_edge(clk) then
 
-			isEndLine <= '0';
+			endLineBit <= '0';
 
 			if ScanLineCounter = 447 then
 				NextScanline <= (others => '0');
@@ -73,7 +77,7 @@ begin
 			end if;
 
 			if xCounter = 511 then
-				isEndLine <= '1';
+				endLineBit <= '1';
 
 				if ScanLineCounter = 447 then
 					ScanLineCounter <= (others => '0');
@@ -213,7 +217,7 @@ begin
 	Start_Writing : process(clk)
 	begin
 		if rising_edge(clk) then
-			if isEndLine = '1' then
+			if endLineBit = '1' then
 				isStarted <= TRUE;
 			end if;
 		end if;

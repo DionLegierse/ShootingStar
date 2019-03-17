@@ -13,9 +13,12 @@ entity COMMAND_PROCESSOR is
         x_loc_sprite : out std_logic_vector(8 downto 0);
         y_loc_sprite : out std_logic_vector(8 downto 0);
         sprite_memory_loc : out std_logic_vector(7 downto 0);
-        sprite_attribute : out std_logic_vector(7 downto 0);
+        sprite_attribute : out std_logic_vector(5 downto 0);
         sprite_register_loc : out std_logic_vector(6 downto 0);
-        OAMEnable : out std_logic;
+        update_x : out std_logic;
+        update_y : out std_logic;
+        update_xy : out std_logic;
+        update_all : out std_logic;
 -------------------------------------OUTPUTS_APU--------------------------------
         start_music : out std_logic;
         reset_APU : out std_logic;
@@ -59,21 +62,30 @@ begin
 
         start_music <= '0';
         reset_APU <= '0';
-        OAMEnable <= '0';
+        update_x <= '0';
+        update_y <= '0';
+        update_xy <= '0';
+        update_all <= '0';
 
         if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then
-            if mc_select_stable = '1' then
-                address <= mc_data_stable;
-            elsif (mc_data_stable(7) = '1') and mc_select_stable = '1' then
+            if (mc_data_stable(7) = '1') and mc_select_stable = '1' then
                 case (mc_data_stable) is
                     when x"80" =>
                         start_music <= '1';
                     when x"81" =>
                         reset_APU <= '1';
                     when x"82" =>
-                        OAMEnable <= '1';
+                        update_x <= '1';
+                    when x"83" =>
+                        update_y <= '1';
+                    when x"84" =>
+                        update_xy <= '1';
+                    when x"85" =>
+                        update_all <= '1';
                     when others => NULL;
                 end case;
+            elsif mc_select_stable = '1' then
+                address <= mc_data_stable;
             else
                 case (address) is
                 when x"00" =>
@@ -91,7 +103,7 @@ begin
                 when x"06" =>
                     sprite_memory_loc <= mc_data_stable;
                 when x"07" =>
-                    sprite_attribute <= mc_data_stable;
+                    sprite_attribute <= mc_data_stable(5 downto 0);
                 when x"08" =>
                     sprite_register_loc <= mc_data_stable(6 downto 0);
                 when others => NULL;

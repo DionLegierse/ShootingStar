@@ -1,4 +1,6 @@
--- (c) Copyright 1995-2019 Xilinx, Inc. All rights reserved.
+
+-- 
+-- (c) Copyright 2008 - 2013 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -44,36 +46,46 @@
 -- THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 -- PART OF THIS FILE AT ALL TIMES.
 -- 
--- DO NOT MODIFY THIS FILE.
+------------------------------------------------------------------------------
+-- User entered comments
+------------------------------------------------------------------------------
+-- None
+--
+------------------------------------------------------------------------------
+--  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
+--   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+------------------------------------------------------------------------------
+-- ___clk25____25.000______0.000______50.0______175.402_____98.575
+-- __clkOut___100.000______0.000______50.0______130.958_____98.575
+--
+------------------------------------------------------------------------------
+-- Input Clock   Freq (MHz)    Input Jitter (UI)
+------------------------------------------------------------------------------
+-- __primary_________100.000____________0.010
 
--- IP VLNV: xilinx.com:ip:blk_mem_gen:8.4
--- IP Revision: 1
 
--- The following code must appear in the VHDL architecture header.
-
+-- The following code must appear in the VHDL architecture header:
 ------------- Begin Cut here for COMPONENT Declaration ------ COMP_TAG
-COMPONENT sprite_rom
-  PORT (
-    clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(14 DOWNTO 0);
-    douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
-  );
-END COMPONENT;
--- COMP_TAG_END ------ End COMPONENT Declaration ------------
+component gpu_clk
+port
+ (-- Clock in ports
+  -- Clock out ports
+  clk25          : out    std_logic;
+  clkOut          : out    std_logic;
+  clk100           : in     std_logic
+ );
+end component;
 
+-- COMP_TAG_END ------ End COMPONENT Declaration ------------
 -- The following code must appear in the VHDL architecture
 -- body. Substitute your own instance name and net names.
-
 ------------- Begin Cut here for INSTANTIATION Template ----- INST_TAG
-your_instance_name : sprite_rom
-  PORT MAP (
-    clka => clka,
-    addra => addra,
-    douta => douta
-  );
--- INST_TAG_END ------ End INSTANTIATION Template ---------
-
--- You must compile the wrapper file sprite_rom.vhd when simulating
--- the core, sprite_rom. When compiling the wrapper file, be sure to
--- reference the VHDL simulation library.
-
+your_instance_name : gpu_clk
+   port map ( 
+  -- Clock out ports  
+   clk25 => clk25,
+   clkOut => clkOut,
+   -- Clock in ports
+   clk100 => clk100
+ );
+-- INST_TAG_END ------ End INSTANTIATION Template ------------

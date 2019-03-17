@@ -35,7 +35,7 @@ entity dataToSprite is
     Port ( x_loc_sprite : in STD_LOGIC_VECTOR (8 downto 0);
            y_loc_sprite : in STD_LOGIC_VECTOR (8 downto 0);
            sprite_memory_loc : in STD_LOGIC_VECTOR (7 downto 0);
-           sprite_atttribute : in STD_LOGIC_VECTOR (7 downto 0);
+           sprite_attribute : in STD_LOGIC_VECTOR (7 downto 0);
            sprite_data : out STD_LOGIC_VECTOR (31 downto 0));
 end dataToSprite;
 
@@ -43,6 +43,6 @@ architecture Behavioral of dataToSprite is
 
 begin
 
-sprite_data <= y_loc_sprite & x_loc_sprite & sprite_atttribute(5 downto 0) & sprite_memory_loc;
+sprite_data <= y_loc_sprite & x_loc_sprite & sprite_attribute(5 downto 0) & sprite_memory_loc;
 
 end Behavioral;

@@ -1,4 +1,7 @@
-// (c) Copyright 1995-2019 Xilinx, Inc. All rights reserved.
+
+// file: gpu_clk.v
+// 
+// (c) Copyright 2008 - 2013 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -44,24 +47,40 @@
 // THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 // PART OF THIS FILE AT ALL TIMES.
 // 
-// DO NOT MODIFY THIS FILE.
+//----------------------------------------------------------------------------
+// User entered comments
+//----------------------------------------------------------------------------
+// None
+//
+//----------------------------------------------------------------------------
+//  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
+//   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+//----------------------------------------------------------------------------
+// __clk148___148.500______0.000______50.0______217.614____245.344
+//
+//----------------------------------------------------------------------------
+// Input Clock   Freq (MHz)    Input Jitter (UI)
+//----------------------------------------------------------------------------
+// __primary_________100.000____________0.010
 
-// IP VLNV: xilinx.com:ip:blk_mem_gen:8.4
-// IP Revision: 1
+`timescale 1ps/1ps
 
-// The following must be inserted into your Verilog file for this
-// core to be instantiated. Change the instance name and port connections
-// (in parentheses) to your own signal names.
+(* CORE_GENERATION_INFO = "gpu_clk,clk_wiz_v5_4_3_0,{component_name=gpu_clk,use_phase_alignment=true,use_min_o_jitter=false,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,enable_axi=0,feedback_source=FDBK_AUTO,PRIMITIVE=MMCM,num_out_clk=1,clkin1_period=10.000,clkin2_period=10.000,use_power_down=false,use_reset=false,use_locked=false,use_inclk_stopped=false,feedback_type=SINGLE,CLOCK_MGR_TYPE=NA,manual_override=false}" *)
 
-//----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
-sprite_rom your_instance_name (
-  .clka(clka),    // input wire clka
-  .addra(addra),  // input wire [14 : 0] addra
-  .douta(douta)  // output wire [7 : 0] douta
-);
-// INST_TAG_END ------ End INSTANTIATION Template ---------
+module gpu_clk 
+ (
+  // Clock out ports
+  output        clk148,
+ // Clock in ports
+  input         clk100
+ );
 
-// You must compile the wrapper file sprite_rom.v when simulating
-// the core, sprite_rom. When compiling the wrapper file, be sure to
-// reference the Verilog simulation library.
+  gpu_clk_clk_wiz inst
+  (
+  // Clock out ports  
+  .clk148(clk148),
+ // Clock in ports
+  .clk100(clk100)
+  );
 
+endmodule

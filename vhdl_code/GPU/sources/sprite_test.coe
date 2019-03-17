@@ -1,0 +1,11 @@
+;--CUE SETTINGS
+memory_initialization_radix=16;
+memory_initialization_vector=
+f0 f0 f0 f0 f0 f0 f0 f0
+f0 f0 f0 f0 f0 f0 f0 f0
+f0 f0 f0 f0 f0 f0 f0 f0
+f0 f0 f0 f0 f0 f0 f0 f0
+f0 f0 f0 f0 f0 f0 f0 f0
+f0 f0 f0 f0 f0 f0 f0 f0
+f0 f0 f0 f0 f0 f0 f0 f0
+f0 f0 f0 f0 f0 f0 f0 f0

@@ -38,9 +38,9 @@ entity GPU_TOP is
         sprite_data : in std_logic_vector(31 downto 0);
         sprite_register : in std_logic_vector(6 downto 0);
         write_sprite : in std_logic;
-        next_pixel : in std_logic;
-        pixel_data : out std_logic_vector(7 downto 0);
-        buffer_clear_out : out std_logic
+        vsync : out std_logic;
+        hsync : out std_logic;
+        vga_out : out std_logic_vector(11 downto 0)
     );
 end GPU_TOP;
 
@@ -63,19 +63,33 @@ architecture Behavioral of GPU_TOP is
 
     signal sprite_rom_data : std_logic_vector(7 downto 0);
     signal buffer_full : std_logic;
-    signal buffer_clear : std_logic;
     signal buffer_data : std_logic_vector(7 downto 0);
     signal sprite_rom_address : std_logic_vector(15 downto 0);
     signal buffer_enable_write : std_logic;
 
     signal buffer_error : std_logic;
+    signal buffer_clear : std_logic;
+    signal next_pixel : std_logic;
+    signal pixel_data : std_logic_vector(7 downto 0);
+    signal pixel_out : std_logic_vector(7 downto 0);
 
+    signal clk148 : std_logic;
+
+    component gpu_clk is
+        port(
+            clk100 : in std_logic;
+            clk148 : out std_logic
+        );
+    end component;
 begin
-    buffer_clear_out <= buffer_clear;
+    gpu_clk_1 : gpu_clk port map(
+        clk100 => clk,
+        clk148 => clk148
+    );
 
     OAM_1 : entity work.OAM(Behavioral)
     port map(
-        clk => clk,
+        clk => clk148,
         OAMReset => reset,
         OAMin => sprite_data,
         OAMwen => write_sprite,
@@ -87,7 +101,7 @@ begin
 
     ScanlineOAM_1 : entity work.ScanlineOAM(Behavioral)
     port map(
-        clk => clk,
+        clk => clk148,
 
         scanline => next_scanline,
         ENDscanline => isScanlineEnd,
@@ -102,7 +116,7 @@ begin
 
     SOAM_1 : entity work.SOAM(Behavioral)
     port map(
-        clk => clk,
+        clk => clk148,
 
         SOAMin => SOAM_data_in,
         SOAMpush => SOAM_push,
@@ -117,7 +131,7 @@ begin
 
     Renderer_1 : entity work.Renderer(Behavioral)
     port map(
-        clk => clk,
+        clk => clk148,
         SOAMData => SOAM_data_out,
         SpriteROMDatout => sprite_rom_data,
         bufferFull => buffer_full,
@@ -134,14 +148,14 @@ begin
 
     sprite_rom_wrapper : entity work.sprite_rom_wrapper(Behavioral)
     port map(
-        clk => clk,
+        clk => clk148,
         addra => sprite_rom_address,
         douta => sprite_rom_data
     );
 
     circular_buffer : entity work.circular_buffer(Behavioral)
     port map(
-        clk => clk,
+        clk => clk148,
 
         reset => reset,
         Ren => next_pixel,
@@ -154,6 +168,30 @@ begin
         Err => buffer_error,
         Full => buffer_full
     );
+
+    vga_1 : entity work.VGA(Behavioral)
+    port map(
+        pixel_clk => clk148,
+        pixel_data => pixel_data,
+        buffer_clear => buffer_clear,
+        pixel_out => pixel_out,
+        buffer_read => next_pixel,
+        hsync => hsync,
+        vsync => vsync
+    );
+
+    vga_out <=  pixel_out(7) &
+                pixel_out(7) &
+                pixel_out(6) &
+                pixel_out(5) &
+                pixel_out(4) &
+                pixel_out(4) &
+                pixel_out(3) &
+                pixel_out(2) &
+                pixel_out(1) &
+                pixel_out(0) &
+                pixel_out(0) &
+                pixel_out(0);
 end Behavioral;
 
 

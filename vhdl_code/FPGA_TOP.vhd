@@ -39,7 +39,9 @@ entity FPGA_TOP is
         mc_register_select : in std_logic;
 
         redOut, greenOut, blueOut : out  std_logic_vector(3 downto 0);
-        hsync, vsync : out  STD_LOGIC
+        hsync, vsync : out  STD_LOGIC;
+
+        sound_out : out std_logic
     );
 end FPGA_TOP;
 
@@ -53,6 +55,7 @@ architecture Behavioral of FPGA_TOP is
     signal update_y : std_logic;
     signal update_xy : std_logic;
     signal update_all : std_logic;
+    signal reset_bank : std_logic;
 
     signal start_music : std_logic;
     signal reset_APU : std_logic;
@@ -95,6 +98,7 @@ begin
         update_y => update_y,
         update_xy => update_xy,
         update_all => update_all,
+        reset_bank => reset_bank,
 
         start_music => start_music,
         reset_APU => reset_APU,
@@ -116,7 +120,8 @@ begin
         update_y => update_y,
         update_xy => update_xy,
         update_all => update_all,
-
+        reset_bank => reset_bank,
+        
         redOut => redOut,
         greenOut => greenOut,
         blueOut => blueOut,
@@ -124,6 +129,16 @@ begin
         vsync => vsync
     );
 
+    SYNTHESIZER_TOP_1 : entity work.SYNTHESIZER_TOP(Behavioral)
+    port map(
+        clk => clkOut,
+        start_music => start_music,
+        reset => reset_APU,
+        soundEffect => b"0000_0000",
+        startAddress => start_addres_APU,
+
+        sound_out => sound_out
+    );
 end Behavioral;
 
 

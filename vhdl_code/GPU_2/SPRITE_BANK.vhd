@@ -49,6 +49,7 @@ entity SPRITE_BANK is
         update_y : in std_logic;
         update_xy : in std_logic;
         update_all : in std_logic;
+        reset_bank : in std_logic;
 
         vpos : in std_logic_vector(9 downto 0);
         hpos : in std_logic_vector(9 downto 0);
@@ -109,6 +110,10 @@ begin
                 sprites_array(register_address_integer).y <= sprite_y;
                 sprites_array(register_address_integer).attrib <= sprite_attribute;
                 sprites_array(register_address_integer).number <= sprite_number;
+            end if;
+
+            if reset_bank = '1' then
+                sprites_array <= (others => initial_sprite);
             end if;
         end if;
     end process;

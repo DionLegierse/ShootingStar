@@ -20,6 +20,7 @@ entity COMMAND_PROCESSOR is
         update_y : out std_logic;
         update_xy : out std_logic;
         update_all : out std_logic;
+        reset_bank : out std_logic;
 -------------------------------------OUTPUTS_APU--------------------------------
         start_music : out std_logic;
         reset_APU : out std_logic;
@@ -75,6 +76,7 @@ begin
             update_y <= '0';
             update_xy <= '0';
             update_all <= '0';
+            reset_bank <= '0';
         end if;
 
         if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then
@@ -92,6 +94,8 @@ begin
                         update_xy <= '1';
                     when x"85" =>
                         update_all <= '1';
+                    when x"86" =>
+                        reset_bank <= '1';
                     when others => NULL;
                 end case;
             elsif mc_select_stable = '1' then

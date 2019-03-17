@@ -132,8 +132,8 @@ begin
                                     sprites_array(i).attrib &
                                     sprites_array(i).number;
 
-                    sprite_vpos <= hpos;
-                    sprite_hpos <= vpos;
+                    sprite_vpos <= vpos;
+                    sprite_hpos <= hpos;
                 end if;
             end loop;
         end if;

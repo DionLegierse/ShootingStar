@@ -9,6 +9,7 @@ entity COMMAND_PROCESSOR is
         mc_data : in std_logic_vector(7 downto 0);
         mc_clk : in std_logic;
         mc_register_select : in std_logic;
+        gpu_clk : in std_logic;
 -------------------------------------OUTPUTS_GPU--------------------------------
         x_loc_sprite : out std_logic_vector(8 downto 0);
         y_loc_sprite : out std_logic_vector(8 downto 0);
@@ -38,6 +39,8 @@ signal mc_clk_meta, mc_clk_stable_new, mc_clk_stable_old : std_logic;
 signal mc_select_meta, mc_select_stable : std_logic;
 signal mc_data_meta, mc_data_stable : std_logic_vector(7 downto 0);
 
+signal gpu_clk_meta, gpu_clk_stable_new, gpu_clk_stable_old : std_logic;
+
 begin
     SYNCHRONYSER : process(clk)
     begin
@@ -51,6 +54,10 @@ begin
 
             mc_data_meta <= mc_data;
             mc_data_stable <= mc_data_meta;
+
+            gpu_clk_meta <= gpu_clk;
+            gpu_clk_stable_new <= gpu_clk_meta;
+            gpu_clk_stable_old <= gpu_clk_stable_new;
         end if;
     end process;
 
@@ -62,10 +69,13 @@ begin
 
         start_music <= '0';
         reset_APU <= '0';
-        update_x <= '0';
-        update_y <= '0';
-        update_xy <= '0';
-        update_all <= '0';
+
+        if gpu_clk_stable_old = '0' and gpu_clk_stable_new = '1' then
+            update_x <= '0';
+            update_y <= '0';
+            update_xy <= '0';
+            update_all <= '0';
+        end if;
 
         if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then
             if (mc_data_stable(7) = '1') and mc_select_stable = '1' then

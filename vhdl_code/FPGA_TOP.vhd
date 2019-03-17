@@ -84,6 +84,7 @@ begin
         mc_data => mc_data,
         mc_clk => mc_clk,
         mc_register_select => mc_register_select,
+        gpu_clk => clk25,
 
         x_loc_sprite => x_loc_sprite,
         y_loc_sprite => y_loc_sprite,

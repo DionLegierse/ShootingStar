@@ -117,7 +117,7 @@ begin
         douta => pixel_data
     );
 
-    VGA_1 : entity work.VGA(Behavioral)
+    VGA_1 : entity work.VGA(Behavioral_2)
     port map(
         clk25 => clk,
         pixel => pixel_data,

@@ -12,8 +12,6 @@ ControllerInput::~ControllerInput()
 
 void ControllerInput::setupController()
 {
-    esp_err_t ret;
-
     i2c_config_t conf;
  
     conf.mode = I2C_MODE_MASTER;
@@ -26,13 +24,9 @@ void ControllerInput::setupController()
 
     conf.master.clk_speed = 5000;
 
-    ret = i2c_param_config(I2C_NUM_0, &conf);
-    if (ret != ESP_OK)
-	    printf("errorConfig: %s\n", esp_err_to_name(ret) );
+    i2c_param_config(I2C_NUM_0, &conf);
 
-    ret = i2c_driver_install(I2C_NUM_0, conf.mode, 0, 0, 0);
-    if (ret != ESP_OK)
-	    printf("errorInstall: %s\n", esp_err_to_name(ret) );    
+    i2c_driver_install(I2C_NUM_0, conf.mode, 0, 0, 0);
 }
 
 uint8_t ControllerInput::readControllerData()

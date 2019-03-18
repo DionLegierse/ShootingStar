@@ -31,9 +31,11 @@ void ConsoleInterface::setData(uint8_t aValue)
     temp = (aValue & 0x03); //select the first 2 bits
     output |= (temp * 0x10); //shift (8-4=4) positions
 
-    printf("%x\t", output);   //for debugging 
+    //printf("%x\t", output);   //for debugging 
 
     GPIO.out |= output;
+    
+    clockDelay();
 }
 
 void ConsoleInterface::setClock(bool clk)
@@ -41,7 +43,9 @@ void ConsoleInterface::setClock(bool clk)
     if (clk)
         GPIO.out |= 0b100; //write clk high
     else
-        GPIO.out &= 0b011; //write clk low
+        GPIO.out &= 0xFFFFFFFB; //write clk low
+
+    clockDelay();
 }
 
 void ConsoleInterface::setRegister(bool reg)
@@ -50,6 +54,8 @@ void ConsoleInterface::setRegister(bool reg)
         GPIO.out |= 0x8000000; //write reg high
     else
         GPIO.out &= 0x7FFFFFF; //write reg low
+
+    clockDelay();
 }
 
 void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
@@ -62,29 +68,31 @@ void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
 
     if (reg)
         GPIO.out &= 0x8000000; //write enable low
+    
+    clockDelay();
 }
 
 void ConsoleInterface::clockDelay() 
 {        
-    vTaskDelay(500/portTICK_PERIOD_MS);  
+    vTaskDelay(5/portTICK_PERIOD_MS);  //40 ns delay
 }
 
 void ConsoleInterface::writeDelay() 
 {        
-    vTaskDelay(1000/portTICK_PERIOD_MS);  
+    vTaskDelay(0.1/portTICK_PERIOD_MS);  
 }
 
 void ConsoleInterface::createNewSprite(uint8_t aSprAddress, uint8_t aRegAddress, uint8_t aPosX, uint8_t aPosY)
 {    
-    //create a new sprite
+    
 }
 
-void ConsoleInterface::updateSpriteCoord(uint8_t aSprAddress, uint8_t aPosX, uint8_t aPosY)
+void ConsoleInterface::updateSpriteCoord(uint8_t aRegAddress, uint8_t aPosX, uint8_t aPosY)
 {    
     //update existing sprite coord
 }
 
-void ConsoleInterface::deleteSprite(uint8_t aSprAddress)
+void ConsoleInterface::deleteSprite(uint8_t aRegAddress)
 {    
     //deletes an sprite
 }

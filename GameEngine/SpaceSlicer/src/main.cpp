@@ -26,16 +26,41 @@ extern "C" {
 }
  
 void doTask(void *pvParameter)
-{			
+{		
+    vTaskDelay(100/portTICK_PERIOD_MS);  //40 ns delay
+
 	ConsoleInterface CI;
 
-	CI.setData(0x01);
-	CI.clockDelay();
-	CI.setData(0x80);
-	CI.clockDelay();
-	CI.clockDelay();
+	//aanmaken register
+    CI.setRegister(true);
+    CI.setData(0x85);
+    CI.setClock(true);
 
-	CI.resetOutput(true, true, true);
+    CI.setClock(false);   
+	CI.setRegister(false);
+	CI.setData(0);
+
+
+	for(uint8_t i = 0; i < 128; i++)
+	{
+		//movedieshit
+		CI.setRegister(true);
+		CI.setData(0x02);
+		CI.setClock(true);
+		CI.setClock(false);	
+		CI.setRegister(false);
+
+		//update x
+		CI.setData(i);
+		CI.setClock(true);
+		CI.setClock(false);
+
+		CI.setRegister(true);
+		CI.setData(0x85);
+		CI.setClock(true);
+		CI.setClock(false);
+		CI.setRegister(false);
+	}	
 }
 
 void app_main(void)

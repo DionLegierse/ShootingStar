@@ -14,24 +14,25 @@ public:
     //void loadSpriteOntoFPGA();
     //void setAddressAndSize(int, int);
 
-//gpio handling
+//Object handling
 public:
+    void createNewObject(uint8_t, uint8_t);
+    void updateObjectCoord(uint8_t, uint16_t, uint16_t);
+    void deleteObject(uint8_t);
+
+//gpio handling
+private:
     void setClock(bool);
+    void clockIn();
+    
     void setRegister(bool);
     void resetOutput(bool, bool, bool);
     void setData(uint8_t);
-    void writeCommand(uint8_t, uint8_t);
 
-//Sprite handling
-public:
-    void createNewSprite(uint8_t, uint8_t, uint8_t, uint8_t);
-    void updateSpriteCoord(uint8_t, uint8_t, uint8_t);
-    void deleteSprite(uint8_t);
+private:
+    void writeToRegister(uint8_t, uint8_t);
+    void writeToGPU(uint8_t);
 
-//delays
-public:
-    void clockDelay();
-    void writeDelay();    
 
 //delay constants
 private:

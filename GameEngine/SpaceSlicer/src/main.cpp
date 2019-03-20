@@ -20,6 +20,7 @@
 
 //costum
 #include "ConsoleInterface.h"
+#include <cmath>
 
 extern "C" {
 	void app_main(void);
@@ -27,40 +28,47 @@ extern "C" {
  
 void doTask(void *pvParameter)
 {		
-    vTaskDelay(100/portTICK_PERIOD_MS);  //40 ns delay
+    vTaskDelay(100/portTICK_PERIOD_MS); 
 
 	ConsoleInterface CI;
 
-	//aanmaken register
-    CI.setRegister(true);
-    CI.setData(0x85);
-    CI.setClock(true);
+	const uint8_t spr1 = 0; 
+	const uint8_t spr2 = 1;
 
-    CI.setClock(false);   
-	CI.setRegister(false);
-	CI.setData(0);
-
-
-	for(uint8_t i = 0; i < 128; i++)
+	for(size_t i = 0; i < 17; i++)
 	{
-		//movedieshit
-		CI.setRegister(true);
-		CI.setData(0x02);
-		CI.setClock(true);
-		CI.setClock(false);	
-		CI.setRegister(false);
+		CI.createNewObject(spr1, i);
+	}
+	
+	
+	
+	for (;;)
+		for (uint16_t x = 0; x < 512; x++)
+		{
+			CI.updateObjectCoord(0, x+0, x+0);
+			CI.updateObjectCoord(1, x, x+16);
+			CI.updateObjectCoord(2, x, x+24);
+			CI.updateObjectCoord(3, x, x+32);
+			
+			CI.updateObjectCoord(4, x+8, x+0);
+			CI.updateObjectCoord(5, x+8, x+16);
+			
+			CI.updateObjectCoord(6, x+16, x+0);
+			CI.updateObjectCoord(7, x+16, x+8);
+			CI.updateObjectCoord(8, x+16, x+16);
+			CI.updateObjectCoord(9, x+16, x+24);
+			CI.updateObjectCoord(10, x+16, x+32);
+			
+			CI.updateObjectCoord(11, x+24, x+16);
+			CI.updateObjectCoord(12, x+24, x+32);
 
-		//update x
-		CI.setData(i);
-		CI.setClock(true);
-		CI.setClock(false);
-
-		CI.setRegister(true);
-		CI.setData(0x85);
-		CI.setClock(true);
-		CI.setClock(false);
-		CI.setRegister(false);
-	}	
+			CI.updateObjectCoord(13, x+32, x+0);
+			CI.updateObjectCoord(14, x+32, x+8);
+			CI.updateObjectCoord(15, x+32, x+16);
+			CI.updateObjectCoord(16, x+32, x+32);
+			
+			vTaskDelay(1/portTICK_PERIOD_MS);  
+		}
 }
 
 void app_main(void)

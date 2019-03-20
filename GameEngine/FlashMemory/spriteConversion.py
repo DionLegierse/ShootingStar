@@ -1,28 +1,68 @@
 import sys
+import os
 from array import *
 from PIL import Image
 
-bites = array('B')
+IMG_WIDTH = 8
+IMG_HEIGHT = 8
+IMG_SIZE = 64
 
+f = open("spriteData.coe", 'w')
 
 def write_to_bin(filename):
-    print(filename)
-    file = Image.open(filename + ".png")
 
+    print(filename)
+    file = Image.open(filename)
     datalist = list(file.getdata())
 
-    for n in range(0, 64):
-        bites.append(datalist[n])
+    r = bytearray(IMG_SIZE)
+    g = bytearray(IMG_SIZE)
+    b = bytearray(IMG_SIZE)
+    byte = bytearray(IMG_SIZE)
+
+    for n in range(0, IMG_SIZE):
+        r[n] = datalist[n][0]
+        g[n] = datalist[n][1]
+        b[n] = datalist[n][2]
+        byte[n] = 0
+
+    for n in range(0, IMG_SIZE):
+        r[n] = int(float(r[n]) / 255 * 7)
+        g[n] = int(float(g[n]) / 255 * 7)
+        b[n] = int(float(b[n]) / 255 * 3)
+
+    for n in range(0, IMG_SIZE):
+        byte[n] = byte[n] | (r[n] << 5)
+        byte[n] = byte[n] | (g[n] << 2)
+        byte[n] = byte[n] | (b[n]     )
+
+    f.write("\n")
+    for n in range(0, IMG_SIZE):
+        if (n % 8 == 0 and n != 0):
+            f.write("\n")
+        f.write( ("{:02X}").format(byte[n]) + " " )
 
 
-write_to_bin("SpaceShip 1")
-write_to_bin("SpaceShip 2")
-write_to_bin("SpaceShip 3")
-write_to_bin("SpaceShip 4")
 
-with open("spriteData.bin", 'wb') as f:
-    f.write(bites)
+
+count = 0
+
+filelist=os.listdir('images')
+for fichier in filelist[:]: # filelist[:] makes a copy of filelist.
+    if fichier.endswith(".png"):
+        count = count + 1
+
+f.write("; SpriteData\n")
+f.write("; .COE file with hex coefficients\n")
+f.write("; Height: " + str(8*count) + ", Width: " + str(IMG_WIDTH) + "\n")
+f.write("\n")
+f.write("memory_initialization_radix=" + "8" + ";\n")
+f.write("memory_initialization_vector=\n")
+
+filelist=os.listdir('images')
+for fichier in filelist[:]: # filelist[:] makes a copy of filelist.
+    if fichier.endswith(".png"):
+        write_to_bin("images/" + fichier)
 
 print(sys.version)
 print()
-

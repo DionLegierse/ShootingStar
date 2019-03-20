@@ -10,9 +10,23 @@ ConsoleInterface::~ConsoleInterface()
 
 }
 
-void ConsoleInterface::writeCommand(uint8_t aValue, uint8_t data)
-{
-    //command shit
+void ConsoleInterface::writeToRegister(uint8_t aReg, uint8_t aData)
+{ 
+    setRegister(true);
+    setData(aReg);    
+    clockIn();
+    setRegister(false);
+
+    setData(aData);
+    clockIn();
+}
+
+void ConsoleInterface::writeToGPU(uint8_t aCommand)
+{    
+    setRegister(true);
+    setData(aCommand);
+    clockIn();
+    setRegister(false);
 }
 
 void ConsoleInterface::setData(uint8_t aValue)
@@ -34,8 +48,6 @@ void ConsoleInterface::setData(uint8_t aValue)
     //printf("%x\t", output);   //for debugging 
 
     GPIO.out |= output;
-    
-    clockDelay();
 }
 
 void ConsoleInterface::setClock(bool clk)
@@ -44,8 +56,6 @@ void ConsoleInterface::setClock(bool clk)
         GPIO.out |= 0b100; //write clk high
     else
         GPIO.out &= 0xFFFFFFFB; //write clk low
-
-    clockDelay();
 }
 
 void ConsoleInterface::setRegister(bool reg)
@@ -53,9 +63,7 @@ void ConsoleInterface::setRegister(bool reg)
     if (reg)
         GPIO.out |= 0x8000000; //write reg high
     else
-        GPIO.out &= 0x7FFFFFF; //write reg low
-
-    clockDelay();
+        GPIO.out &= 0x7FFFFFF; //write reg lo
 }
 
 void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
@@ -68,31 +76,48 @@ void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
 
     if (reg)
         GPIO.out &= 0x8000000; //write enable low
-    
-    clockDelay();
 }
 
-void ConsoleInterface::clockDelay() 
-{        
-    vTaskDelay(5/portTICK_PERIOD_MS);  //40 ns delay
-}
-
-void ConsoleInterface::writeDelay() 
-{        
-    vTaskDelay(0.1/portTICK_PERIOD_MS);  
-}
-
-void ConsoleInterface::createNewSprite(uint8_t aSprAddress, uint8_t aRegAddress, uint8_t aPosX, uint8_t aPosY)
+void ConsoleInterface::createNewObject(uint8_t aSprAddress, uint8_t aRegAddress)
 {    
+    writeToRegister(0x08, aRegAddress);
+    writeToRegister(0x06, aSprAddress);
+///////////SET THE X VALUES////////////
+    writeToRegister(0x02, 0xFF);
+    writeToRegister(0x03, 0xFF);
+///////////SET THE Y VALUES////////////
+    writeToRegister(0x04, 0xFF);
+    writeToRegister(0x05, 0xFF);
+///////////CLOCK THAT SHIT////////////
+    writeToGPU(0x85);
+}
+
+void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, uint16_t aPosX, uint16_t aPosY)
+{   
+    uint8_t LSBX = (uint8_t)(aPosX);
+    uint8_t MSBX = (uint8_t)(aPosX >> 8);
+
+    uint8_t LSBY = (uint8_t)(aPosY);
+    uint8_t MSBY = (uint8_t)(aPosY >> 8);
     
+    writeToRegister(0x08, aRegAddress);
+///////////SET THE X VALUES////////////
+    writeToRegister(0x02, LSBX);
+    writeToRegister(0x03, MSBX);
+///////////SET THE Y VALUES////////////
+    writeToRegister(0x04, LSBY);
+    writeToRegister(0x05, MSBY);
+///////////CLOCK THAT SHIT////////////
+    writeToGPU(0x84);
 }
 
-void ConsoleInterface::updateSpriteCoord(uint8_t aRegAddress, uint8_t aPosX, uint8_t aPosY)
-{    
-    //update existing sprite coord
-}
-
-void ConsoleInterface::deleteSprite(uint8_t aRegAddress)
+void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
     //deletes an sprite
+}
+
+void ConsoleInterface::clockIn()
+{
+    setClock(true);
+    setClock(false);    
 }

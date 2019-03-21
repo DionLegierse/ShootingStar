@@ -7,7 +7,7 @@ class Player : public Entity
 // Constructors/destructors
 public:
             Player();
-            Player(int, Vector2);
+            Player(int, Vector2, int);
             ~Player();
 
 // Movement methods
@@ -35,4 +35,7 @@ private:
 // Fuel variables
 private:
     int     _fuel;
+
+private:
+    int     _index;
 };

@@ -2,9 +2,15 @@
 
 //>-----------{ Contructors/destructor }-----------<<
 
-Bloop::Bloop (int aSpeed, Vector2 aDirection) : NPC (aSpeed, aDirection) {}
+Bloop::Bloop ()
+{
+    this->_type = ENT_BLOOP;
+}
 
-Bloop::Bloop () {}
+Bloop::Bloop (int aSpeed, Vector2 aDirection) : NPC (aSpeed, aDirection)
+{
+    this->_type = ENT_BLOOP;
+}
 
 Bloop::~Bloop () {}
 

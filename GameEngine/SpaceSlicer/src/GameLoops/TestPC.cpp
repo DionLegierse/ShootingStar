@@ -9,8 +9,11 @@ void TestPC::setup()
 {
     printf("I HAVE COMMENCED\n");
     this->_collision = new CollisionHandler(this);
-    this->_playerOne = new Player(0, {1, 0});
+    this->_playerOne = new Player(0, {5, 0}, 1);
+    this->_playerTwo = new Player(0, {5, 10}, 2);
     this->_astroidList = new EntityList();
+    this->_bloopList = new EntityList();
+    this->_fuelList = new EntityList();
 
     this->_astroidList->insert(new Astroid(1, {-1, 0}, {18, 0}));
 }

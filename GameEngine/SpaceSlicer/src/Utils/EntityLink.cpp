@@ -8,7 +8,10 @@ EntityLink::EntityLink(Entity* aEntity, EntityLink* aNext)
     this->_nextEntity   = aNext;
 }
 
-EntityLink::~EntityLink() {}
+EntityLink::~EntityLink()
+{
+    delete this->_entity;
+}
 
 void EntityLink::setEntity(Entity* aEntity) { this->_entity = aEntity; }
 Entity* EntityLink::getEntity() { return this->_entity; }

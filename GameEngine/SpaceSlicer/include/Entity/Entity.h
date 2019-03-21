@@ -1,6 +1,11 @@
 #pragma once
 #include "Utils/Vector2.h"
 
+#define ENT_ASTROID 0
+#define ENT_BLOOP   1
+#define ENT_FUEL    2
+#define ENT_PLAYER  3
+
 
 class Entity
 {
@@ -28,6 +33,10 @@ public:
 public:
     virtual void    move();
 
+// Type methods
+public:
+    uint8_t         getType();
+
 // Movement variables
 protected:
     Vector2         _position;
@@ -42,4 +51,8 @@ protected:
 private:
     int             _spriteAddr;
     int             _spriteSize;
+
+// Entity type
+protected:
+    uint8_t         _type;
 };

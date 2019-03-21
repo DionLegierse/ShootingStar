@@ -47,3 +47,8 @@ int Entity::getColliderRadius ()
 }
 
 void Entity::move() {}
+
+uint8_t Entity::getType()
+{
+    return this->_type;
+}

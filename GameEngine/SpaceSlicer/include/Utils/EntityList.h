@@ -9,8 +9,7 @@ public:
 
 public:
     void        insert(Entity*);
-    void        removeFirst();
-    void        removeLink(EntityLink*);
+    void        remove(Entity*);
     EntityLink* getFirst();
     bool        isEmpty();
 

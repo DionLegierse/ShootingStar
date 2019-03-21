@@ -2,9 +2,15 @@
 
 //>-----------{ Contructors/destructor }-----------<<
 
-Fuel::Fuel (int aSpeed, Vector2 aDirection) : NPC (aSpeed, aDirection) {}
+Fuel::Fuel ()
+{
+    this->_type = ENT_FUEL;
+}
 
-Fuel::Fuel () {}
+Fuel::Fuel (int aSpeed, Vector2 aDirection) : NPC (aSpeed, aDirection)
+{
+    this->_type = ENT_FUEL;
+}
 
 Fuel::~Fuel () {}
 

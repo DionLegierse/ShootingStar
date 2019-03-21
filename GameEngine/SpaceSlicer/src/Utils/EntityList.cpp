@@ -8,35 +8,26 @@ void EntityList::insert(Entity* aEntity)
     this->_firstLink = new EntityLink(aEntity, this->_firstLink);
 }
 
-void EntityList::removeFirst()
-{
-    if (this->_firstLink != nullptr)
-    {
-        EntityLink* tempLink = this->_firstLink;
-        this->_firstLink = tempLink->getNext();
-        delete tempLink;
-    }
-}
-
-void EntityList::removeLink(EntityLink* aLink)
+void EntityList::remove(Entity* aEntity)
 {
     EntityLink* curLink = this->_firstLink;
     EntityLink* prevLink = nullptr;
 
     while (curLink != nullptr)
     {
-        if (curLink == aLink)
+        if (curLink->getEntity() == aEntity)
         {
-            if (curLink == this->_firstLink)
+            if (prevLink == nullptr)
                 this->_firstLink = curLink->getNext();
             else
                 prevLink->setNext(curLink->getNext());
 
-            delete curLink;            
+            delete curLink;
+            return;
         }
 
         prevLink = curLink;
-        curLink = curLink->getNext();
+        curLink->getNext();
     }
 }
 

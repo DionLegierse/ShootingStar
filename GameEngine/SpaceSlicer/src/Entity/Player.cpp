@@ -2,11 +2,16 @@
 
 //>-----------{ Constructors/destructors }-----------<
 
-Player::Player () {}
+Player::Player ()
+{
+    this->_type = ENT_PLAYER;
+}
 
-Player::Player (int aSpeed, Vector2 aPosition) : Entity (aSpeed, aPosition)
+Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPosition)
 {
     this->_colliderRadius = 2;
+    this->_index = aIndex;
+    this->_type = ENT_PLAYER;
 }
 
 Player::~Player () {}

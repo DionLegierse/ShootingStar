@@ -39,7 +39,7 @@ architecture Behavioral_2 of VGA is
   constant V_pixels: integer := 480;			--vertical display width in rows
   constant V_frontporch: integer := 10;			--vertical front porch width in rows
   constant V_syncwidth: integer := 2;			--vertical sync pulse width in rows
-  constant V_backporch: integer := 33;			--vertical back porch width in rows
+  constant V_backporch: integer := 29;			--vertical back porch width in rows
   constant V_total_pixels: integer := (V_pixels + V_frontporch + V_syncwidth + V_backporch);
   constant V_sync_polarity: STD_LOGIC := '1';	--vertical sync pulse polarity (1 = positive, 0 = negative)
 

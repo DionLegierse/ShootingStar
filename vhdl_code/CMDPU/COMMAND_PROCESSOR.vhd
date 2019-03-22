@@ -36,7 +36,7 @@ signal controllerState : controller_states := SET_ADDRESS;
 
 signal address : std_logic_vector(7 downto 0);
 
-signal mc_clk_meta, mc_clk_stable_new, mc_clk_stable_old : std_logic;
+signal mc_clk_meta, mc_clk_stable : std_logic;
 signal mc_select_meta, mc_select_stable : std_logic;
 signal mc_data_meta, mc_data_stable : std_logic_vector(7 downto 0);
 
@@ -47,8 +47,7 @@ begin
     begin
         if rising_edge(clk) then
             mc_clk_meta <= mc_clk;
-            mc_clk_stable_new <= mc_clk_meta;
-            mc_clk_stable_old <= mc_clk_stable_new;
+            mc_clk_stable <= mc_clk_meta;
 
             mc_select_meta <= mc_register_select;
             mc_select_stable <= mc_select_meta;
@@ -79,7 +78,7 @@ begin
             reset_bank <= '0';
         end if;
 
-        if mc_clk_stable_old = '0' and mc_clk_stable_new = '1' then
+        if mc_clk_stable = '1' then
             if (mc_data_stable(7) = '1') and mc_select_stable = '1' then
                 case (mc_data_stable) is
                     when x"80" =>

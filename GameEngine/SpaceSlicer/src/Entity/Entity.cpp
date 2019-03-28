@@ -7,12 +7,14 @@ Entity::Entity() {}
 Entity::Entity (int aSpeed)
 {
     this->_speed = aSpeed;
+    printf("AAA\n");
 }
 
 Entity::Entity (int aSpeed, Vector2 aPosition)
 {
     this->_speed = aSpeed;
     this->_position = aPosition;
+    printf("AAA\n");
 }
 
 Entity::~Entity() {}
@@ -33,6 +35,9 @@ void Entity::setPosition (Vector2 aPosition)
 
 bool Entity::checkCollision (Entity *aCollider)
 {
+    if (aCollider == this)
+        return false;
+
     int distance = this->_position.getDistance(aCollider->getPosition());
 
     if (distance > this->_colliderRadius + aCollider->getColliderRadius())
@@ -51,4 +56,13 @@ void Entity::move() {}
 uint8_t Entity::getType()
 {
     return this->_type;
+}
+
+void Entity::updateSprites()
+{
+    ConsoleInterface ci;
+    ci.updateObjectCoord(this->_spriteAddress[0], this->_position.getX(), this->_position.getY());
+    ci.updateObjectCoord(this->_spriteAddress[1], this->_position.getX() + 8, this->_position.getY());
+    ci.updateObjectCoord(this->_spriteAddress[2], this->_position.getX(), this->_position.getY() + 8);
+    ci.updateObjectCoord(this->_spriteAddress[3], this->_position.getX() + 8, this->_position.getY() + 8);
 }

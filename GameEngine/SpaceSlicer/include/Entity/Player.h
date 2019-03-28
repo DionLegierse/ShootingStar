@@ -28,6 +28,10 @@ public:
 public:
     void    collisionEvent()    override;
 
+// Sprite methods
+private:
+    void    createSprites()     override;
+
 // Laser variables
 private:
     bool    _isLaserEnable = false;

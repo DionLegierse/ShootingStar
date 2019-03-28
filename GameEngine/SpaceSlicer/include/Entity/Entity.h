@@ -1,5 +1,6 @@
 #pragma once
 #include "Utils/Vector2.h"
+#include "Utils/ConsoleInterface.h"
 
 #define ENT_ASTROID 0
 #define ENT_BLOOP   1
@@ -12,7 +13,7 @@ class Entity
 // Constructors/Destructor
 public:
                     Entity();
-                    ~Entity();
+    virtual         ~Entity();
 
 protected:
                     Entity(int);
@@ -37,6 +38,11 @@ public:
 public:
     uint8_t         getType();
 
+// Sprite methods
+protected:
+    virtual void    createSprites() = 0;
+    void            updateSprites();
+
 // Movement variables
 protected:
     Vector2         _position;
@@ -48,9 +54,8 @@ protected:
     int             _colliderTag;
 
 // Sprite variables
-private:
-    int             _spriteAddr;
-    int             _spriteSize;
+protected:
+    int             _spriteAddress[4];
 
 // Entity type
 protected:

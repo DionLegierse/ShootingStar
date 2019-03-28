@@ -15,3 +15,10 @@ NPC::NPC (int aSpeed, Vector2 aDirection, Vector2 aPosition) : Entity(aSpeed, aP
 }
 
 NPC::~NPC () {}
+
+//>-----------{ Movement methods }-----------<<
+
+void NPC::move ()
+{
+    this->_position += this->_direction * this->_speed;
+}

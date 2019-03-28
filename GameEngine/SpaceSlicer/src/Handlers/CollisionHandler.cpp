@@ -12,28 +12,33 @@ CollisionHandler::~CollisionHandler() {}
 void CollisionHandler::checkAllCollision()
 {
     checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(1), DEL_SECOND);
+    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(1), DEL_SECOND);
+    checkListCollision(LIST_FUEL, this->_gameLoop->getPlayer(1), DEL_SECOND);
     checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(2), DEL_SECOND);
+    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(2), DEL_SECOND);
+    checkListCollision(LIST_FUEL, this->_gameLoop->getPlayer(2), DEL_SECOND);
+
+    checkListLists(LIST_ASTROID);
+    checkListLists(LIST_BLOOP);
+    checkListLists(LIST_FUEL);
+}
+
+void CollisionHandler::checkListLists(uint8_t aList)
+{
+    EntityLink* curEntity = getList(aList);
+    
+    while (curEntity != nullptr)
+    {
+        checkListCollision(LIST_ASTROID, curEntity->getEntity(), DEL_BOTH);
+        checkListCollision(LIST_BLOOP, curEntity->getEntity(), DEL_BOTH);
+        checkListCollision(LIST_FUEL, curEntity->getEntity(), DEL_BOTH);
+        curEntity = curEntity->getNext();
+    }
 }
 
 void CollisionHandler::checkListCollision(uint8_t aList, Entity* aEntity, uint8_t aDelete)
 {
-    EntityLink* curEntity = nullptr;
-
-    switch (aList)
-    {
-        case LIST_ASTROID:
-            curEntity = this->_gameLoop->getAstroidList()->getFirst();
-            break;
-        case LIST_BLOOP:
-            curEntity = this->_gameLoop->getBloopList()->getFirst();
-            break;
-        case LIST_FUEL:
-            curEntity = this->_gameLoop->getFuelList()->getFirst();
-            break;
-
-        default:
-            break;
-    }
+    EntityLink* curEntity = getList(aList);
 
     while (curEntity != nullptr)
     {
@@ -87,5 +92,21 @@ void CollisionHandler::deleteEntity(Entity* aEntity)
 
         default:
             break;
+    }
+}
+
+EntityLink* CollisionHandler::getList(uint8_t aList)
+{
+    switch (aList)
+    {
+        case LIST_ASTROID:
+            return this->_gameLoop->getAstroidList()->getFirst();
+        case LIST_BLOOP:
+            return this->_gameLoop->getBloopList()->getFirst();
+        case LIST_FUEL:
+            return this->_gameLoop->getFuelList()->getFirst();
+
+        default:
+            return nullptr;
     }
 }

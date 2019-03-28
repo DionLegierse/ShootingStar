@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <cstdlib>
 
 #include "GameLoops/TestPC.h"
 
@@ -7,25 +8,27 @@ TestPC::~TestPC () {}
 
 void TestPC::setup()
 {
+    ConsoleInterface ci;
+    ci.freeAllObjects();
     printf("I HAVE COMMENCED\n");
     this->_collision = new CollisionHandler(this);
     this->_playerOne = new Player(0, {5, 0}, 1);
-    this->_playerTwo = new Player(0, {5, 10}, 2);
+    this->_playerTwo = new Player(0, {5, 40}, 2);
     this->_astroidList = new EntityList();
     this->_bloopList = new EntityList();
     this->_fuelList = new EntityList();
 
-    this->_astroidList->insert(new Astroid(1, {-1, 0}, {18, 0}));
+    for (int i = 0; i < 10; i++)
+        this->_astroidList->insert(new Astroid(2, {rand() % 5 - 5, rand() % 5 - 3}, {100, rand() % 400}));
 }
 
 void TestPC::loop()
 {
-    if (!this->_astroidList->isEmpty())
-    {
-        if (this->_astroidList->getFirst()->getEntity()->getPosition().getX() > -10)
-            updateNPC();
-        _collision->checkAllCollision();
-    }
+    // if (!this->_astroidList->isEmpty())
+    // {
+    //     updateNPC();
+    //     _collision->checkAllCollision();
+    // }
 }
 
 void TestPC::updateNPC()
@@ -35,6 +38,7 @@ void TestPC::updateNPC()
     while (curAst != nullptr)
     {
         curAst->getEntity()->move();
+        printf("%p: ", curAst->getEntity());
         curAst->getEntity()->getPosition().print();
         curAst = curAst->getNext();
     }

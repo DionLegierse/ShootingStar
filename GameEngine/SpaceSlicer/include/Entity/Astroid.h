@@ -13,10 +13,10 @@ public:
 private:
             Astroid();
 
-// Move methods
-public:
-    void    move() override;
-
 public:
     void    collisionEvent()    override;
+
+// Sprite methods
+private:
+    void    createSprites()     override;
 };

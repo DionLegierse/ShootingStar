@@ -12,6 +12,10 @@ public:
 protected:
             NPC();
 
+// Move methods
+public:
+    void    move() override;
+
 // Movement variables
 protected:
     Vector2 _direction;

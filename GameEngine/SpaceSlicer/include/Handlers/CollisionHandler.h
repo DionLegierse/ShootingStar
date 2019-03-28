@@ -24,8 +24,10 @@ public:
     void        checkAllCollision();
 
 private:
+    void        checkListLists(uint8_t);
     void        checkListCollision(uint8_t, Entity*, uint8_t);
     void        deleteEntity(Entity*);
+    EntityLink* getList(uint8_t);
 
 private:
     GameLoop*   _gameLoop;

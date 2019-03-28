@@ -1,10 +1,11 @@
 import sys
 
-print("\n")
+print("")
 print(sys.version)
-print("\n")
+print("")
 
 import os
+from array import array
 from PIL import Image
 
 IMG_WIDTH = 8
@@ -19,10 +20,10 @@ def write_to_bin(filename):
     file = Image.open(filename)
     datalist = list(file.getdata())
 
-    r = bytearray(IMG_SIZE)
-    g = bytearray(IMG_SIZE)
-    b = bytearray(IMG_SIZE)
-    byte = bytearray(IMG_SIZE)
+    r = bytearray()
+    g = bytearray()
+    b = bytearray()
+    byte = bytearray()
 
     for n in range(0, IMG_SIZE):
         r[n] = datalist[n][0]

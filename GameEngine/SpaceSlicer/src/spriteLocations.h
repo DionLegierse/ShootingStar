@@ -39,22 +39,22 @@
 #define SPR_NUM_9 35
 
 //OBJECTS
-#define SPR_P1_TR 36 //TR = Top Right
-#define SPR_P1_TL 37 //TL = Top Left
+#define SPR_P1_Tl 36 //TR = Top Right
+#define SPR_P1_TR 37 //TL = Top Left
 #define SPR_P1_BL 38 //BL = Bottom Left
 #define SPR_P1_BR 39 //BR = Bottom Right
 
-#define SPR_P2_TR 40 
-#define SPR_P2_TL 41
+#define SPR_P2_TL 40 
+#define SPR_P2_TR 41
 #define SPR_P2_BL 42
 #define SPR_P2_BR 43
 
-#define SPR_ASTROID_TR 48
-#define SPR_ASTROID_TL 49
-#define SPR_ASTROID_BL 50
-#define SPR_ASTROID_BR 51
+#define SPR_ASTROID_TL 44
+#define SPR_ASTROID_TR 45
+#define SPR_ASTROID_BL 46
+#define SPR_ASTROID_BR 47
 
-#define SPR_BLOOP_TR 48
-#define SPR_BLOOP_TL 49
+#define SPR_BLOOP_TL 48
+#define SPR_BLOOP_TR 49
 #define SPR_BLOOP_BL 50
 #define SPR_BLOOP_BR 51

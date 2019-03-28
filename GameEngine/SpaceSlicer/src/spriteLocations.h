@@ -39,8 +39,8 @@
 #define SPR_NUM_9 35
 
 //OBJECTS
-#define SPR_P1_Tl 36 //TR = Top Right
-#define SPR_P1_TR 37 //TL = Top Left
+#define SPR_P1_TL 36 //TR = Top Left
+#define SPR_P1_TR 37 //TL = Top Right
 #define SPR_P1_BL 38 //BL = Bottom Left
 #define SPR_P1_BR 39 //BR = Bottom Right
 

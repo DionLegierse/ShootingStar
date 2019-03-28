@@ -12,6 +12,8 @@
 
 #include "esp_system.h"
 
+enum INPUTS {UP, DOWN, LEFT, RIGHT, BUTTON_ONE, BUTTON_TWO, BUTTON_THREE};
+
 class ControllerInput
 {
 public:
@@ -23,15 +25,7 @@ public:
     uint8_t readControllerData();
 
 public:
-    bool getInput(BUTTON);
-    bool getUp();
-    bool getDown();
-    bool getLeft();
-    bool getRight();
-    bool getButton();
-
-public: 
-    enum BUTTON {UP, DOWN, LEFT, RIGHT, BUTTON_ONE, BUTTON_TWO, BUTTON_THREE};
+    bool getInput(INPUTS);
 
 private:
     int address = 0;

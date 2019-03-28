@@ -47,57 +47,25 @@ uint8_t ControllerInput::readControllerData()
     return temp;
 }
 
-bool ControllerInput::getInput(BUTTON but)
+bool ControllerInput::getInput(INPUTS but)
 {
     switch (but)
     {
         case UP:
-            break;
+            return !(readControllerData() & 0x10);
         case DOWN:
-            break;
+            return !(readControllerData() & 0x40);
         case LEFT:
-            break;
+            return !(readControllerData() & 0x80);
         case RIGHT:
-            break;
-    }
-    
-}
-bool ControllerInput::getUp()
-{   
-    if ((readControllerData() & 0x10))
-        return 0;
-    else 
-        return 1;
-}
-
-bool ControllerInput::getDown()
-{
-    if (readControllerData() & 0x40)
-        return 0;
-    else 
-        return 1;
-}
-
-bool ControllerInput::getLeft()
-{
-    if (readControllerData() & 0x80) 
-        return 0;
-    else 
-        return 1;
-}
-
-bool ControllerInput::getRight()
-{    
-    if (readControllerData() & 0x20)
-        return 0;
-    else 
-        return 1;
-}
-
-bool ControllerInput::getButton()
-{    
-    if (readControllerData() & 0x01)
-        return 0;
-    else 
-        return 1;
+            return !(readControllerData() & 0x20);
+        case BUTTON_ONE:
+            return !(readControllerData() & 0x01);
+        case BUTTON_TWO:
+            return !(readControllerData() & 0x02);
+        case BUTTON_THREE:
+            return !(readControllerData() & 0x04);
+        default:
+            return 0;
+    }    
 }

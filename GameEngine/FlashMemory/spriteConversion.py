@@ -1,6 +1,10 @@
 import sys
+
+print("\n")
+print(sys.version)
+print("\n")
+
 import os
-from array import *
 from PIL import Image
 
 IMG_WIDTH = 8
@@ -9,8 +13,8 @@ IMG_SIZE = 64
 
 f = open("spriteData.coe", 'w')
 
-def write_to_bin(filename):
 
+def write_to_bin(filename):
     print(filename)
     file = Image.open(filename)
     datalist = list(file.getdata())
@@ -34,35 +38,31 @@ def write_to_bin(filename):
     for n in range(0, IMG_SIZE):
         byte[n] = byte[n] | (r[n] << 5)
         byte[n] = byte[n] | (g[n] << 2)
-        byte[n] = byte[n] | (b[n]     )
+        byte[n] = byte[n] | (b[n])
 
     f.write("\n")
     for n in range(0, IMG_SIZE):
         if (n % 8 == 0 and n != 0):
             f.write("\n")
-        f.write( ("{:02X}").format(byte[n]) + " " )
-
-
+        f.write( "{:02X}".format(byte[n]) + " " )
 
 
 count = 0
 
 filelist=os.listdir('images')
-for fichier in filelist[:]: # filelist[:] makes a copy of filelist.
+for fichier in filelist[:]:
     if fichier.endswith(".png"):
         count = count + 1
 
 f.write("; SpriteData\n")
 f.write("; .COE file with hex coefficients\n")
-f.write("; Height: " + str(8*count) + ", Width: " + str(IMG_WIDTH) + "\n")
+f.write("; Height: " + str(16*count) + ", Width: " + str(IMG_WIDTH) + "\n")
 f.write("\n")
 f.write("memory_initialization_radix=" + "8" + ";\n")
 f.write("memory_initialization_vector=\n")
 
 filelist=os.listdir('images')
+
 for fichier in filelist[:]: # filelist[:] makes a copy of filelist.
     if fichier.endswith(".png"):
         write_to_bin("images/" + fichier)
-
-print(sys.version)
-print()

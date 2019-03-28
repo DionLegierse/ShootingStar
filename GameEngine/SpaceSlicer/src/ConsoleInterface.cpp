@@ -3,6 +3,12 @@
 ConsoleInterface::ConsoleInterface()
 {    
     GPIO.enable    |= 0x0E0F0034; //enable all needed outputs outputs
+
+    for(uint8_t i = 0; i < REG_AMOUNT; i++)
+    {
+        isAvailable[i] = true;
+    }
+    
 }
 
 ConsoleInterface::~ConsoleInterface()
@@ -43,9 +49,7 @@ void ConsoleInterface::setData(uint8_t aValue)
     output |= (temp * 0x4000); //shift (16-4=14) positions
 
     temp = (aValue & 0x03); //select the first 2 bits
-    output |= (temp * 0x10); //shift (8-4=4) positions
-
-    //printf("%x\t", output);   //for debugging 
+    output |= (temp * 0x10); //shift (8-4=4) positions 
 
     GPIO.out |= output;
 }
@@ -78,39 +82,70 @@ void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
         GPIO.out &= 0x8000000; //write enable low
 }
 
-void ConsoleInterface::createNewObject(uint8_t aSprAddress, uint8_t aRegAddress)
-{    
-    writeToRegister(0x08, aRegAddress);
-    writeToRegister(0x06, aSprAddress);
+/**
+ * @brief Creates a new object.
+ *
+ * @param aSprAddress address on the fpga.
+ *
+ * @return
+ *      Returns -1 when all the registers are used.
+ *      Returns the register address, this is needed if you want to update the position
+ *      of a object.
+ */
+int ConsoleInterface::createNewObject(uint8_t aSprAddress)
+{        
+///////////ASSIGN ID////////////
+    uint8_t temp = getFreeRegisterID();
+
+    if ( temp >= 128 || temp < 0 )
+        return -1;
+
+    writeToRegister(SPR_REG_LOC, temp);
+    writeToRegister(SPR_MEM_LOC_LSB, aSprAddress);
 ///////////SET THE X VALUES////////////
-    writeToRegister(0x02, 0xFF);
-    writeToRegister(0x03, 0xFF);
+    writeToRegister(POS_X_LSB, 0xFF);
+    writeToRegister(POS_X_MSB, 0xFF);
 ///////////SET THE Y VALUES////////////
-    writeToRegister(0x04, 0xFF);
-    writeToRegister(0x05, 0xFF);
-///////////CLOCK THAT SHIT////////////
-    writeToGPU(0x85);
+    writeToRegister(POS_Y_LSB, 0xFF);
+    writeToRegister(POS_Y_MSB, 0xFF);
+///////////CLOCK THAT SHIT/////////////
+    writeToGPU(UPDATE_SPR);
+
+    return temp;
 }
 
+/**
+ * @brief Updates the position of a register.
+ * 
+ * @param aRegAddress The register address you got from the createNewObject function.
+ * @param aPosX the X position you want to set.
+ * @param aPosY the Y position you want to set.
+ */
 void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, uint16_t aPosX, uint16_t aPosY)
 {   
+///////////SPLIT uint16_t//////////////
     uint8_t LSBX = (uint8_t)(aPosX);
     uint8_t MSBX = (uint8_t)(aPosX >> 8);
 
     uint8_t LSBY = (uint8_t)(aPosY);
     uint8_t MSBY = (uint8_t)(aPosY >> 8);
     
-    writeToRegister(0x08, aRegAddress);
+    writeToRegister(SPR_REG_LOC, aRegAddress);
 ///////////SET THE X VALUES////////////
-    writeToRegister(0x02, LSBX);
-    writeToRegister(0x03, MSBX);
+    writeToRegister(POS_X_LSB, LSBX);
+    writeToRegister(POS_X_MSB, MSBX);
 ///////////SET THE Y VALUES////////////
-    writeToRegister(0x04, LSBY);
-    writeToRegister(0x05, MSBY);
-///////////CLOCK THAT SHIT////////////
-    writeToGPU(0x84);
+    writeToRegister(POS_Y_LSB, LSBY);
+    writeToRegister(POS_Y_MSB, MSBY);
+///////////CLOCK THAT SHIT/////////////
+    writeToGPU(UPDATE_XY);
 }
 
+/**
+ * @brief deletes an object.
+ *
+ *      Function might not be needed
+ */
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
     //deletes an sprite
@@ -120,4 +155,35 @@ void ConsoleInterface::clockIn()
 {
     setClock(true);
     setClock(false);    
+}
+
+
+uint8_t ConsoleInterface::getFreeRegisterID()
+{
+    bool flag = true;
+    int cnt = 0;
+
+    while (flag)
+    {
+        if (cnt >= 128)
+        {
+            return -1;
+        }
+        else if ( isAvailable[cnt] )
+        {
+            isAvailable[cnt] = false;
+            return cnt;
+        }        
+        cnt++;
+    }
+
+    return -1;
+}
+
+void ConsoleInterface::clearAllRegisters()
+{
+    for(uint8_t i = 0; i < REG_AMOUNT; i++)
+    {
+        isAvailable[i] = true;
+    } 
 }

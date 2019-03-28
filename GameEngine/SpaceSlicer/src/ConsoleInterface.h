@@ -39,6 +39,7 @@ public:
     int createNewObject(uint8_t);
     void updateObjectCoord(uint8_t, uint16_t, uint16_t);
     void deleteObject(uint8_t);
+    void freeAllObjects();
 
 //gpio handling
 private:

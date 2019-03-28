@@ -2,13 +2,7 @@
 
 ConsoleInterface::ConsoleInterface()
 {    
-    GPIO.enable    |= 0x0E0F0034; //enable all needed outputs outputs
-
-    for(uint8_t i = 0; i < REG_AMOUNT; i++)
-    {
-        isAvailable[i] = true;
-    }
-    
+    GPIO.enable    |= 0x0E0F0034; //enable all needed outputs outputs    
 }
 
 ConsoleInterface::~ConsoleInterface()
@@ -148,7 +142,7 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, uint16_t aPosX, ui
  */
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
-    //deletes an sprite
+    isAvailable[aRegAddress] = false;
 }
 
 void ConsoleInterface::clockIn()
@@ -181,9 +175,15 @@ uint8_t ConsoleInterface::getFreeRegisterID()
 }
 
 void ConsoleInterface::clearAllRegisters()
+{ 
+}
+
+void ConsoleInterface::freeAllObjects()
 {
     for(uint8_t i = 0; i < REG_AMOUNT; i++)
     {
         isAvailable[i] = true;
-    } 
+    }
+
+    writeToGPU(RESET_APU);
 }

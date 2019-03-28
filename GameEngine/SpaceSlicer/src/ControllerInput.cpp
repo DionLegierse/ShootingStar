@@ -47,6 +47,21 @@ uint8_t ControllerInput::readControllerData()
     return temp;
 }
 
+bool ControllerInput::getInput(BUTTON but)
+{
+    switch (but)
+    {
+        case UP:
+            break;
+        case DOWN:
+            break;
+        case LEFT:
+            break;
+        case RIGHT:
+            break;
+    }
+    
+}
 bool ControllerInput::getUp()
 {   
     if ((readControllerData() & 0x10))

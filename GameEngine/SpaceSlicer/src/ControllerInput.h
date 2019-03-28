@@ -23,11 +23,15 @@ public:
     uint8_t readControllerData();
 
 public:
+    bool getInput(BUTTON);
     bool getUp();
     bool getDown();
     bool getLeft();
     bool getRight();
     bool getButton();
+
+public: 
+    enum BUTTON {UP, DOWN, LEFT, RIGHT, BUTTON_ONE, BUTTON_TWO, BUTTON_THREE};
 
 private:
     int address = 0;

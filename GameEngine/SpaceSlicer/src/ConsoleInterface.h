@@ -61,5 +61,5 @@ private:
 
 //delay constants
 private:
-    bool isAvailable[128];
+    static bool isAvailable[128];
 };

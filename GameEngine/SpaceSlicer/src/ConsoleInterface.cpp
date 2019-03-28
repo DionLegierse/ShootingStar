@@ -1,5 +1,7 @@
 #include "ConsoleInterface.h"
 
+bool ConsoleInterface::isAvailable[128];
+
 ConsoleInterface::ConsoleInterface()
 {    
     GPIO.enable    |= 0x0E0F0034; //enable all needed outputs outputs    
@@ -142,7 +144,7 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, uint16_t aPosX, ui
  */
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
-    isAvailable[aRegAddress] = false;
+    ConsoleInterface::isAvailable[aRegAddress] = false;
 }
 
 void ConsoleInterface::clockIn()
@@ -163,9 +165,9 @@ uint8_t ConsoleInterface::getFreeRegisterID()
         {
             return -1;
         }
-        else if ( isAvailable[cnt] )
+        else if ( ConsoleInterface::isAvailable[cnt] )
         {
-            isAvailable[cnt] = false;
+            ConsoleInterface::isAvailable[cnt] = false;
             return cnt;
         }        
         cnt++;
@@ -182,7 +184,7 @@ void ConsoleInterface::freeAllObjects()
 {
     for(uint8_t i = 0; i < REG_AMOUNT; i++)
     {
-        isAvailable[i] = true;
+        ConsoleInterface::isAvailable[i] = true;
     }
 
     writeToGPU(RESET_APU);

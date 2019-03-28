@@ -5,6 +5,7 @@ print(sys.version)
 print("")
 
 import os
+import numpy as np
 from array import array
 from PIL import Image
 
@@ -20,10 +21,10 @@ def write_to_bin(filename):
     file = Image.open(filename)
     datalist = list(file.getdata())
 
-    r = bytearray()
-    g = bytearray()
-    b = bytearray()
-    byte = bytearray()
+    r = bytearray(IMG_SIZE)
+    g = bytearray(IMG_SIZE)
+    b = bytearray(IMG_SIZE)
+    byte = bytearray(IMG_SIZE)
 
     for n in range(0, IMG_SIZE):
         r[n] = datalist[n][0]
@@ -59,7 +60,7 @@ f.write("; SpriteData\n")
 f.write("; .COE file with hex coefficients\n")
 f.write("; Height: " + str(16*count) + ", Width: " + str(IMG_WIDTH) + "\n")
 f.write("\n")
-f.write("memory_initialization_radix=" + "8" + ";\n")
+f.write("memory_initialization_radix=" + "16" + ";\n")
 f.write("memory_initialization_vector=\n")
 
 filelist=os.listdir('images')

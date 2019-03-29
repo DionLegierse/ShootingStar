@@ -8,7 +8,6 @@
 #include "freertos/task.h"
 
 #include "GameLoops/TestPC.h"
-#include "GameLoops/TestProcessing.h"
 
 void createMainTask();
 void mainTask(void*);
@@ -36,7 +35,6 @@ void createMainTask()
 void mainTask(void* vParam)
 {
 	TestPC *test = new TestPC();
-	// TestProcessing * test = new TestProcessing;
 
 	test->setup();
 

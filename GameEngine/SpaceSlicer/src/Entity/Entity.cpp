@@ -7,14 +7,12 @@ Entity::Entity() {}
 Entity::Entity (int aSpeed)
 {
     this->_speed = aSpeed;
-    printf("AAA\n");
 }
 
 Entity::Entity (int aSpeed, Vector2 aPosition)
 {
     this->_speed = aSpeed;
     this->_position = aPosition;
-    printf("AAA\n");
 }
 
 Entity::~Entity() {}

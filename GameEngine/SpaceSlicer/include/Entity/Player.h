@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Handlers/ControllerInput.h"
 
 #include <stdio.h>
 
@@ -42,4 +43,7 @@ private:
 
 private:
     int     _index;
+
+private:
+    ControllerInput*    _conIn  = nullptr;
 };

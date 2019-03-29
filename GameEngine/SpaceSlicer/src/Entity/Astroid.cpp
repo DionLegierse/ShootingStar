@@ -21,7 +21,7 @@ Astroid::~Astroid () {}
 
 void Astroid::collisionEvent()
 {
-    printf("%p: Astroid exploded!\n", this);
+
 }
 
 void Astroid::createSprites()

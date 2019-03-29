@@ -5,6 +5,14 @@
 Player::Player ()
 {
     this->_type = ENT_PLAYER;
+
+    if (this->_index == 1)
+        this->_conIn = new ControllerInput(0x20);
+    else if (this->_index == 2)
+        this->_conIn = new ControllerInput(0x27);
+
+    this->_conIn->setupController();
+
     createSprites();
     updateSprites();
 }
@@ -14,6 +22,14 @@ Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPo
     this->_colliderRadius = 2;
     this->_index = aIndex;
     this->_type = ENT_PLAYER;
+
+    if (this->_index == 1)
+        this->_conIn = new ControllerInput(0x20);
+    else if (this->_index == 2)
+        this->_conIn = new ControllerInput(0x27);
+
+    this->_conIn->setupController();
+
     createSprites();
     updateSprites();
 }
@@ -25,7 +41,45 @@ Player::~Player () {}
 
 void Player::move ()
 {
+    ControllerInput::STICK stick = this->_conIn->getStick();
 
+    switch (stick)
+    {
+        case ControllerInput::UP:
+            this->_position += {0, -this->_speed};
+            updateSprites();
+            break;
+        case ControllerInput::UPRIGHT:
+            this->_position += {this->_speed, -this->_speed};
+            updateSprites();
+            break;
+        case ControllerInput::RIGHT:
+            this->_position += {this->_speed, 0};
+            updateSprites();
+            break;
+        case ControllerInput::DOWNRIGHT:
+            this->_position += {this->_speed, this->_speed};
+            updateSprites();
+            break;
+        case ControllerInput::DOWN:
+            this->_position += {0, this->_speed};
+            updateSprites();
+            break;
+        case ControllerInput::DOWNLEFT:
+            this->_position += {-this->_speed, this->_speed};
+            updateSprites();
+            break;
+        case ControllerInput::LEFT:
+            this->_position += {-this->_speed, 0};
+            updateSprites();
+            break;
+        case ControllerInput::UPLEFT:
+            this->_position += {-this->_speed, -this->_speed};
+            updateSprites();
+
+        default:
+            break;
+    }
 }
 
 //>-----------{ Laser methods }-----------<
@@ -55,7 +109,7 @@ int Player::getFuel ()
 //>-----------{ Collision methods }-----------<
 void Player::collisionEvent()
 {
-    printf("%p: Player %d died!\n", this, this->_index);
+
 }
 
 void Player::createSprites()

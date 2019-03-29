@@ -187,5 +187,5 @@ void ConsoleInterface::freeAllObjects()
         isAvailable[i] = true;
     }
 
-    writeToGPU(RESET_APU);
+    writeToGPU(RESET_BANK);
 }

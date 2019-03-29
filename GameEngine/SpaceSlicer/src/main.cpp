@@ -35,48 +35,8 @@ void app_main(void)
 
 	for(;;)
 	{
-		if (CI.getInput(UP))
-			printf("up1\n");
-
-		if (CI.getInput(DOWN))
-			printf("down1\n");
-
-		if (CI.getInput(LEFT))
-			printf("left1\n");
-
-		if (CI.getInput(RIGHT))
-			printf("right1\n");
-
-		if (CI.getInput(BUTTON_ONE))
-			printf("buttonone1\n");
-
-		if (CI.getInput(BUTTON_TWO))
-			printf("buttontwo1\n");
-
-		if (CI.getInput(BUTTON_THREE))
-			printf("buttonthrees1\n");
-
-			
-		if (CE.getInput(UP))
-			printf("up2\n");
-
-		if (CE.getInput(DOWN))
-			printf("down2\n");
-
-		if (CE.getInput(LEFT))
-			printf("left2\n");
-
-		if (CE.getInput(RIGHT))
-			printf("right2\n");
-
-		if (CE.getInput(BUTTON_ONE))
-			printf("buttonone2\n");
-
-		if (CE.getInput(BUTTON_TWO))
-			printf("buttontwo2\n");
-
-		if (CE.getInput(BUTTON_THREE))
-			printf("buttonthrees2\n");
+		printf("%x\n", CE.getStick());
+		printf("%x\n", CE.getButton());
 	}
 }
 

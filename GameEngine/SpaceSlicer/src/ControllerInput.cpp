@@ -47,25 +47,46 @@ uint8_t ControllerInput::readControllerData()
     return temp;
 }
 
-bool ControllerInput::getInput(INPUTS but)
+ControllerInput::STICK ControllerInput::getStick()
 {
-    switch (but)
+    uint8_t data = readControllerData() & 0xF0;
+
+    switch (data)
     {
-        case UP:
-            return !(readControllerData() & 0x10);
-        case DOWN:
-            return !(readControllerData() & 0x40);
-        case LEFT:
-            return !(readControllerData() & 0x80);
-        case RIGHT:
-            return !(readControllerData() & 0x20);
-        case BUTTON_ONE:
-            return !(readControllerData() & 0x01);
-        case BUTTON_TWO:
-            return !(readControllerData() & 0x02);
-        case BUTTON_THREE:
-            return !(readControllerData() & 0x04);
+        case 0xE0:
+            return UP;
+        case 0xB0:
+            return DOWN;
+        case 0x70:
+            return LEFT;
+        case 0xD0:
+            return RIGHT;
+        case 0x60:
+            return UPLEFT;
+        case 0xC0:
+            return UPRIGHT;
+        case 0X30:
+            return DOWNLEFT;
+        case 0x90:
+            return DOWNRIGHT;    
         default:
-            return 0;
-    }    
+            return CENTER;
+    }   
+}
+
+ControllerInput::BUTTON ControllerInput::getButton()
+{
+    uint8_t data = readControllerData() & 0x0F;
+
+    switch (data)
+    {
+        case 0x07:
+            return BTN_ONE;
+        case 0x0B:
+            return BTN_TWO;
+        case 0x0D:
+            return BTN_THREE;    
+        default:
+            return BTN_NOPE;
+    }     
 }

@@ -31,12 +31,11 @@ void app_main(void)
 	ControllerInput CE(0x27);
 
 	CI.setupController();
-	CE.setupController();
 
 	for(;;)
 	{
-		printf("%x\n", CE.getStick());
-		printf("%x\n", CE.getButton());
+		//printf("%x\n", CE.getStick());
+		//printf("%x\n", CE.getButton());
 	}
 }
 

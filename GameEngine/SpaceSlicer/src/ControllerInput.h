@@ -22,7 +22,7 @@ public:
     enum BUTTON {BTN_NOPE = 0, BTN_ONE, BTN_TWO, BTN_THREE};
 
 public:
-    void setupController();
+    static void setupController();
     uint8_t readControllerData();
 
 public:

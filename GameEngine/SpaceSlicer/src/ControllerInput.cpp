@@ -31,20 +31,18 @@ void ControllerInput::setupController()
 
 uint8_t ControllerInput::readControllerData()
 {    
-    uint8_t* data_rd = new uint8_t();
+    uint8_t data_rd;
 
 	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 
 	i2c_master_start(cmd);
     i2c_master_write_byte(cmd, (address << 1) | I2C_MASTER_READ, 0x1);
-	i2c_master_read_byte(cmd, data_rd, I2C_MASTER_ACK);
+	i2c_master_read_byte(cmd, &data_rd, I2C_MASTER_ACK);
     i2c_master_cmd_begin(I2C_NUM_0, cmd, portTICK_RATE_MS);	
 
     i2c_cmd_link_delete(cmd); 
-
-    uint8_t temp = *data_rd;
-	delete data_rd;
-    return temp;
+    
+    return data_rd;
 }
 
 ControllerInput::STICK ControllerInput::getStick()

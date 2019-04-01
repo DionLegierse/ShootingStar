@@ -93,9 +93,6 @@ int ConsoleInterface::createNewObject(uint8_t aSprAddress)
 ///////////ASSIGN ID////////////
     uint8_t temp = getFreeRegisterID();
 
-    if ( temp >= 128 || temp < 0 )
-        return -1;
-
     writeToRegister(SPR_REG_LOC, temp);
     writeToRegister(SPR_MEM_LOC_LSB, aSprAddress);
 ///////////SET THE X VALUES////////////
@@ -144,7 +141,7 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, uint16_t aPosX, ui
  */
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
-    ConsoleInterface::isAvailable[aRegAddress] = false;
+    isAvailable[aRegAddress] = false;
 }
 
 void ConsoleInterface::clockIn()
@@ -165,9 +162,9 @@ uint8_t ConsoleInterface::getFreeRegisterID()
         {
             return -1;
         }
-        else if ( ConsoleInterface::isAvailable[cnt] )
+        else if ( isAvailable[cnt] )
         {
-            ConsoleInterface::isAvailable[cnt] = false;
+            isAvailable[cnt] = false;
             return cnt;
         }        
         cnt++;
@@ -184,7 +181,7 @@ void ConsoleInterface::freeAllObjects()
 {
     for(uint8_t i = 0; i < REG_AMOUNT; i++)
     {
-        ConsoleInterface::isAvailable[i] = true;
+        isAvailable[i] = true;
     }
 
     writeToGPU(RESET_APU);

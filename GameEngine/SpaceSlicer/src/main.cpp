@@ -34,6 +34,8 @@ void doTask(void *pvParameter)
 	uint8_t player1[4];
 	uint8_t player2[4];
 
+	CI.freeAllObjects();
+
 	player1[0] = CI.createNewObject(SPR_P1_TL);
 	player1[1] = CI.createNewObject(SPR_P1_TR);
 	player1[2] = CI.createNewObject(SPR_P1_BL);
@@ -56,6 +58,7 @@ void doTask(void *pvParameter)
 			CI.updateObjectCoord(player2[1], x+8, 10);
 			CI.updateObjectCoord(player2[2], x, 18);
 			CI.updateObjectCoord(player2[3], x+8, 18);
+
 			vTaskDelay(50/portTICK_PERIOD_MS);
 		}
 	

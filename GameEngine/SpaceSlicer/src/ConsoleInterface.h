@@ -16,7 +16,7 @@
 #define SPR_REG_LOC         0x08
 
 //Command codes
-#define APU_START   0x80
+#define START_APU   0x80
 #define RESET_APU   0x81
 #define UPDATE_X    0x82
 #define UPDATE_Y    0x83
@@ -41,30 +41,35 @@ public:
     void deleteObject(uint8_t);
     void freeAllObjects();
 
-//temp
+//music 
 public:
-    void setData(uint8_t);
+    void playSong(uint16_t);
+
+//registers
+public:
     void writeToGPU(uint8_t);
+    void writeToRegister(uint8_t, uint8_t);    
+
+
+
 
 //gpio handling
 private:
+    void setData(uint8_t); //Depricated
+
     void setClock(bool);
     void clockIn();
     
     void setRegister(bool);
-    void resetOutput(bool, bool, bool);
+    void writeDataToGPIO(uint8_t);
 
 //registers
 private:
-    void writeToRegister(uint8_t, uint8_t);
-    
     uint8_t getFreeRegisterID();
-    void clearAllRegisters();
 
 
 //delay constants
 private:
     static bool isAvailable[128];
-    float delayTime = 0;
     int output = 0;
 };

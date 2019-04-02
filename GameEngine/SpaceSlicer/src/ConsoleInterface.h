@@ -41,6 +41,11 @@ public:
     void deleteObject(uint8_t);
     void freeAllObjects();
 
+//temp
+public:
+    void setData(uint8_t);
+    void writeToGPU(uint8_t);
+
 //gpio handling
 private:
     void setClock(bool);
@@ -48,12 +53,10 @@ private:
     
     void setRegister(bool);
     void resetOutput(bool, bool, bool);
-    void setData(uint8_t);
 
 //registers
 private:
     void writeToRegister(uint8_t, uint8_t);
-    void writeToGPU(uint8_t);
     
     uint8_t getFreeRegisterID();
     void clearAllRegisters();
@@ -62,4 +65,6 @@ private:
 //delay constants
 private:
     static bool isAvailable[128];
+    float delayTime = 100000;
+    int output = 0;
 };

@@ -4,7 +4,17 @@ bool ConsoleInterface::isAvailable[128];
 
 ConsoleInterface::ConsoleInterface()
 {    
-    GPIO.enable    |= 0x0E0F0034; //enable all needed outputs outputs    
+    //GPIO.enable |= 0x0E0F0034; //enable all needed outputs outputs 
+    gpio_set_direction(GPIO_NUM_2, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_4, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_5, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_16, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_17, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_18, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_19, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_25, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_26, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_27, GPIO_MODE_OUTPUT);   
 }
 
 ConsoleInterface::~ConsoleInterface()
@@ -14,7 +24,7 @@ ConsoleInterface::~ConsoleInterface()
 
 void ConsoleInterface::writeToRegister(uint8_t aReg, uint8_t aData)
 { 
-    setRegister(true);
+    setRegister(true);    
     setData(aReg);    
     clockIn();
     setRegister(false);
@@ -33,9 +43,9 @@ void ConsoleInterface::writeToGPU(uint8_t aCommand)
 
 void ConsoleInterface::setData(uint8_t aValue)
 {
-    resetOutput(true, false, false);
+    GPIO.out &= 0xF9F0FFC4; //reset data 
 
-    int output = 0;
+    output = 0;
     int temp = 0;
     
     temp = (aValue & 0xC0); //select the last 2 bits
@@ -47,7 +57,7 @@ void ConsoleInterface::setData(uint8_t aValue)
     temp = (aValue & 0x03); //select the first 2 bits
     output |= (temp * 0x10); //shift (8-4=4) positions 
 
-    GPIO.out |= output;
+    GPIO.out |= output;    
 }
 
 void ConsoleInterface::setClock(bool clk)
@@ -55,27 +65,46 @@ void ConsoleInterface::setClock(bool clk)
     if (clk)
         GPIO.out |= 0b100; //write clk high
     else
-        GPIO.out &= 0xFFFFFFFB; //write clk low
+        GPIO.out &= 0xFFFFFFFB; //write clk low    
 }
 
 void ConsoleInterface::setRegister(bool reg)
 {    
     if (reg)
+    {
         GPIO.out |= 0x8000000; //write reg high
+
+        // if (output == 0b0100000000000000000000000000)
+        // {
+        //     printf("AAAAAAAAAAAAAA\n");        
+        //     vTaskDelay(500/portTICK_PERIOD_MS);
+        //     printf("AAAAAAAAAAAAAA\n");      
+        // }
+
+        // if (output == 0b0100000000000000000000010000)
+        // {
+        //     printf("BBBBBBBBBBBBBB\n");        
+        //     vTaskDelay(500/portTICK_PERIOD_MS);
+        //     printf("BBBBBBBBBBBBBB\n");      
+        // }
+    }
     else
-        GPIO.out &= 0x7FFFFFF; //write reg lo
+    {
+        GPIO.out &= 0x7FFFFFF; //write reg low
+    }    
 }
 
 void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
 {    
     if (data)
-        GPIO.out &= 0xF9F0FFC0; //reset data
+        GPIO.out &= 0xF9F0FFC4; //reset data
 
     if (clk)
         GPIO.out &= 0b011; //write clk low
 
     if (reg)
         GPIO.out &= 0x8000000; //write enable low
+
 }
 
 /**
@@ -184,5 +213,5 @@ void ConsoleInterface::freeAllObjects()
         isAvailable[i] = true;
     }
 
-    writeToGPU(RESET_APU);
+    writeToGPU(RESET_BANK);
 }

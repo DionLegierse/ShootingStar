@@ -65,6 +65,6 @@ private:
 //delay constants
 private:
     static bool isAvailable[128];
-    float delayTime = 100000;
+    float delayTime = 0;
     int output = 0;
 };

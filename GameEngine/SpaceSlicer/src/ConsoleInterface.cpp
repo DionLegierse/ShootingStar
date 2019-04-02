@@ -43,21 +43,27 @@ void ConsoleInterface::writeToGPU(uint8_t aCommand)
 
 void ConsoleInterface::setData(uint8_t aValue)
 {
-    GPIO.out &= 0xF9F0FFC4; //reset data 
+    GPIO.out &= 0x09F0FFCF; //reset data
+
+    for(size_t i = 0; i < delayTime; i++)
+        asm("nop");  
 
     output = 0;
     int temp = 0;
     
     temp = (aValue & 0xC0); //select the last 2 bits
-    output |= (temp * 0x80000); //shift (25-6=19) positions
+    output |= (temp << 19); //shift (25-6=19) positions
 
     temp = (aValue & 0x3C); //select the middle 4 bits
-    output |= (temp * 0x4000); //shift (16-4=14) positions
+    output |= (temp << 14); //shift (16-4=14) positions
 
     temp = (aValue & 0x03); //select the first 2 bits
-    output |= (temp * 0x10); //shift (8-4=4) positions 
+    output |= (temp << 4); //shift (8-4=4) positions 
 
-    GPIO.out |= output;    
+    GPIO.out |= output;
+    
+    for(size_t i = 0; i < delayTime; i++)
+        asm("nop");    
 }
 
 void ConsoleInterface::setClock(bool clk)
@@ -65,7 +71,10 @@ void ConsoleInterface::setClock(bool clk)
     if (clk)
         GPIO.out |= 0b100; //write clk high
     else
-        GPIO.out &= 0xFFFFFFFB; //write clk low    
+        GPIO.out &= 0xFFFFFFFB; //write clk low 
+
+    for(size_t i = 0; i < delayTime; i++)
+        asm("nop");   
 }
 
 void ConsoleInterface::setRegister(bool reg)
@@ -77,21 +86,22 @@ void ConsoleInterface::setRegister(bool reg)
         // if (output == 0b0100000000000000000000000000)
         // {
         //     printf("AAAAAAAAAAAAAA\n");        
-        //     vTaskDelay(500/portTICK_PERIOD_MS);
-        //     printf("AAAAAAAAAAAAAA\n");      
+        //     vTaskDelay(500/portTICK_PERIOD_MS);  
         // }
 
         // if (output == 0b0100000000000000000000010000)
         // {
         //     printf("BBBBBBBBBBBBBB\n");        
-        //     vTaskDelay(500/portTICK_PERIOD_MS);
-        //     printf("BBBBBBBBBBBBBB\n");      
+        //     vTaskDelay(500/portTICK_PERIOD_MS);    
         // }
     }
     else
     {
         GPIO.out &= 0x7FFFFFF; //write reg low
-    }    
+    }       
+
+    for(size_t i = 0; i < delayTime; i++)
+        asm("nop"); 
 }
 
 void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
@@ -176,6 +186,8 @@ void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 void ConsoleInterface::clockIn()
 {
     setClock(true);
+    for(size_t i = 0; i < delayTime; i++)
+        asm("nop"); 
     setClock(false);    
 }
 

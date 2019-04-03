@@ -22,7 +22,7 @@ void ControllerInput::setupController()
     conf.scl_io_num = GPIO_NUM_22;
     conf.scl_pullup_en = GPIO_PULLUP_ENABLE;
 
-    conf.master.clk_speed = 5000;
+    conf.master.clk_speed = 25000;
 
     i2c_param_config(I2C_NUM_0, &conf);
 

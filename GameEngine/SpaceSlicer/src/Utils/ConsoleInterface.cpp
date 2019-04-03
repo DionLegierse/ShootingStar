@@ -4,7 +4,18 @@ bool ConsoleInterface::isAvailable[128];
 
 ConsoleInterface::ConsoleInterface()
 {    
-    GPIO.enable    |= 0x0E0F0034; //enable all needed outputs outputs    
+    //GPIO.enable |= 0x0E0F0034; //enable all needed outputs outputs 
+    gpio_set_direction(GPIO_NUM_4,  GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_5,  GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_16, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_17, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_18, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_19, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_25, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_NUM_26, GPIO_MODE_OUTPUT);
+
+    gpio_set_direction(GPIO_NUM_32, GPIO_MODE_OUTPUT);  
+    gpio_set_direction(GPIO_NUM_33, GPIO_MODE_OUTPUT); 
 }
 
 ConsoleInterface::~ConsoleInterface()
@@ -14,68 +25,57 @@ ConsoleInterface::~ConsoleInterface()
 
 void ConsoleInterface::writeToRegister(uint8_t aReg, uint8_t aData)
 { 
-    setRegister(true);
-    setData(aReg);    
+    setRegister(true);    
+    writeDataToGPIO(aReg);    
     clockIn();
     setRegister(false);
 
-    setData(aData);
+    writeDataToGPIO(aData);
     clockIn();
 }
 
 void ConsoleInterface::writeToGPU(uint8_t aCommand)
 {    
     setRegister(true);
-    setData(aCommand);
+    writeDataToGPIO(aCommand);
     clockIn();
     setRegister(false);
 }
 
+//Depricated
 void ConsoleInterface::setData(uint8_t aValue)
 {
-    resetOutput(true, false, false);
+    GPIO.out &= 0x09F0FFCF; //reset data
 
-    int output = 0;
+    output = 0;
     int temp = 0;
     
     temp = (aValue & 0xC0); //select the last 2 bits
-    output |= (temp * 0x80000); //shift (25-6=19) positions
+    output |= (temp << 19); //shift (25-6=19) positions
 
     temp = (aValue & 0x3C); //select the middle 4 bits
-    output |= (temp * 0x4000); //shift (16-4=14) positions
+    output |= (temp << 14); //shift (16-4=14) positions
 
     temp = (aValue & 0x03); //select the first 2 bits
-    output |= (temp * 0x10); //shift (8-4=4) positions 
+    output |= (temp << 4); //shift (8-4=4) positions 
 
-    GPIO.out |= output;
+    GPIO.out |= output;  
 }
 
 void ConsoleInterface::setClock(bool clk)
 {    
     if (clk)
-        GPIO.out |= 0b100; //write clk high
+        gpio_set_level(GPIO_NUM_32, 1);
     else
-        GPIO.out &= 0xFFFFFFFB; //write clk low
+        gpio_set_level(GPIO_NUM_32, 0); 
 }
 
 void ConsoleInterface::setRegister(bool reg)
 {    
     if (reg)
-        GPIO.out |= 0x8000000; //write reg high
+        gpio_set_level(GPIO_NUM_33, 1);
     else
-        GPIO.out &= 0x7FFFFFF; //write reg lo
-}
-
-void ConsoleInterface::resetOutput(bool data, bool clk, bool reg)
-{    
-    if (data)
-        GPIO.out &= 0xF9F0FFC0; //reset data
-
-    if (clk)
-        GPIO.out &= 0b011; //write clk low
-
-    if (reg)
-        GPIO.out &= 0x8000000; //write enable low
+        gpio_set_level(GPIO_NUM_33, 0);    
 }
 
 /**
@@ -92,9 +92,6 @@ int ConsoleInterface::createNewObject(uint8_t aSprAddress)
 {        
 ///////////ASSIGN ID////////////
     uint8_t temp = getFreeRegisterID();
-
-    if ( temp >= 128 || temp < 0 )
-        return -1;
 
     writeToRegister(SPR_REG_LOC, temp);
     writeToRegister(SPR_MEM_LOC_LSB, aSprAddress);
@@ -153,6 +150,17 @@ void ConsoleInterface::clockIn()
     setClock(false);    
 }
 
+void ConsoleInterface::playSong(uint16_t aAddress)
+{    
+    uint8_t LSBM = (uint8_t)(aAddress);
+    uint8_t MSBM = (uint8_t)(aAddress >> 8);
+
+	writeToGPU(RESET_APU);
+	writeToRegister(MUSIC_LSB, LSBM);
+	writeToRegister(MUSIC_MSB, MSBM);
+	writeToGPU(START_APU);
+}
+
 
 uint8_t ConsoleInterface::getFreeRegisterID()
 {
@@ -176,8 +184,16 @@ uint8_t ConsoleInterface::getFreeRegisterID()
     return -1;
 }
 
-void ConsoleInterface::clearAllRegisters()
+void ConsoleInterface::writeDataToGPIO(uint8_t aData)
 { 
+    gpio_set_level(GPIO_NUM_4,  (aData >> 0) & (uint8_t)1);
+    gpio_set_level(GPIO_NUM_5,  (aData >> 1) & (uint8_t)1);
+    gpio_set_level(GPIO_NUM_16, (aData >> 2) & (uint8_t)1);
+    gpio_set_level(GPIO_NUM_17, (aData >> 3) & (uint8_t)1);
+    gpio_set_level(GPIO_NUM_18, (aData >> 4) & (uint8_t)1);
+    gpio_set_level(GPIO_NUM_19, (aData >> 5) & (uint8_t)1);
+    gpio_set_level(GPIO_NUM_25, (aData >> 6) & (uint8_t)1);
+    gpio_set_level(GPIO_NUM_26, (aData >> 7) & (uint8_t)1);
 }
 
 void ConsoleInterface::freeAllObjects()

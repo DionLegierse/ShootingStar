@@ -1,6 +1,6 @@
 #pragma once
 #include "Utils/Vector2.h"
-#include "Utils/ConsoleInterface.h"
+#include "Handlers/ConsoleInterface.h"
 
 #define ENT_ASTROID 0
 #define ENT_BLOOP   1

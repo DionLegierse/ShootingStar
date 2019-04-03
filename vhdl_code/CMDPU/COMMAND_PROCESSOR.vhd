@@ -23,7 +23,7 @@ entity COMMAND_PROCESSOR is
         --! The attributes of the sprite going to the GPU
         sprite_attribute : out std_logic_vector(5 downto 0);
         --! The register location where to store the sprite
-        sprite_register_loc : out std_logic_vector(6 downto 0);
+        sprite_register_loc : out std_logic_vector(7 downto 0);
         --! Enable the GPU to update the x location of the sprite in sprite_register_loc
         update_x : out std_logic;
         --! Enable the GPU to update the y location of the sprite in sprite_register_loc
@@ -136,7 +136,7 @@ begin
                 when x"07" =>
                     sprite_attribute <= mc_data_stable(5 downto 0);
                 when x"08" =>
-                    sprite_register_loc <= mc_data_stable(6 downto 0);
+                    sprite_register_loc <= mc_data_stable(7 downto 0);
                 when others => NULL;
                 end case;
             end if;

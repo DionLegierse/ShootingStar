@@ -50,7 +50,7 @@ architecture Behavioral of FPGA_TOP is
     signal y_loc_sprite : std_logic_vector(8 downto 0);
     signal sprite_memory_loc : std_logic_vector(7 downto 0);
     signal sprite_attribute : std_logic_vector(5 downto 0);
-    signal sprite_register_loc : std_logic_vector(6 downto 0);
+    signal sprite_register_loc : std_logic_vector(7 downto 0);
     signal update_x : std_logic;
     signal update_y : std_logic;
     signal update_xy : std_logic;
@@ -105,6 +105,9 @@ begin
     );
 
     GPU_1 : entity work.GPU(Behavioral)
+    generic map(
+        sprite_address_bits => 8
+    )
     port map(
         clk => clk25,
 

@@ -1,3 +1,4 @@
+
 #include "Handlers/ConsoleInterface.h"
 
 bool ConsoleInterface::isAvailable[128];
@@ -114,14 +115,17 @@ int ConsoleInterface::createNewObject(uint8_t aSprAddress)
  * @param aPosX the X position you want to set.
  * @param aPosY the Y position you want to set.
  */
-void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, uint16_t aPosX, uint16_t aPosY)
+void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, Vector2 coord)
 {   
 ///////////SPLIT uint16_t//////////////
-    uint8_t LSBX = (uint8_t)(aPosX);
-    uint8_t MSBX = (uint8_t)(aPosX >> 8);
+    uint16_t coordX = coord.getX();
+    uint16_t coordY = coord.getY();
 
-    uint8_t LSBY = (uint8_t)(aPosY);
-    uint8_t MSBY = (uint8_t)(aPosY >> 8);
+    uint8_t LSBX = (uint8_t)(coordX);
+    uint8_t MSBX = (uint8_t)(coordX >> 8);
+
+    uint8_t LSBY = (uint8_t)(coordY);
+    uint8_t MSBY = (uint8_t)(coordY >> 8);
     
     writeToRegister(SPR_REG_LOC, aRegAddress);
 ///////////SET THE X VALUES////////////

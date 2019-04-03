@@ -16,5 +16,8 @@ private:
     void    updateNPC();
 
 private:
+    void    updateAllSprites();
+
+private:
     CollisionHandler*   _collision  = nullptr;
 };

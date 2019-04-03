@@ -21,5 +21,4 @@ NPC::~NPC () {}
 void NPC::move ()
 {
     this->_position += this->_direction * this->_speed;
-    updateSprites();
 }

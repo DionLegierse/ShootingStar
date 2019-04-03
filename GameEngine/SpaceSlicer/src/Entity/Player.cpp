@@ -14,7 +14,6 @@ Player::Player ()
     this->_conIn->setupController();
 
     createSprites();
-    updateSprites();
 }
 
 Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPosition)
@@ -31,7 +30,6 @@ Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPo
     this->_conIn->setupController();
 
     createSprites();
-    updateSprites();
 }
 
 Player::~Player () {}
@@ -72,8 +70,6 @@ void Player::move ()
         default:
             break;
     }
-    
-    updateSprites();
 }
 
 //>-----------{ Laser methods }-----------<

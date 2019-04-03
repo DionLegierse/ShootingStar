@@ -3,7 +3,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+//-----------------------------------------------
 #include "Utils/spriteLocations.h"
+#include "Utils/Vector2.h"
 
 //Register names
 #define MUSIC_LSB           0
@@ -37,7 +39,7 @@ public:
 //Object handling
 public:
     int createNewObject(uint8_t);
-    void updateObjectCoord(uint8_t, uint16_t, uint16_t);
+    void updateObjectCoord(uint8_t, Vector2);
     void deleteObject(uint8_t);
     void freeAllObjects();
 

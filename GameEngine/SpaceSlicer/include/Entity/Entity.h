@@ -41,6 +41,8 @@ public:
 // Sprite methods
 protected:
     virtual void    createSprites() = 0;
+
+public:
     void            updateSprites();
 
 // Movement variables

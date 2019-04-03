@@ -6,7 +6,6 @@ Astroid::Astroid ()
 {
     this->_type = ENT_ASTROID;
     createSprites();
-    updateSprites();
 }
 
 Astroid::Astroid (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpeed, aDirection, aPosition)
@@ -14,7 +13,6 @@ Astroid::Astroid (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpe
     this->_colliderRadius = 2;
     this->_type = ENT_ASTROID;
     createSprites();
-    updateSprites();
 }
 
 Astroid::~Astroid () {}

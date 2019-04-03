@@ -22,6 +22,7 @@ void TestPC::setup()
         this->_astroidList->insert(new Astroid(2, {rand() % 5 - 5, rand() % 5 - 3}, {100, rand() % 400}));
 
     ci.playSong(0);
+    updateAllSprites();
 }
 
 void TestPC::loop()
@@ -30,6 +31,7 @@ void TestPC::loop()
     this->_playerTwo->move();
 
     updateNPC();
+    updateAllSprites();
 }
 
 void TestPC::updateNPC()
@@ -40,5 +42,19 @@ void TestPC::updateNPC()
     {
         curAst->getEntity()->move();
         curAst = curAst->getNext();
+    }
+}
+
+void TestPC::updateAllSprites()
+{
+    this->_playerOne->updateSprites();
+    this->_playerTwo->updateSprites();
+
+    EntityLink* curEntity = this->_astroidList->getFirst();
+
+    while (curEntity != nullptr)
+    {
+        curEntity->getEntity()->updateSprites();
+        curEntity = curEntity->getNext();
     }
 }

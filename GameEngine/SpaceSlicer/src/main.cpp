@@ -18,8 +18,8 @@
 #include "nvs_flash.h"
 #include "nvs.h"
 
-//aaaaaaaaaaaaaaaaaaaaaaaaaaa
-#include "ConsoleInterface.h"
+//----------------------------------------------------
+#include "Handlers/ConsoleInterface.h"
 
 extern "C" {
 	void app_main(void);
@@ -42,10 +42,14 @@ void doTask(void *pvParameter)
 	player1[2] = CI.createNewObject(SPR_P1_BL);
 	player1[3] = CI.createNewObject(SPR_P1_BR);
 
+	Vector2 coord;
+
 	for (;;)
 		for(uint16_t x = 0; x < 512; x++)
 		{		
-			CI.updateObjectCoord(player1[0], x, x);
+			coord.setX(x);
+			coord.setY(x);
+			CI.updateObjectCoord(player1[0], coord);
 		}	
 }
 

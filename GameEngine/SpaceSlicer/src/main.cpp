@@ -11,31 +11,30 @@
 #include "freertos/task.h"
 #include "driver/gpio.h"
 #include "sdkconfig.h"
+#include "esp_task_wdt.h"
+
+#include "driver/i2c.h"
 
 #include "nvs_flash.h"
 #include "nvs.h"
 
-//costum
+//aaaaaaaaaaaaaaaaaaaaaaaaaaa
 #include "ControllerInput.h"
 
-extern "C" 
-{
+extern "C" {
 	void app_main(void);
 }
 
-extern gpio_dev_t GPIO;
-
 void app_main(void)
 {	
-	ControllerInput CI(0x20);
-	ControllerInput CE(0x27);
+	ControllerInput CE(0x20);
 
-	CI.setupController();
+	CE.setupController();
 
 	for(;;)
 	{
-		//printf("%x\n", CE.getStick());
-		//printf("%x\n", CE.getButton());
+		printf("S%x", CE.readControllerData());
+		printf("B%x\n", CE.getButton());
 	}
 }
 

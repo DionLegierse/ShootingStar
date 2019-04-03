@@ -63,9 +63,9 @@ begin
                 vcount >= ((V_pixels / 2) - (gameScreenHeight / 2)) and
                 vcount < ((V_pixels / 2) + (gameScreenHeight / 2))
             then
-                redOut <= pixel(7) & pixel(7) & pixel(6) & pixel(5);
-                greenOut <= pixel(4) & pixel(4) & pixel(3) & pixel(2);
-                blueOut <= pixel(1) & pixel(1) & pixel(1) & pixel(0);
+                redOut <= pixel(7) & pixel(6) & pixel(5) & pixel(5);
+                greenOut <= pixel(4) & pixel(3) & pixel(2) & pixel(2);
+                blueOut <= pixel(1) & pixel(0) & pixel(0) & pixel(0);
             else
                 redOut <= (others => '0');
                 greenOut <= (others => '0');

@@ -10,6 +10,7 @@ entity SYNTHESIZER is
         register_select : in std_logic_vector(3 downto 0);
         data : in std_logic_vector(10 downto 0);
         soundEffect : in std_logic_vector(7 downto 0);
+        reset : in std_logic;
 ----------------------------------OUTPUTS-----------------------------
         sound_out : out std_logic
     );
@@ -45,6 +46,7 @@ begin
         write_enable => write_enable,
         register_select => register_select,
         data => data,
+        reset => reset,
 
         square1_frequency => square1_frequency,
         square1_enable => square1_enable,

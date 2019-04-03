@@ -9,17 +9,27 @@ entity SYNTHESIZER_CONTROLLER is
     );
     port (
 ------------------------------------INPUTS--------------------------------------
+        --! 100Mhz clock coming from the Basys 3
         clk : in std_logic;
+        --! The start address of the song
         startAddress : in std_logic_vector(bus_width downto 0);
+        --! Starts the music at the address on startAddress
         start_music : in std_logic;
+        --! Resets the controller so a new song can be started
         reset : in std_logic;
 ------------------------------------OUTPUTS-------------------------------------
+        --! Data to be written to the register
         data : out std_logic_vector(10 downto 0);
+        --! Enable the registerbank to be written to
         write_enable : out std_logic;
+        --! Selects the register to be written to
         register_select : out std_logic_vector(3 downto 0)
     );
 end entity;
 
+--! @brief The behavior of the SYNTHESIZER_CONTROLLER to control the SYNTHESIZER.
+--! @details The controller uses the data coming from the memory to drive the
+--! synthesizer to play music.
 architecture Behavioral of SYNTHESIZER_CONTROLLER is
 --------------------------------------------------------------------------------
     component apu_memory is
@@ -68,7 +78,9 @@ begin
 -------------------------------------------------------------------------------
     MEMORY_ACCESSOR : process(clk)
     begin
-        if rising_edge(clk) then
+        if reset = '1' then
+            old_address <= (others=>'1');
+        elsif rising_edge(clk) then
             isFetchDone <= false;
             case( memory_state ) is
                 when WAIT_ADDRESS =>
@@ -106,6 +118,24 @@ begin
         if reset = '1' then
             controller_state <= HOLD;
             isCounterEnable <= false;
+
+            square1_frame_counter <= (others => '0');
+            square1_address_counter <= (others => '0');
+
+            square2_frame_counter <= (others => '0');
+            square2_address_counter <= (others => '0');
+
+            triangle_frame_counter <= (others => '0');
+            triangle_address_counter <= (others => '0');
+
+            noise_frame_counter <= (others => '0');
+            noise_address_counter <= (others => '0');
+
+            current_address <= (others=>'1');
+
+
+            frame_prescaler <= (others => '0');
+
         elsif rising_edge(clk) then
             write_enable <= '0';
             case( controller_state ) is

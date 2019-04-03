@@ -52,3 +52,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports {redOut[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports vsync]
 
 
+
+
+

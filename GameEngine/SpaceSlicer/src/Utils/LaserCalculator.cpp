@@ -1,6 +1,6 @@
-#include <iostream>
+#include <cmath>
 
-#include "LaserCalculator.h"
+#include "Utils/LaserCalculator.h"
 
 #include "Utils/Vector2.h"
 
@@ -27,7 +27,7 @@ const std::vector<Vector2>& LaserCalculator::calculateLaser(Vector2 player1Coord
 	std::pair<Vector2, Vector2> sorted = sortTwoVectorsX(player1Coord, player2Coord);
 	
 	//calculate the freespace margin
-	unsigned freeSpace = round((sorted.second.getX() - sorted.second.getY()) / SPRITE_SIZE);
+	unsigned freeSpace = round((sorted.second.getX() - sorted.second.getY()) / LaserCalculator::SPRITE_SIZE);
 
 	for (unsigned i = sorted.first.getX() + SPRITE_SIZE + freeSpace ; 
 		i < sorted.second.getX() - SPRITE_SIZE; 

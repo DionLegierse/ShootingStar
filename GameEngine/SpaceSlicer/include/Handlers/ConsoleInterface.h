@@ -9,24 +9,25 @@
 
 //Register names
 #define MUSIC_LSB           0
-#define MUSIC_MSB           0x01
-#define POS_X_LSB           0x02
-#define POS_X_MSB           0x03
-#define POS_Y_LSB           0x04
-#define POS_Y_MSB           0x05
-#define SPR_MEM_LOC_LSB     0x06
-#define SPR_REG_LOC         0x08
+#define MUSIC_MSB           (uint8_t)0x01
+#define POS_X_LSB           (uint8_t)0x02
+#define POS_X_MSB           (uint8_t)0x03
+#define POS_Y_LSB           (uint8_t)0x04
+#define POS_Y_MSB           (uint8_t)0x05
+#define SPR_MEM_LOC_LSB     (uint8_t)0x06
+#define SPR_REG_LOC         (uint8_t)0x08
 
 //Command codes
-#define START_APU   0x80
-#define RESET_APU   0x81
-#define UPDATE_X    0x82
-#define UPDATE_Y    0x83
-#define UPDATE_XY   0x84
-#define UPDATE_SPR  0x85
-#define RESET_BANK  0x86
+#define START_APU   (uint8_t)0x80
+#define RESET_APU   (uint8_t)0x81
+#define UPDATE_X    (uint8_t)0x82
+#define UPDATE_Y    (uint8_t)0x83
+#define UPDATE_XY   (uint8_t)0x84
+#define UPDATE_SPR  (uint8_t)0x85
+#define RESET_BANK  (uint8_t)0x86
+#define RESET_SPR   (uint8_t)0x87
 
-#define REG_AMOUNT  128
+#define REG_AMOUNT  (uint8_t)255
 
 extern gpio_dev_t GPIO;	
 
@@ -46,6 +47,10 @@ public:
 //music 
 public:
     void playSong(uint16_t);
+
+//text printing
+public:
+    uint8_t printText(char *, Vector2);
 
 //registers
 public:
@@ -72,6 +77,6 @@ private:
 
 //delay constants
 private:
-    static bool isAvailable[128];
+    static bool isAvailable[REG_AMOUNT + 1];
     int output = 0;
 };

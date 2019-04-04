@@ -1,7 +1,7 @@
 
 #include "Handlers/ConsoleInterface.h"
 
-bool ConsoleInterface::isAvailable[128];
+bool ConsoleInterface::isAvailable[REG_AMOUNT + 1];
 
 ConsoleInterface::ConsoleInterface()
 {    
@@ -21,7 +21,6 @@ ConsoleInterface::ConsoleInterface()
 
 ConsoleInterface::~ConsoleInterface()
 {
-
 }
 
 void ConsoleInterface::writeToRegister(uint8_t aReg, uint8_t aData)
@@ -94,6 +93,9 @@ int ConsoleInterface::createNewObject(uint8_t aSprAddress)
 ///////////ASSIGN ID////////////
     uint8_t temp = getFreeRegisterID();
 
+    if (temp > REG_AMOUNT)
+        return -1;
+
     writeToRegister(SPR_REG_LOC, temp);
     writeToRegister(SPR_MEM_LOC_LSB, aSprAddress);
 ///////////SET THE X VALUES////////////
@@ -146,6 +148,9 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, Vector2 coord)
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
     isAvailable[aRegAddress] = false;
+
+    writeToRegister(SPR_REG_LOC, aRegAddress);
+    writeToGPU(RESET_SPR);
 }
 
 void ConsoleInterface::clockIn()
@@ -165,6 +170,55 @@ void ConsoleInterface::playSong(uint16_t aAddress)
 	writeToGPU(START_APU);
 }
 
+uint8_t ConsoleInterface::printText(char * aText, Vector2 aPos)
+{    
+    Vector2 pos = aPos;
+
+    uint8_t data = 0;
+    uint8_t address = 0;
+    uint8_t startAddress = 0;
+
+    int cnt = 0;
+
+    bool flag = true;
+    bool startFlag = true;
+
+    while(*aText && flag)
+    {
+        address = 0;
+
+        data = *aText;
+        data -= 97;
+
+        if (data >= 207)
+            data -= 181;
+
+        if (data != 191)
+        {
+            address = createNewObject( data );
+            updateObjectCoord( address, pos );
+            cnt++;
+        }
+
+        pos += {9, 0};        
+        aText++;
+
+        if (startFlag)
+        {
+            startAddress = address;
+            startFlag = false;
+        }
+
+        //printf("Data: %d  \t|| Position: (%d, %d)\t|| Address: %d\n", data, pos.getX(), pos.getY(), address);
+
+        if (cnt >= 16)
+            flag = false;
+    }    
+
+    printf("end\n");
+    return startAddress;
+}
+
 
 uint8_t ConsoleInterface::getFreeRegisterID()
 {
@@ -173,7 +227,7 @@ uint8_t ConsoleInterface::getFreeRegisterID()
 
     while (flag)
     {
-        if (cnt >= 128)
+        if (cnt >= REG_AMOUNT)
         {
             return -1;
         }

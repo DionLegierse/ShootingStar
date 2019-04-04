@@ -7,14 +7,12 @@ Entity::Entity() {}
 Entity::Entity (int aSpeed)
 {
     this->_speed = aSpeed;
-    printf("AAA\n");
 }
 
 Entity::Entity (int aSpeed, Vector2 aPosition)
 {
     this->_speed = aSpeed;
     this->_position = aPosition;
-    printf("AAA\n");
 }
 
 Entity::~Entity() {}
@@ -61,8 +59,12 @@ uint8_t Entity::getType()
 void Entity::updateSprites()
 {
     ConsoleInterface ci;
-    ci.updateObjectCoord(this->_spriteAddress[0], this->_position.getX(), this->_position.getY());
-    ci.updateObjectCoord(this->_spriteAddress[1], this->_position.getX() + 8, this->_position.getY());
-    ci.updateObjectCoord(this->_spriteAddress[2], this->_position.getX(), this->_position.getY() + 8);
-    ci.updateObjectCoord(this->_spriteAddress[3], this->_position.getX() + 8, this->_position.getY() + 8);
+    Vector2 tempX(8, 0);
+    Vector2 tempY(0, 8);
+    Vector2 tempXY(8, 8);
+
+    ci.updateObjectCoord(this->_spriteAddress[0], this->_position);
+    ci.updateObjectCoord(this->_spriteAddress[1], this->_position + tempX);
+    ci.updateObjectCoord(this->_spriteAddress[2], this->_position + tempY);
+    ci.updateObjectCoord(this->_spriteAddress[3], this->_position + tempXY);
 }

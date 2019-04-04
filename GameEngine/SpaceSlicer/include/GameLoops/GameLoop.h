@@ -16,7 +16,6 @@ public:
 public:
     EntityList*     getAstroidList();
     EntityList*     getBloopList();
-    EntityList*     getFuelList();
 
 public:
     Player*         getPlayer(int);
@@ -24,7 +23,6 @@ public:
 protected:
     EntityList*     _astroidList    = nullptr;
     EntityList*     _bloopList      = nullptr;
-    EntityList*     _fuelList       = nullptr;
 
 protected:
     Player*         _playerOne      = nullptr;

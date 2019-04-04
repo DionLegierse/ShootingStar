@@ -10,16 +10,17 @@ void TestPC::setup()
 {
     ConsoleInterface ci;
     ci.freeAllObjects();
+    ci.printText("incompetendo", Vector2(0,0));
     
     this->_collision = new CollisionHandler(this);
-    this->_playerOne = new Player(5, {5, 0}, 1);
-    this->_playerTwo = new Player(1, {5, 40}, 2);
+    this->_playerOne = new Player(1, Vector2(5, 0), 1);
+    this->_playerOne->_conIn->setupController();
+    this->_playerTwo = new Player(1, Vector2(5, 40), 2);
     this->_astroidList = new EntityList();
-    // this->_bloopList = new EntityList();
-    // this->_fuelList = new EntityList();
+    this->_bloopList = new EntityList();
 
     for (int i = 0; i < 10; i++)
-        this->_astroidList->insert(new Astroid(2, {rand() % 5 - 5, rand() % 5 - 3}, {100, rand() % 400}));
+        this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(480, i * 40)));
 
     ci.playSong(0);
     updateAllSprites();
@@ -31,6 +32,7 @@ void TestPC::loop()
     this->_playerTwo->move();
 
     updateNPC();
+    this->_collision->checkAllCollision();
     updateAllSprites();
 }
 

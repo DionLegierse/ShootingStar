@@ -20,11 +20,6 @@ public:
     void    laserEnable();
     bool    getLaserEnabled();
 
-// Fuel methods
-public:
-    int     getFuel();
-    void    setFuel(int);
-
 // Collision methods
 public:
     void    collisionEvent()    override;
@@ -37,13 +32,15 @@ private:
 private:
     bool    _isLaserEnable = false;
 
-// Fuel variables
-private:
-    int     _fuel;
-
 private:
     int     _index;
 
 private:
+    const int _xUpBound         = 496;
+    const int _xLowBound        = 0;
+    const int _yUpBound         = 432;
+    const int _yLowBound        = 0;
+
+public:
     ControllerInput*    _conIn  = nullptr;
 };

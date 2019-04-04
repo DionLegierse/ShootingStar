@@ -11,14 +11,12 @@ Player::Player ()
     else if (this->_index == 2)
         this->_conIn = new ControllerInput(0x20);
 
-    this->_conIn->setupController();
-
     createSprites();
 }
 
 Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPosition)
 {
-    this->_colliderRadius = 2;
+    this->_colliderRadius = 8;
     this->_index = aIndex;
     this->_type = ENT_PLAYER;
 
@@ -26,8 +24,6 @@ Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPo
         this->_conIn = new ControllerInput(0x27);
     else if (this->_index == 2)
         this->_conIn = new ControllerInput(0x20);
-
-    this->_conIn->setupController();
 
     createSprites();
 }
@@ -43,29 +39,46 @@ void Player::move ()
 
     switch (stick)
     {
-        case ControllerInput::UP:
-            this->_position += {0, -this->_speed};
-            break;
-        case ControllerInput::UPRIGHT:
-            this->_position += {this->_speed, -this->_speed};
-            break;
-        case ControllerInput::RIGHT:
-            this->_position += {this->_speed, 0};
-            break;
-        case ControllerInput::DOWNRIGHT:
-            this->_position += {this->_speed, this->_speed};
-            break;
-        case ControllerInput::DOWN:
-            this->_position += {0, this->_speed};
-            break;
         case ControllerInput::DOWNLEFT:
-            this->_position += {-this->_speed, this->_speed};
+            if (this->_position.getX() >= _xLowBound)
+                this->_position += Vector2(-this->_speed, 0);
+            if (this->_position.getY() <= _yUpBound)
+                this->_position += Vector2(0, this->_speed);
             break;
         case ControllerInput::LEFT:
-            this->_position += {-this->_speed, 0};
+            if (this->_position.getX() >= _xLowBound)
+                this->_position += Vector2(-this->_speed, 0);
             break;
         case ControllerInput::UPLEFT:
-            this->_position += {-this->_speed, -this->_speed};
+            if (this->_position.getY() >= _yLowBound)
+                this->_position += Vector2(-this->_speed, 0);
+            if (this->_position.getX() >= _xLowBound)
+                this->_position += Vector2(0, -this->_speed);
+            break;
+        case ControllerInput::UP:
+            if (this->_position.getY() > _xLowBound)
+                this->_position += Vector2(0, -this->_speed);
+            break;
+        case ControllerInput::UPRIGHT:
+            if (this->_position.getX() <= _xUpBound)
+                this->_position += Vector2(this->_speed, 0);
+            if (this->_position.getY() >= _xLowBound)
+                this->_position += Vector2(0, -this->_speed);
+            break;
+        case ControllerInput::RIGHT:
+            if (this->_position.getX() <= _xUpBound)
+                this->_position += Vector2(this->_speed, 0);
+            break;
+        case ControllerInput::DOWNRIGHT:
+            if (this->_position.getX() <= _xUpBound)
+                this->_position += Vector2(this->_speed, 0);
+            if (this->_position.getY() <= _yUpBound)
+                this->_position += Vector2(0, this->_speed);
+            break;
+        case ControllerInput::DOWN:
+            if (this->_position.getY() <= _yUpBound)
+                this->_position += Vector2(0, this->_speed);
+            break;
 
         default:
             break;
@@ -84,22 +97,10 @@ bool Player::getLaserEnabled ()
     return this->_isLaserEnable;
 }
 
-//>-----------{ Laser methods }-----------<
-
-void Player::setFuel (int aFuel)
-{
-    this->_fuel = aFuel;
-}
-
-int Player::getFuel ()
-{
-    return this->_fuel;
-}
-
 //>-----------{ Collision methods }-----------<
 void Player::collisionEvent()
 {
-
+    
 }
 
 void Player::createSprites()

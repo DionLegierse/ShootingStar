@@ -68,3 +68,13 @@ void Entity::updateSprites()
     ci.updateObjectCoord(this->_spriteAddress[2], this->_position + tempY);
     ci.updateObjectCoord(this->_spriteAddress[3], this->_position + tempXY);
 }
+
+void Entity::deleteSprites()
+{
+    ConsoleInterface ci;
+    
+    for (int i = 0; i < 4; i++)
+    {
+        ci.deleteObject(this->_spriteAddress[i]);
+    }
+}

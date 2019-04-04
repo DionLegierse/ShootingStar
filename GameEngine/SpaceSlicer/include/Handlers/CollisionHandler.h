@@ -9,7 +9,6 @@
 
 #define LIST_ASTROID    0
 #define LIST_BLOOP      1
-#define LIST_FUEL       2
 
 class CollisionHandler
 {

@@ -1,16 +1,5 @@
-
-#include <stdio.h>
-#include <string>
-#include <iostream>
-
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#include "driver/gpio.h"
-#include "sdkconfig.h"
+#pragma once
 #include "driver/i2c.h"
-
-#include "esp_system.h"
 
 class ControllerInput
 {

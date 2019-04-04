@@ -34,6 +34,8 @@ entity COMMAND_PROCESSOR is
         update_all : out std_logic;
         --! Signal to let the GPU reset the sprite bank
         reset_bank : out std_logic;
+        --! Reset the sprite at the given address
+        reset_sprite : out std_logic;
 -------------------------------------OUTPUTS_APU--------------------------------
         --! Signal to let the APU start playing the song in start_addres_APU
         start_music : out std_logic;
@@ -95,6 +97,7 @@ begin
         update_xy <= '0';
         update_all <= '0';
         reset_bank <= '0';
+        reset_sprite <= '0';
 
         if mc_clk_stable = '1' then
             if (mc_data_stable(7) = '1') and mc_select_stable = '1' then
@@ -113,6 +116,8 @@ begin
                         update_all <= '1';
                     when x"86" =>
                         reset_bank <= '1';
+                    when x"87" =>
+                        reset_sprite <= '1';
                     when others => NULL;
                 end case;
             elsif mc_select_stable = '1' then

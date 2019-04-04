@@ -56,6 +56,7 @@ architecture Behavioral of FPGA_TOP is
     signal update_xy : std_logic;
     signal update_all : std_logic;
     signal reset_bank : std_logic;
+    signal reset_sprite : std_logic;
 
     signal start_music : std_logic;
     signal reset_APU : std_logic;
@@ -98,6 +99,7 @@ begin
         update_xy => update_xy,
         update_all => update_all,
         reset_bank => reset_bank,
+        reset_sprite => reset_sprite,
 
         start_music => start_music,
         reset_APU => reset_APU,
@@ -123,6 +125,7 @@ begin
         update_xy => update_xy,
         update_all => update_all,
         reset_bank => reset_bank,
+        reset_sprite => reset_sprite,
 
         redOut => redOut,
         greenOut => greenOut,

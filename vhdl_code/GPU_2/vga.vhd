@@ -69,7 +69,7 @@ begin
             else
                 redOut <= (others => '0');
                 greenOut <= (others => '0');
-                blueOut <= (0 => '1', others => '0');
+                blueOut <= (0 => '1', 1 => '1', 2 => '1', 3 => '0');
             end if;
         -- blanking time
         else

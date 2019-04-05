@@ -25,8 +25,11 @@ void TestPC::setup()
     updateAllSprites();
 }
 
+#include "Utils/Profiler.h"
+
 void TestPC::loop()
 {
+    Profiler profile("Loop");
     this->_playerOne->move();
     this->_playerTwo->move();
 
@@ -47,6 +50,7 @@ void TestPC::updateNPC()
 
 void TestPC::updateAllSprites()
 {
+
     this->_playerOne->updateSprites();
     this->_playerTwo->updateSprites();
 

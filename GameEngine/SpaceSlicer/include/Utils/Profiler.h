@@ -1,11 +1,18 @@
 #pragma once
 
 #include <chrono>
+#include <string>
 
 class Profiler{
 public:
-    Profiler();
+    Profiler(std::string aFuncionName);
     ~Profiler();
+    
 private:
-    std::chrono::system_clock::time_point start;
+    Profiler();
+
+    static bool isProfiled;
+
+    std::string _functionName;
+    std::chrono::system_clock::time_point _start;
 };

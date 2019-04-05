@@ -40,7 +40,7 @@ void createMainTask()
 
 	xTaskCreatePinnedToCore (inputTask,
 				 			 "INPUT",
-							 1024,
+							 4096,
 							 (void*) 1,
 							 9,
 							 &xHandleInput,
@@ -48,7 +48,7 @@ void createMainTask()
 	
 	xTaskCreatePinnedToCore (drawTask,
 							 "DRAW",
-							 2048,
+							 4096,
 							 (void*) 1,
 							 tskIDLE_PRIORITY,
 							 &xHandleDraw,
@@ -81,8 +81,14 @@ void inputTask(void* vParam)
 
 void drawTask(void* vParam)
 {
-	vTaskDelay(10);
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = 1;
+
+	xLastWakeTime = xTaskGetTickCount();
 
 	for (;;)
+	{
+		vTaskDelayUntil(&xLastWakeTime, xFrequency);
 		test->updateAllSprites();
+	}
 }

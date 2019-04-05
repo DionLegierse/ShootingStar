@@ -13,9 +13,9 @@ void TestPC::setup()
     ci.printText("incompetendo", Vector2(0,0));
     
     this->_collision = new CollisionHandler(this);
-    this->_playerOne = new Player(1, Vector2(5, 0), 1);
-    this->_playerOne->_conIn->setupController();
-    this->_playerTwo = new Player(1, Vector2(5, 40), 2);
+    this->_playerOne = new Player(1, Vector2(5, 0), 1, this->_stickPlayerOne);
+    // this->_playerOne->_conIn->setupController();
+    this->_playerTwo = new Player(1, Vector2(5, 40), 2, this->_stickPlayerTwo);
     this->_astroidList = new EntityList();
     this->_bloopList = new EntityList();
 
@@ -23,7 +23,7 @@ void TestPC::setup()
         this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(480, i * 40)));
 
     ci.playSong(0);
-    updateAllSprites();
+    updateAllSprites();  
 }
 
 void TestPC::loop()
@@ -34,6 +34,23 @@ void TestPC::loop()
     updateNPC();
     this->_collision->checkAllCollision();
     updateAllSprites();
+}
+
+void TestPC::setupInput()
+{
+    this->_inputPlayerOne = new ControllerInput(0x27);
+    this->_inputPlayerTwo = new ControllerInput(0x20);
+
+    this->_inputPlayerOne->setupController();
+
+    this->_stickPlayerOne = new ControllerInput::STICK;
+    this->_stickPlayerTwo = new ControllerInput::STICK;
+}
+
+void TestPC::readInput()
+{
+    *this->_stickPlayerOne = this->_inputPlayerOne->getStick();
+    *this->_stickPlayerTwo = this->_inputPlayerTwo->getStick();
 }
 
 void TestPC::updateNPC()

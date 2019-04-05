@@ -8,7 +8,7 @@ class Player : public Entity
 // Constructors/destructors
 public:
             Player();
-            Player(int, Vector2, int);
+            Player(int, Vector2, int, ControllerInput::STICK*);
             ~Player();
 
 // Movement methods
@@ -43,4 +43,7 @@ private:
 
 public:
     ControllerInput*    _conIn  = nullptr;
+
+private:
+    ControllerInput::STICK* _inputStick;
 };

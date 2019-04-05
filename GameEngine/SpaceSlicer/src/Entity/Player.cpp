@@ -14,11 +14,13 @@ Player::Player ()
     createSprites();
 }
 
-Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPosition)
+Player::Player (int aSpeed, Vector2 aPosition, int aIndex, ControllerInput::STICK* aStick) : Entity (aSpeed, aPosition)
 {
     this->_colliderRadius = 8;
     this->_index = aIndex;
     this->_type = ENT_PLAYER;
+
+    this->_inputStick = aStick;
 
     if (this->_index == 1)
         this->_conIn = new ControllerInput(0x27);
@@ -35,9 +37,9 @@ Player::~Player () {}
 
 void Player::move ()
 {
-    ControllerInput::STICK stick = this->_conIn->getStick();
+    // ControllerInput::STICK stick = this->_conIn->getStick();
 
-    switch (stick)
+    switch (*this->_inputStick)
     {
         case ControllerInput::DOWNLEFT:
             if (this->_position.getX() >= _xLowBound)

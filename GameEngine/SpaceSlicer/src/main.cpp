@@ -11,6 +11,9 @@
 
 void createMainTask();
 void mainTask(void*);
+void inputTask(void*);
+
+TestPC *test = new TestPC();
 
 extern "C" {
 	void app_main(void);
@@ -24,20 +27,36 @@ void app_main(void)
 void createMainTask()
 {
 	TaskHandle_t xHandle = NULL;
-	xTaskCreate (mainTask,
-                "MAIN",
-                 4096,
-                 (void*) 1,
-                 tskIDLE_PRIORITY,
-                 &xHandle );
+
+	xTaskCreatePinnedToCore (mainTask,
+							 "MAIN",
+							 4096,
+							 (void*) 1,
+							 tskIDLE_PRIORITY,
+							 &xHandle,
+							 0 );
+
+	xTaskCreatePinnedToCore (inputTask,
+				 			 "INPUT",
+							 4096,
+							 (void*) 1,
+							 10,
+							 &xHandle,
+							 1);
 }
 
 void mainTask(void* vParam)
 {
-	TestPC *test = new TestPC();
-
 	test->setup();
 
 	for (;;)
 		test->loop();
+}
+
+void inputTask(void* vParam)
+{
+	test->setupInput();
+
+	for (;;)
+		test->readInput();
 }

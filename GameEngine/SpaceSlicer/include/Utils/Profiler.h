@@ -7,6 +7,7 @@ class Profiler{
 public:
     Profiler(std::string aFuncionName);
     ~Profiler();
+    void stop();
     
 private:
     Profiler();

@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Handlers/ControllerInput.h"
+#include "Handlers/MutexHandler.h"
 
 #include <stdio.h>
 

@@ -18,6 +18,9 @@ public:
     virtual void    setupInput() = 0;
 
 public:
+    virtual void    updateAllSprites() = 0;
+
+public:
     EntityList*     getAstroidList();
     EntityList*     getBloopList();
 

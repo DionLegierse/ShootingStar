@@ -23,7 +23,7 @@ void TestPC::setup()
         this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(480, i * 40)));
 
     ci.playSong(0);
-    updateAllSprites();  
+    // updateAllSprites();  
 }
 
 void TestPC::loop()
@@ -33,7 +33,7 @@ void TestPC::loop()
 
     updateNPC();
     this->_collision->checkAllCollision();
-    updateAllSprites();
+    // updateAllSprites();
 }
 
 void TestPC::setupInput()

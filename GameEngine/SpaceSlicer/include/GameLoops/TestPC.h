@@ -18,11 +18,11 @@ public:
     void    setupInput() override;
     void    readInput() override;
 
-private:
-    void    updateNPC();
+public:
+    void    updateAllSprites() override;
 
 private:
-    void    updateAllSprites();
+    void    updateNPC();
 
 private:
     CollisionHandler*   _collision  = nullptr;

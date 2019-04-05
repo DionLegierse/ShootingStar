@@ -1,6 +1,7 @@
 #pragma once
 #include "Utils/Vector2.h"
 #include "Handlers/ConsoleInterface.h"
+#include "Handlers/MutexHandler.h"
 
 #define ENT_ASTROID 0
 #define ENT_BLOOP   1

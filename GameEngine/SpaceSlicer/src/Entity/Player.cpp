@@ -39,6 +39,8 @@ void Player::move ()
 {
     // ControllerInput::STICK stick = this->_conIn->getStick();
 
+    MutexHandler::takeMutex();
+
     switch (*this->_inputStick)
     {
         case ControllerInput::DOWNLEFT:
@@ -85,6 +87,8 @@ void Player::move ()
         default:
             break;
     }
+
+    MutexHandler::giveMutex();
 }
 
 //>-----------{ Laser methods }-----------<

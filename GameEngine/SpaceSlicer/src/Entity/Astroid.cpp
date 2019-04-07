@@ -6,22 +6,23 @@ Astroid::Astroid ()
 {
     this->_type = ENT_ASTROID;
     createSprites();
-    updateSprites();
 }
 
 Astroid::Astroid (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpeed, aDirection, aPosition)
 {
-    this->_colliderRadius = 2;
+    this->_colliderRadius = 8;
     this->_type = ENT_ASTROID;
     createSprites();
-    updateSprites();
 }
 
-Astroid::~Astroid () {}
+Astroid::~Astroid ()
+{
+    deleteSprites();
+}
 
 void Astroid::collisionEvent()
 {
-    printf("%p: Astroid exploded!\n", this);
+    
 }
 
 void Astroid::createSprites()

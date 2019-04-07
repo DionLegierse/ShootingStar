@@ -1,4 +1,6 @@
 #include "Entity.h"
+#include "Handlers/ControllerInput.h"
+#include "Handlers/MutexHandler.h"
 
 #include <stdio.h>
 
@@ -7,7 +9,7 @@ class Player : public Entity
 // Constructors/destructors
 public:
             Player();
-            Player(int, Vector2, int);
+            Player(int, Vector2, int, ControllerInput::STICK*);
             ~Player();
 
 // Movement methods
@@ -18,11 +20,6 @@ public:
 public:
     void    laserEnable();
     bool    getLaserEnabled();
-
-// Fuel methods
-public:
-    int     getFuel();
-    void    setFuel(int);
 
 // Collision methods
 public:
@@ -36,10 +33,18 @@ private:
 private:
     bool    _isLaserEnable = false;
 
-// Fuel variables
-private:
-    int     _fuel;
-
 private:
     int     _index;
+
+private:
+    const int _xUpBound         = 496;
+    const int _xLowBound        = 0;
+    const int _yUpBound         = 432;
+    const int _yLowBound        = 0;
+
+public:
+    ControllerInput*    _conIn  = nullptr;
+
+private:
+    ControllerInput::STICK* _inputStick;
 };

@@ -14,9 +14,15 @@ public:
     virtual void    loop()  = 0;
 
 public:
+    virtual void    readInput() = 0;
+    virtual void    setupInput() = 0;
+
+public:
+    virtual void    updateAllSprites() = 0;
+
+public:
     EntityList*     getAstroidList();
     EntityList*     getBloopList();
-    EntityList*     getFuelList();
 
 public:
     Player*         getPlayer(int);
@@ -24,7 +30,6 @@ public:
 protected:
     EntityList*     _astroidList    = nullptr;
     EntityList*     _bloopList      = nullptr;
-    EntityList*     _fuelList       = nullptr;
 
 protected:
     Player*         _playerOne      = nullptr;

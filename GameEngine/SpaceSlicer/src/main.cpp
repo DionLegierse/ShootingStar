@@ -17,9 +17,11 @@
 
 #include "nvs_flash.h"
 #include "nvs.h"
+#include "esp_pthread.h"
 
 //----------------------------------------------------
 #include "Handlers/ConsoleInterface.h"
+
 
 extern "C" {
 	void app_main(void);
@@ -37,17 +39,23 @@ void doTask(void *pvParameter)
 	printf("%d\n", x);	
 }
 
+void doI2C(void *pvParameter)
+{
+	printf("doI2C");
+}
+
 void app_main(void)
 {	
 	TaskHandle_t xHandle = NULL;
 
-    xTaskCreate(&doTask, "fukcmedaddy", 4096, (void*) 1, tskIDLE_PRIORITY, &xHandle);
+	xTaskCreatePinnedToCore(&doTask, "task1", 4096, (void*) 1, 10, &xHandle, 1);
+	xTaskCreatePinnedToCore(&doI2C, "I2C", 4096, (void*) 1, 5, &xHandle, 0);
 }
 
 
 
 
-
+s
 
 
 

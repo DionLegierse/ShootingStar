@@ -50,6 +50,7 @@ entity GPU is
         update_xy : in std_logic;
         update_all : in std_logic;
         reset_bank : in std_logic;
+        reset_sprite : in std_logic;
 
         redOut, greenOut, blueOut : out  std_logic_vector(3 downto 0);
         hsync, vsync : out  STD_LOGIC
@@ -95,6 +96,7 @@ begin
         update_xy => update_xy,
         update_all => update_all,
         reset_bank => reset_bank,
+        reset_sprite => reset_sprite,
 
         vpos => vpos,
         hpos => hpos,

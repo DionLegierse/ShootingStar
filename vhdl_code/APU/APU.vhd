@@ -18,12 +18,14 @@ package APU is
     constant NOISE_ENABLE_REGISTER : std_logic_vector(3 downto 0) := b"1010";
     constant NOISE_VOLUME_REGISTER : std_logic_vector(3 downto 0) := b"1001";
 
+    --! The states of the memory fetcher of the SYNTHESIZER_CONTROLLER
     type MEMORY_STATES is(
         WAIT_ADDRESS,
         WAIT_DATA,
         DATA_READY
     );
 
+    --! The states of the SYNTHESIZER_CONTROLLER
     type CONTROL_STATES is (
         HOLD,--
         GET_BPM_MSB,--

@@ -50,12 +50,13 @@ architecture Behavioral of FPGA_TOP is
     signal y_loc_sprite : std_logic_vector(8 downto 0);
     signal sprite_memory_loc : std_logic_vector(7 downto 0);
     signal sprite_attribute : std_logic_vector(5 downto 0);
-    signal sprite_register_loc : std_logic_vector(6 downto 0);
+    signal sprite_register_loc : std_logic_vector(7 downto 0);
     signal update_x : std_logic;
     signal update_y : std_logic;
     signal update_xy : std_logic;
     signal update_all : std_logic;
     signal reset_bank : std_logic;
+    signal reset_sprite : std_logic;
 
     signal start_music : std_logic;
     signal reset_APU : std_logic;
@@ -87,7 +88,6 @@ begin
         mc_data => mc_data,
         mc_clk => mc_clk,
         mc_register_select => mc_register_select,
-        gpu_clk => clk25,
 
         x_loc_sprite => x_loc_sprite,
         y_loc_sprite => y_loc_sprite,
@@ -99,6 +99,7 @@ begin
         update_xy => update_xy,
         update_all => update_all,
         reset_bank => reset_bank,
+        reset_sprite => reset_sprite,
 
         start_music => start_music,
         reset_APU => reset_APU,
@@ -106,6 +107,9 @@ begin
     );
 
     GPU_1 : entity work.GPU(Behavioral)
+    generic map(
+        sprite_address_bits => 8
+    )
     port map(
         clk => clk25,
 
@@ -121,7 +125,8 @@ begin
         update_xy => update_xy,
         update_all => update_all,
         reset_bank => reset_bank,
-        
+        reset_sprite => reset_sprite,
+
         redOut => redOut,
         greenOut => greenOut,
         blueOut => blueOut,

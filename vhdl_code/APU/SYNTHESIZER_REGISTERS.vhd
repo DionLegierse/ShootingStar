@@ -9,6 +9,7 @@ entity SYNTHESIZER_REGISTERS is
         write_enable : in std_logic;
         register_select : in std_logic_vector(3 downto 0);
         data : in std_logic_vector(10 downto 0);
+        reset : in std_logic;
 -----------------------------------OUTPUTS--------------------------------------
         square1_frequency : out std_logic_vector(10 downto 0);
         square1_enable : out std_logic;
@@ -29,13 +30,25 @@ end entity;
 
 architecture Behavioral of SYNTHESIZER_REGISTERS is
 
-
-
 begin
 
 SET_REGISTERS : process(clk)
 begin
-    if rising_edge(clk) then
+    if reset = '1' then
+
+            square1_frequency <= (others => '0');
+            square1_enable <= '0';
+            square1_volume <= (others => '0');
+            square2_frequency <= (others => '0');
+            square2_enable <= '0';
+            square2_volume <= (others => '0');
+            triangle_frequency <= (others => '0');
+            triangle_enable <= '0';
+            noise_selectSample <= (others => '0');
+            noise_volume <= (others => '0');
+            noise_enable <= '0';
+
+    elsif rising_edge(clk) then
         if write_enable = '1' then
             case( register_select ) is
 

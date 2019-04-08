@@ -14,7 +14,6 @@ void TestPC::setup()
     
     this->_collision = new CollisionHandler(this);
     this->_playerOne = new Player(1, Vector2(5, 0), 1, this->_stickPlayerOne);
-    // this->_playerOne->_conIn->setupController();
     this->_playerTwo = new Player(1, Vector2(5, 40), 2, this->_stickPlayerTwo);
     this->_astroidList = new EntityList();
     this->_bloopList = new EntityList();
@@ -23,17 +22,17 @@ void TestPC::setup()
         this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(480, i * 40)));
 
     ci.playSong(0);
-    // updateAllSprites();  
 }
 
-void TestPC::loop()
+GameLoop* TestPC::loop()
 {
     this->_playerOne->move();
     this->_playerTwo->move();
 
     updateNPC();
     this->_collision->checkAllCollision();
-    // updateAllSprites();
+
+    return this;
 }
 
 void TestPC::setupInput()

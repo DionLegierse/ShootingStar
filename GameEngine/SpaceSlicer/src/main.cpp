@@ -4,6 +4,7 @@
 #include "freertos/task.h"
 
 #include "GameLoops/TestPC.h"
+#include "GameLoops/MainMenu.h"
 #include "Handlers/MutexHandler.h"
 
 void createMainTask();
@@ -11,7 +12,10 @@ void mainTask(void*);
 void inputTask(void*);
 void drawTask(void*);
 
-TestPC *test = new TestPC();
+GameLoop* currentLoop = nullptr;
+
+GameLoop* test = new TestPC();
+GameLoop* mainMenu = new MainMenu(test);
 
 extern "C" {
 	void app_main(void);
@@ -24,6 +28,8 @@ void app_main(void)
 
 void createMainTask()
 {
+	currentLoop = test;
+
 	MutexHandler::initMutex();
 
 	TaskHandle_t xHandleLoop = NULL;
@@ -57,7 +63,7 @@ void createMainTask()
 
 void mainTask(void* vParam)
 {
-	test->setup();
+	currentLoop->setup();
 
 	TickType_t xLastWakeTime;
 	const TickType_t xFrequency = 1;
@@ -67,16 +73,16 @@ void mainTask(void* vParam)
 	for (;;)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xFrequency);
-		test->loop();
+		currentLoop = currentLoop->loop();
 	}
 }
 
 void inputTask(void* vParam)
 {
-	test->setupInput();
+	currentLoop->setupInput();
 
 	for (;;)
-		test->readInput();
+		currentLoop->readInput();
 }
 
 void drawTask(void* vParam)
@@ -89,6 +95,6 @@ void drawTask(void* vParam)
 	for (;;)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xFrequency);
-		test->updateAllSprites();
+		currentLoop->updateAllSprites();
 	}
 }

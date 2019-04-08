@@ -7,22 +7,22 @@
 class TestPC : public GameLoop
 {
 public:
-            TestPC();
-            ~TestPC();
+                TestPC();
+                ~TestPC();
 
 public:
-    void    setup()     override;
-    void    loop()      override;
+    void        setup()     override;
+    GameLoop*   loop()      override;
 
 public:
-    void    setupInput() override;
-    void    readInput() override;
+    void        setupInput() override;
+    void        readInput() override;
 
 public:
-    void    updateAllSprites() override;
+    void        updateAllSprites() override;
 
 private:
-    void    updateNPC();
+    void        updateNPC();
 
 private:
     CollisionHandler*   _collision  = nullptr;

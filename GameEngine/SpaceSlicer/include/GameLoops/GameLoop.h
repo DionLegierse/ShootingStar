@@ -6,32 +6,32 @@
 class GameLoop
 {
 public:
-                    GameLoop();
-                    ~GameLoop();
+                        GameLoop();
+                        ~GameLoop();
 
 public:
-    virtual void    setup() = 0;
-    virtual void    loop()  = 0;
+    virtual void        setup() = 0;
+    virtual GameLoop*   loop()    = 0;
 
 public:
-    virtual void    readInput() = 0;
-    virtual void    setupInput() = 0;
+    virtual void        readInput() = 0;
+    virtual void        setupInput() = 0;
 
 public:
-    virtual void    updateAllSprites() = 0;
+    virtual void        updateAllSprites() = 0;
 
 public:
-    EntityList*     getAstroidList();
-    EntityList*     getBloopList();
+    EntityList*         getAstroidList();
+    EntityList*         getBloopList();
 
 public:
-    Player*         getPlayer(int);
+    Player*             getPlayer(int);
 
 protected:
-    EntityList*     _astroidList    = nullptr;
-    EntityList*     _bloopList      = nullptr;
+    EntityList*         _astroidList    = nullptr;
+    EntityList*         _bloopList      = nullptr;
 
 protected:
-    Player*         _playerOne      = nullptr;
-    Player*         _playerTwo      = nullptr;
+    Player*             _playerOne      = nullptr;
+    Player*             _playerTwo      = nullptr;
 };

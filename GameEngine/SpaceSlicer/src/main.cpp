@@ -35,27 +35,34 @@ void doTask(void *pvParameter)
 
 	CI.freeAllObjects();
 
-	uint8_t x = CI.printText( "123456789123456789123456789", {0, 0} );
-	printf("%d\n", x);	
-}
+	uint16_t value = 1908;
 
-void doI2C(void *pvParameter)
-{
-	printf("doI2C");
+
+	uint8_t * y;
+	uint8_t * x;
+
+	x = CI.printText( value, Vector2(9, 9) );
+	y = CI.printText( "cas is gay", Vector2(9, 18) );
+	
+	for(uint8_t i = 0; i < 8; i++)
+	{
+		printf( "%d\t", x[i] );
+	}
+	printf("\n");
+
+	for(uint8_t i = 0; i < 8; i++)
+	{
+		printf( "%d\t", y[i] );
+	}
+	printf("\n");
 }
 
 void app_main(void)
 {	
 	TaskHandle_t xHandle = NULL;
 
-	xTaskCreatePinnedToCore(&doTask, "task1", 4096, (void*) 1, 10, &xHandle, 1);
-	xTaskCreatePinnedToCore(&doI2C, "I2C", 4096, (void*) 1, 5, &xHandle, 0);
+	xTaskCreatePinnedToCore(&doTask, "task1", 4096, (void*) 1, 1, &xHandle, 1);
 }
-
-
-
-
-s
 
 
 

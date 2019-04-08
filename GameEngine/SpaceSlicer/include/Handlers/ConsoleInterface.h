@@ -50,15 +50,14 @@ public:
 
 //text printing
 public:
-    uint8_t printText(char *, Vector2);
+    uint8_t * printText(char *, Vector2);
+    uint8_t * printText(uint16_t, Vector2);
+    void removeText(uint8_t *);
 
 //registers
 public:
     void writeToGPU(uint8_t);
-    void writeToRegister(uint8_t, uint8_t);    
-
-
-
+    void writeToRegister(uint8_t, uint8_t); 
 
 //gpio handling
 private:
@@ -79,4 +78,9 @@ private:
 private:
     static bool isAvailable[REG_AMOUNT + 1];
     int output = 0;
+
+//offsets
+private:
+    const uint8_t LETTER_OFFSET = 9;
+    const uint8_t ASCII_A = 97;
 };

@@ -19,11 +19,15 @@ GameLoop* currentLoop = nullptr;
 GameLoop* test = new TestPC();
 GameLoop* mainMenu = new MainMenu(test);
 
+#define STORAGE_NAMESPACE "testBin"
+
 extern "C" {
 	void app_main(void);
 }
 
-void app_main(void)
+extern gpio_dev_t GPIO;
+
+esp_err_t CasIsGay(void)
 {
 	createMainTask();
 }

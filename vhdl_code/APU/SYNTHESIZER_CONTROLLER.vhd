@@ -5,6 +5,7 @@ use work.APU.all;
 
 entity SYNTHESIZER_CONTROLLER is
     generic(
+        --! The address bus width of the song memory
         bus_width : integer := 10
     );
     port (

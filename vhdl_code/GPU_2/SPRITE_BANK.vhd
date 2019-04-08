@@ -79,6 +79,7 @@ architecture Behavioral of SPRITE_BANK is
     type sprite_array is array (0 to ((2**sprite_address_bits ) - 1)) of sprite;
 
     signal sprites_array : sprite_array := (others => initial_sprite);
+    signal sprites_array_buffer : sprite_array := (others => initial_sprite);
 
     signal register_address_integer : integer range 0 to (2**sprite_address_bits) - 1;
     signal hpos_unsigned : unsigned(9 downto 0);
@@ -123,6 +124,15 @@ begin
         end if;
     end process;
 
+    SPRITE_BUFFER : process(clk)
+    begin
+        if rising_edge(clk) then
+            if to_integer(hpos_unsigned) = 0 and to_integer(vpos_unsigned) = 0 then
+                sprites_array_buffer <= sprites_array;
+            end if;
+        end if;
+    end process;
+
     SPRITE_FINDER : process(clk)
     begin
         if rising_edge(clk) then
@@ -132,15 +142,15 @@ begin
 
             SPRITE_FINDING_LOOP : for i in 0 to (2**sprite_address_bits) - 1 loop
                 if
-                    unsigned(sprites_array(i).x) <= hpos_unsigned and
-                    (unsigned(sprites_array(i).x) + 8) > hpos_unsigned and
-                    unsigned(sprites_array(i).y) <= vpos_unsigned and
-                    (unsigned(sprites_array(i).y) + 8) > vpos_unsigned
+                    unsigned(sprites_array_buffer(i).x) <= hpos_unsigned and
+                    (unsigned(sprites_array_buffer(i).x) + 8) > hpos_unsigned and
+                    unsigned(sprites_array_buffer(i).y) <= vpos_unsigned and
+                    (unsigned(sprites_array_buffer(i).y) + 8) > vpos_unsigned
                 then
-                    sprite_data <=  sprites_array(i).y &
-                                    sprites_array(i).x &
-                                    sprites_array(i).attrib &
-                                    sprites_array(i).number;
+                    sprite_data <=  sprites_array_buffer(i).y &
+                                    sprites_array_buffer(i).x &
+                                    sprites_array_buffer(i).attrib &
+                                    sprites_array_buffer(i).number;
 
                     sprite_vpos <= vpos;
                     sprite_hpos <= hpos;

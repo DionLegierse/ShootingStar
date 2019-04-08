@@ -170,44 +170,34 @@ void ConsoleInterface::playSong(uint16_t aAddress)
 	writeToGPU(START_APU);
 }
 
-uint8_t ConsoleInterface::printText(char * aText, Vector2 aPos)
+uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
 {    
     Vector2 pos = aPos;
 
     uint8_t data = 0;
-    uint8_t address = 0;
-    uint8_t startAddress = 0;
+    static uint8_t address[16];
 
     int cnt = 0;
 
     bool flag = true;
-    bool startFlag = true;
 
     while(*aText && flag)
     {
-        address = 0;
-
         data = *aText;
-        data -= 97;
+        data -= ASCII_A; //ascii value of a
 
-        if (data >= 207)
-            data -= 181;
+        if (data >= 207) //value of 0
+            data -= 181; //offset
 
-        if (data != 191)
+        if (data >= 0 && data < 36) //value of a space
         {
-            address = createNewObject( data );
-            updateObjectCoord( address, pos );
+            address[cnt] = createNewObject( data );
+            updateObjectCoord( address[cnt], pos );
             cnt++;
         }
 
-        pos += {9, 0};        
+        pos += Vector2(LETTER_OFFSET, 0);        
         aText++;
-
-        if (startFlag)
-        {
-            startAddress = address;
-            startFlag = false;
-        }
 
         //printf("Data: %d  \t|| Position: (%d, %d)\t|| Address: %d\n", data, pos.getX(), pos.getY(), address);
 
@@ -215,10 +205,45 @@ uint8_t ConsoleInterface::printText(char * aText, Vector2 aPos)
             flag = false;
     }    
 
-    // printf("end\n");
-    return startAddress;
+    return address;
 }
 
+uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
+{    
+    Vector2 pos = aPos;
+
+    uint16_t data = 0;
+    static uint8_t address[8];
+
+    uint8_t num[8];
+
+    for(size_t i = 0; i < 8; i++)    
+    {
+        data = values % 10;       
+
+        num[i] = data;
+
+        values /= 10; 
+    }   
+
+    for(int i = 7; i > -1; i--)
+    {
+        address[i] = createNewObject( num[i] + 26 );
+        updateObjectCoord( address[i], pos );
+
+        pos += Vector2(LETTER_OFFSET, 0); 
+    }     
+
+    return address;
+}
+
+void ConsoleInterface::removeText(uint8_t * row)
+{
+    for(uint8_t i = 0; i < 8; i++)
+    {
+        deleteObject(row[i]);
+    }    
+}
 
 uint8_t ConsoleInterface::getFreeRegisterID()
 {

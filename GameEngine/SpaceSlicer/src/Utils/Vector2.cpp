@@ -101,7 +101,7 @@ Vector2 Vector2::operator/(int v) const
 
 void Vector2::print()
 {
-
+	printf("(%d, %d)\n", this->x, this->y);
 }
 
 int Vector2::getAngle(Vector2& begin, Vector2& end)

@@ -7,6 +7,8 @@
 #include "GameLoops/MainMenu.h"
 #include "Handlers/MutexHandler.h"
 
+#define GAME_SPEED 8
+
 void createMainTask();
 void mainTask(void*);
 void inputTask(void*);
@@ -36,29 +38,13 @@ void createMainTask()
 	TaskHandle_t xHandleInput = NULL;
 	TaskHandle_t xHandleDraw = NULL;
 
-	xTaskCreatePinnedToCore (mainTask,
-							 "MAIN",
-							 4096,
-							 (void*) 1,
-							 tskIDLE_PRIORITY,
-							 &xHandleLoop,
-							 0 );
 
-	xTaskCreatePinnedToCore (inputTask,
-				 			 "INPUT",
-							 4096,
-							 (void*) 1,
-							 9,
-							 &xHandleInput,
-							 1);
-	
-	xTaskCreatePinnedToCore (drawTask,
-							 "DRAW",
-							 4096,
-							 (void*) 1,
-							 tskIDLE_PRIORITY,
-							 &xHandleDraw,
-							 0);
+	//Core 0
+	xTaskCreatePinnedToCore (mainTask, "MAIN", 4096, (void*) 1, 2, &xHandleLoop, 0 );				 
+	xTaskCreatePinnedToCore (drawTask, "DRAW", 4096, (void*) 1, 1, &xHandleDraw, 0);
+
+	//Core 1
+	xTaskCreatePinnedToCore (inputTask, "INPUT", 4096, (void*) 1, 3, &xHandleInput, 1);
 }
 
 void mainTask(void* vParam)
@@ -66,35 +52,44 @@ void mainTask(void* vParam)
 	currentLoop->setup();
 
 	TickType_t xLastWakeTime;
-	const TickType_t xFrequency = 1;
+	const TickType_t xFrequency = GAME_SPEED;
 
 	xLastWakeTime = xTaskGetTickCount();
 
 	for (;;)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xFrequency);
-		currentLoop = currentLoop->loop();
+		currentLoop->loop();
 	}
 }
 
 void inputTask(void* vParam)
 {
 	currentLoop->setupInput();
-
-	for (;;)
-		currentLoop->readInput();
-}
-
-void drawTask(void* vParam)
-{
+	
 	TickType_t xLastWakeTime;
-	const TickType_t xFrequency = 1;
+	const TickType_t xFrequency = GAME_SPEED;
 
 	xLastWakeTime = xTaskGetTickCount();
 
 	for (;;)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xFrequency);
+		currentLoop->readInput();
+	}
+}
+
+void drawTask(void* vParam)
+{
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = GAME_SPEED;
+
+	xLastWakeTime = xTaskGetTickCount();
+
+	for (;;)
+	{
+		vTaskDelayUntil(&xLastWakeTime, xFrequency);
+
 		currentLoop->updateAllSprites();
 	}
 }

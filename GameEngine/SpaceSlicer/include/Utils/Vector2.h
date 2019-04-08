@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+#define WINDOWS
+
 class Vector2
 {
 public:
@@ -26,6 +28,8 @@ public:
 
 	int getAngle(Vector2& begin, Vector2& end);
 	int getDistance(Vector2& other);
+	Vector2 getRelativeVector(const Vector2&) const;
+	float getGradient();
 
 	void print();
 

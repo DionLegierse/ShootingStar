@@ -2,6 +2,7 @@
 #include <cstdlib>
 
 #include "GameLoops/TestPC.h"
+#include "Utils/Profiler.h"
 
 TestPC::TestPC () {}
 TestPC::~TestPC () {}
@@ -26,6 +27,7 @@ void TestPC::setup()
 
 GameLoop* TestPC::loop()
 {
+    Profiler profile("Loop");
     this->_playerOne->move();
     this->_playerTwo->move();
 
@@ -65,6 +67,7 @@ void TestPC::updateNPC()
 
 void TestPC::updateAllSprites()
 {
+
     this->_playerOne->updateSprites();
     this->_playerTwo->updateSprites();
 

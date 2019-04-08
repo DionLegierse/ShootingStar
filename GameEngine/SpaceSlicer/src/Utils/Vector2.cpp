@@ -1,5 +1,6 @@
 #include <cmath>
 #include <stdio.h>
+#include <cstdlib>
 
 #include "Utils/Vector2.h"
 
@@ -118,4 +119,17 @@ int Vector2::getDistance(Vector2& other)
 	int difY = other.getY() - this->y;
 
 	return sqrt( pow(difX, 2 ) + pow( difY, 2 ));
+}
+
+Vector2 Vector2::getRelativeVector(const Vector2 & aVector) const
+{
+	Vector2 relativeVector;
+	relativeVector.x = abs(this->x - aVector.x);
+	relativeVector.y = abs(this->y - aVector.y);
+	return relativeVector;
+}
+
+float Vector2::getGradient()
+{
+	return ((float)this->y) / ((float)this->x);
 }

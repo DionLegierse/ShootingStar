@@ -58,3 +58,5 @@
 #define SPR_BLOOP_TR 49
 #define SPR_BLOOP_BL 50
 #define SPR_BLOOP_BR 51
+
+#define SPR_LASER 52

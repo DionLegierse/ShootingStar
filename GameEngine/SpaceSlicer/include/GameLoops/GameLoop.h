@@ -2,6 +2,7 @@
 #include "Utils/EntityList.h"
 #include "Entity/Player.h"
 #include "Entity/Astroid.h"
+#include "Entity/Laser.h"
 
 class GameLoop
 {
@@ -34,4 +35,7 @@ protected:
 protected:
     Player*             _playerOne      = nullptr;
     Player*             _playerTwo      = nullptr;
+
+protected:
+    Laser*              _laser          = nullptr;
 };

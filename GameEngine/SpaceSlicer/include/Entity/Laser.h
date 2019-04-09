@@ -1,4 +1,7 @@
 #include "Player.h"
+#include "Entity/LaserPart.h"
+
+#include <vector>
 
 class Laser
 {
@@ -11,6 +14,13 @@ public:
 public:
     void    drawLaser();
 
+public:
+    std::vector<Vector2>    getLaserPositions();
+
+private:
+    void    generateLaser();
+    void    clearLaser();
+
 // Laser variables
 private:
     bool    _isEnabled = false;
@@ -19,4 +29,8 @@ private:
 private:
     Player* _playerOne;
     Player* _playerTwo;
+
+private:
+    std::vector<Vector2>    _laserPositions;
+    std::vector<LaserPart>  _laserParts;
 };

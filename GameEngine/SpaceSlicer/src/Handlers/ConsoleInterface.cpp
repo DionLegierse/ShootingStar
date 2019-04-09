@@ -1,4 +1,3 @@
-
 #include "Handlers/ConsoleInterface.h"
 
 bool ConsoleInterface::isAvailable[REG_AMOUNT + 1];

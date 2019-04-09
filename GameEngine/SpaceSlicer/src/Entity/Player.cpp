@@ -60,6 +60,7 @@ void Player::move ()
                 this->_position += Vector2(0, -this->_speed);
             break;
         case ControllerInput::UP:
+            printf ("Player %d up", this->_index);
             if (this->_position.getY() > _xLowBound)
                 this->_position += Vector2(0, -this->_speed);
             break;

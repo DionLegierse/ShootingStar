@@ -18,10 +18,17 @@ public:
 public:
     void    generateLaser();
 
+public:
+    std::vector<Vector2>    getLaserPositions();
+
 // Player pointers
 private:
     Player* _playerOne  =   nullptr;
     Player* _playerTwo  =   nullptr;
+
+public:
+    int                 _score ;
+    int                 _prevScore;
 
 private:
     std::vector<uint8_t>    _partSpriteID;

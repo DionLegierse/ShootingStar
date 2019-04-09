@@ -3,7 +3,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#include "GameLoops/TestPC.h"
+#include "GameLoops/MainGame.h"
 #include "GameLoops/MainMenu.h"
 #include "Handlers/MutexHandler.h"
 
@@ -16,7 +16,7 @@ void drawTask(void*);
 
 GameLoop* currentLoop = nullptr;
 
-GameLoop* test = new TestPC();
+GameLoop* test = new MainGame();
 GameLoop* mainMenu = new MainMenu(test);
 
 

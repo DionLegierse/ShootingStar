@@ -15,3 +15,5 @@ Player* GameLoop::getPlayer(int aNumber)
         
     return nullptr;
 }
+
+Laser* GameLoop::getLaser() { return this->_laser; }

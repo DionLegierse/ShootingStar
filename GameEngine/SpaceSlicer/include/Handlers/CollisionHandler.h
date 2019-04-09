@@ -11,6 +11,8 @@
 #define LIST_ASTROID    0
 #define LIST_BLOOP      1
 
+#define LASER_COLLIDER_DISTANCE 4
+
 class CollisionHandler
 {
 public:
@@ -26,6 +28,7 @@ public:
 private:
     void        checkListLists(uint8_t);
     void        checkListCollision(uint8_t, Entity*, uint8_t);
+    void        checkLaserCollision(uint8_t);
     void        deleteEntity(Entity*);
     EntityLink* getList(uint8_t);
 

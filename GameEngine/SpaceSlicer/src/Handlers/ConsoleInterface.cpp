@@ -147,7 +147,7 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, Vector2 coord)
  */
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
-    isAvailable[aRegAddress] = false;
+    isAvailable[aRegAddress] = true;
 
     writeToRegister(SPR_REG_LOC, aRegAddress);
     writeToGPU(RESET_SPR);

@@ -124,8 +124,8 @@ int Vector2::getDistance(Vector2& other)
 Vector2 Vector2::getParallelVector(const Vector2 & aVector) const
 {
 	Vector2 parallelVector;
-	parallelVector.x = abs(this->x - aVector.x);
-	parallelVector.y = abs(this->y - aVector.y);
+	parallelVector.x = this->x - aVector.x;
+	parallelVector.y = this->y - aVector.y;
 	return parallelVector;
 }
 

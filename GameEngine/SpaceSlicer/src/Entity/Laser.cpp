@@ -13,6 +13,9 @@ Laser::Laser (Player* aPlayerOne, Player* aPlayerTwo)
 {
     this->_playerOne = aPlayerOne;
     this->_playerTwo = aPlayerTwo;
+
+    this->_score = 0;
+    this->_prevScore = -1;
 }
 
 Laser::~Laser () {}
@@ -48,3 +51,5 @@ void Laser::generateLaser()
                                                             this->_playerTwo->getPosition());
     }
 }
+
+std::vector<Vector2> Laser::getLaserPositions() { return this->_partPosition; }

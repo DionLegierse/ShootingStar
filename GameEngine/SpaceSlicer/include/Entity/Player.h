@@ -22,6 +22,9 @@ public:
     void    laserEnable();
     bool    getLaserEnabled();
 
+public:
+    int     getIndex();
+
 // Collision methods
 public:
     void    collisionEvent()    override;

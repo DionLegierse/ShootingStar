@@ -102,12 +102,26 @@ void MainGame::getRandomNPC()
 
     if (chance <= 100)
     {
-        this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(500, rand() % 424 + 8)));
+        int yPos;
+
+        do
+        {
+            yPos = rand() % 424 + 8;
+        } while (checkOverlay(LIST_BLOOP, yPos));
+        
+        this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(500, yPos)));
     }
 
     if (chance <= 50)
     {
-        this->_bloopList->insert(new Bloop(2, Vector2(-1, 0), Vector2(500, rand() % 424 + 8)));
+        int yPos;
+
+        do
+        {
+            yPos = rand() % 424 + 8;
+        } while (checkOverlay(LIST_ASTROID, yPos));
+        
+        this->_bloopList->insert(new Bloop(2, Vector2(-1, 0), Vector2(500, yPos)));
     }
 }
 
@@ -152,3 +166,23 @@ void MainGame::updateListPositions(uint8_t aList)
     }
 }
 
+bool MainGame::checkOverlay(uint8_t aList, int aYPos)
+{
+    EntityLink* curLink = nullptr;
+
+    if (aList == LIST_ASTROID)
+        curLink = this->_astroidList->getFirst();
+    else if (aList == LIST_BLOOP)
+        curLink = this->_bloopList->getFirst();
+
+    while (curLink != nullptr)
+    {
+        if (aYPos > curLink->getEntity()->getPosition().getY() - 16 &&
+            aYPos < curLink->getEntity()->getPosition().getY() + 16)
+            return true;
+        
+        curLink = curLink->getNext();
+    }
+
+    return false;
+}

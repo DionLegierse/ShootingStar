@@ -49,13 +49,13 @@ void Player::move ()
                 this->_position += Vector2(-this->_speed, 0);
             break;
         case ControllerInput::UP:
-            if (this->_position.getY() > _xLowBound)
+            if (this->_position.getY() > _yLowBound)
                 this->_position += Vector2(0, -this->_speed);
             break;
         case ControllerInput::UPRIGHT:
             if (this->_position.getX() < _xUpBound)
                 this->_position += Vector2(this->_speed, 0);
-            if (this->_position.getY() > _xLowBound)
+            if (this->_position.getY() > _yLowBound)
                 this->_position += Vector2(0, -this->_speed);
             break;
         case ControllerInput::RIGHT:
@@ -97,6 +97,8 @@ bool Player::getLaserEnabled ()
 {
     return this->_isLaserEnable;
 }
+
+int Player::getIndex() { return this->_index; }
 
 //>-----------{ Collision methods }-----------<
 void Player::collisionEvent()

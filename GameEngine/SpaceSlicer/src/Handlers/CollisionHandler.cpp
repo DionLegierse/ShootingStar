@@ -13,42 +13,33 @@ CollisionHandler::~CollisionHandler() {}
 
 void CollisionHandler::checkAllCollision()
 {
-    // checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(1), DEL_SECOND);
-    // checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(1), DEL_SECOND);
-    // checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(2), DEL_SECOND);
-    // checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(2), DEL_SECOND);
+    checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(1));
+    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(1));
+    checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(2));
+    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(2));
 
     checkLaserCollision(LIST_ASTROID);
     checkLaserCollision(LIST_BLOOP);
 }
 
-void CollisionHandler::checkListCollision(uint8_t aList, Entity* aEntity, uint8_t aDelete)
+void CollisionHandler::checkListCollision(uint8_t aList, Player* aPlayer)
 {
     EntityLink* curEntity = getList(aList);
 
     while (curEntity != nullptr)
     {
-        if (aEntity->checkCollision(curEntity->getEntity()))
+        if (aPlayer->checkCollision(curEntity->getEntity()))
         {
-            aEntity->collisionEvent();
-            curEntity->getEntity()->collisionEvent();
-
-            switch (aDelete)
+            if (aList == LIST_BLOOP)
             {
-                case DEL_FIRST:
-                    deleteEntity(aEntity);
-                    break;
-                case DEL_SECOND:
-                    deleteEntity(curEntity->getEntity());
-                    break;
-                case DEL_BOTH:
-                    deleteEntity(aEntity);
-                    deleteEntity(curEntity->getEntity());
-                    break;
-
-                default:
-                    break;
+                this->_gameLoop->getLaser()->_score += 5;
             }
+            else if(aList == LIST_ASTROID)
+            {
+                aPlayer->setPosition(Vector2(16, aPlayer->getIndex() * 128));
+            }
+
+            deleteEntity(curEntity->getEntity());
         }
         
         curEntity = curEntity->getNext();
@@ -72,7 +63,7 @@ void CollisionHandler::checkLaserCollision(uint8_t aList)
                 if (aList == LIST_ASTROID)
                     this->_gameLoop->getLaser()->_score += 5;
                 else if (aList == LIST_BLOOP)
-                    this->_gameLoop->getLaser()->_score -= 10;
+                    this->_gameLoop->getLaser()->_score -= 30;
                 
                 deleteEntity(curEntity->getEntity());
                 break;

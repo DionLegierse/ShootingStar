@@ -35,6 +35,9 @@ private:
     void        updateListPositions(uint8_t);
 
 private:
+    bool        checkOverlay(uint8_t, int);
+
+private:
     uint8_t*            _scoreboard = nullptr;
 
 private:

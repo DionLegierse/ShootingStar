@@ -19,8 +19,6 @@ void TestPC::setup()
     this->_astroidList = new EntityList();
     this->_bloopList = new EntityList();
 
-    // this->_laser = new Laser();
-
     for (int i = 0; i < 10; i++)
         this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(480, i * 40)));
 
@@ -32,8 +30,6 @@ GameLoop* TestPC::loop()
     Profiler profile("Loop");
     this->_playerOne->move();
     this->_playerTwo->move();
-
-    // this->_laser->drawLaser();
 
     updateNPC();
     this->_collision->checkAllCollision();

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Entity.h"
 #include "Handlers/ControllerInput.h"
 #include "Handlers/MutexHandler.h"

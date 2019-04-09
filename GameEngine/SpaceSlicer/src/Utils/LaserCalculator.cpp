@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "Utils/LaserCalculator.h"
+#include <stdio.h>
 
 #include "Utils/Vector2.h"
 
@@ -13,7 +14,7 @@ LaserCalculator::~LaserCalculator()
 {
 }
 
-const std::vector<Vector2>& LaserCalculator::calculateLaser(Vector2 player1Coord, Vector2 player2Coord)
+std::vector<Vector2>& LaserCalculator::calculateLaser(Vector2 player1Coord, Vector2 player2Coord)
 {
 	static std::vector<Vector2> laserparts;
 
@@ -30,13 +31,13 @@ const std::vector<Vector2>& LaserCalculator::calculateLaser(Vector2 player1Coord
 	unsigned freeSpace = round((sorted.second.getX() - sorted.second.getY()) / LaserCalculator::SPRITE_SIZE);
 
 	for (unsigned i = sorted.first.getX() + SPRITE_SIZE + freeSpace ; 
-		i < sorted.second.getX() - SPRITE_SIZE; 
+		i <= sorted.second.getX(); 
 		i += SPRITE_SIZE)
 	{
 		laserparts.push_back(Vector2(i, (i * a) + b));
 	}
 
-	return const_cast<std::vector<Vector2>&>(laserparts);
+	return laserparts;
 }
 
 Vector2 LaserCalculator::getPlayerDistance(Vector2 player1Coord, Vector2 player2Coord)

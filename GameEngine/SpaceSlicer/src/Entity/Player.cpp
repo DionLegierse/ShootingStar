@@ -6,26 +6,17 @@ Player::Player ()
 {
     this->_type = ENT_PLAYER;
 
-    if (this->_index == 1)
-        this->_conIn = new ControllerInput(0x27);
-    else if (this->_index == 2)
-        this->_conIn = new ControllerInput(0x20);
-
     createSprites();
 }
 
-Player::Player (int aSpeed, Vector2 aPosition, int aIndex, ControllerInput::STICK* aStick) : Entity (aSpeed, aPosition)
+Player::Player (int aSpeed, Vector2 aPosition, int aIndex, ControllerInput::STICK* aStick, ControllerInput::BUTTON* aButton) : Entity (aSpeed, aPosition)
 {
     this->_colliderRadius = 8;
     this->_index = aIndex;
     this->_type = ENT_PLAYER;
 
     this->_inputStick = aStick;
-
-    if (this->_index == 1)
-        this->_conIn = new ControllerInput(0x27);
-    else if (this->_index == 2)
-        this->_conIn = new ControllerInput(0x20);
+    this->_inputButton = aButton;
 
     createSprites();
 }
@@ -37,8 +28,6 @@ Player::~Player () {}
 
 void Player::move ()
 {
-    // ControllerInput::STICK stick = this->_conIn->getStick();
-
     MutexHandler::takeMutex();
 
     switch (*this->_inputStick)
@@ -87,6 +76,12 @@ void Player::move ()
         default:
             break;
     }
+
+    if (*this->_inputButton == ControllerInput::BTN_TWO)
+        this->_isLaserEnable = true;
+    else
+        this->_isLaserEnable = false;
+    
 
     MutexHandler::giveMutex();
 }

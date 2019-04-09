@@ -14,10 +14,11 @@ void TestPC::setup()
     ci.printText("incompetendo", Vector2(0,0));
     
     this->_collision = new CollisionHandler(this);
-    this->_playerOne = new Player(1, Vector2(5, 0), 1, this->_stickPlayerOne);
-    this->_playerTwo = new Player(1, Vector2(5, 40), 2, this->_stickPlayerTwo);
+    this->_playerOne = new Player(1, Vector2(5, 0), 1, this->_stickPlayerOne, this->_buttonPlayerOne);
+    this->_playerTwo = new Player(1, Vector2(5, 40), 2, this->_stickPlayerTwo, this->_buttonPlayerTwo);
     this->_astroidList = new EntityList();
     this->_bloopList = new EntityList();
+    this->_laser = new Laser(this->_playerOne, this->_playerTwo);
 
     for (int i = 0; i < 10; i++)
         this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(480, i * 40)));
@@ -34,6 +35,8 @@ GameLoop* TestPC::loop()
     updateNPC();
     this->_collision->checkAllCollision();
 
+    this->_laser->generateLaser();
+
     return this;
 }
 
@@ -46,12 +49,18 @@ void TestPC::setupInput()
 
     this->_stickPlayerOne = new ControllerInput::STICK;
     this->_stickPlayerTwo = new ControllerInput::STICK;
+
+    this->_buttonPlayerOne = new ControllerInput::BUTTON;
+    this->_buttonPlayerTwo = new ControllerInput::BUTTON;
 }
 
 void TestPC::readInput()
 {
     *this->_stickPlayerOne = this->_inputPlayerOne->getStick();
     *this->_stickPlayerTwo = this->_inputPlayerTwo->getStick();
+
+    *this->_buttonPlayerOne = this->_inputPlayerOne->getButton();
+    *this->_buttonPlayerTwo = this->_inputPlayerTwo->getButton();
 }
 
 void TestPC::updateNPC()
@@ -78,4 +87,6 @@ void TestPC::updateAllSprites()
         curEntity->getEntity()->updateSprites();
         curEntity = curEntity->getNext();
     }
+
+    this->_laser->drawLaser();
 }

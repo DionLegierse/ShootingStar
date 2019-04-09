@@ -1,3 +1,4 @@
+#pragma once
 #include "GameLoops/GameLoop.h"
 #include "Entity/Entity.h"
 #include "Utils/EntityList.h"

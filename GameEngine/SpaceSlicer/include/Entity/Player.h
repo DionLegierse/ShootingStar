@@ -1,3 +1,4 @@
+#pragma once
 #include "Entity.h"
 #include "Handlers/ControllerInput.h"
 #include "Handlers/MutexHandler.h"
@@ -9,7 +10,7 @@ class Player : public Entity
 // Constructors/destructors
 public:
             Player();
-            Player(int, Vector2, int, ControllerInput::STICK*);
+            Player(int, Vector2, int, ControllerInput::STICK*, ControllerInput::BUTTON*);
             ~Player();
 
 // Movement methods
@@ -42,9 +43,7 @@ private:
     const int _yUpBound         = 432;
     const int _yLowBound        = 0;
 
-public:
-    ControllerInput*    _conIn  = nullptr;
-
 private:
-    ControllerInput::STICK* _inputStick;
+    ControllerInput::STICK*     _inputStick     = nullptr;
+    ControllerInput::BUTTON*    _inputButton    = nullptr;
 };

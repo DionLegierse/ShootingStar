@@ -3,6 +3,7 @@
 #include "Handlers/CollisionHandler.h"
 #include "Handlers/ControllerInput.h"
 #include "freertos/task.h"
+#include "Entity/Laser.h"
 
 class TestPC : public GameLoop
 {
@@ -32,4 +33,10 @@ private:
 private:
     ControllerInput::STICK* _stickPlayerOne;
     ControllerInput::STICK* _stickPlayerTwo;
+
+    ControllerInput::BUTTON*    _buttonPlayerOne;
+    ControllerInput::BUTTON*    _buttonPlayerTwo;
+
+private:
+    Laser*      _laser;
 };

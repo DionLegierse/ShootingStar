@@ -12,7 +12,7 @@ public:
 	LaserCalculator();
 	virtual ~LaserCalculator();
 
-	static const std::vector<Vector2>& calculateLaser(Vector2, Vector2);
+	static std::vector<Vector2>& calculateLaser(Vector2, Vector2);
 
 private:
 

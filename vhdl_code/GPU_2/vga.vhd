@@ -20,14 +20,21 @@ use IEEE.numeric_std.all;
 
 entity VGA is
     Port (
+        --! 25 Mhz clock coming from the MMCM
         clk25 : in STD_LOGIC;
+        --! pixel data coming from the sprite ROM
 		pixel : in  std_logic_vector(7 downto 0);
+        --! All VGA color outputs
 		redOut, greenOut, blueOut : out  std_logic_vector(3 downto 0);
+        --! Outputs the next x and y coördinates
         nextX, nextY : out std_logic_vector(9 downto 0);
+        --! All VGA synchronyser outputs
 		hsync, vsync : out  STD_LOGIC
     );
 end VGA;
 
+--! @brief The Behavior of the VGA driver
+--! @details The Behavior of the VGA driver 
 architecture Behavioral_2 of VGA is
 -- declare all constants for 1920 x 1080 timing
   constant H_pixels: integer := 640;			--horizontal display width in pixels

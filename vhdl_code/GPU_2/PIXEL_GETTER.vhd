@@ -33,14 +33,23 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity PIXEL_GETTER is
     Port (
+        --! The 25 Mhz clock coming from the MMCM
         clk : in std_logic;
+        --! The sprite data coming from the SPRITE_BANK
         sprite : in std_logic_vector(31 downto 0);
+        --! The horizontal position on which the sprite was detected
         sprite_hpos : in std_logic_vector(9 downto 0);
+        --! The vertical position on which the sprite was detected
         sprite_vpos : in std_logic_vector(9 downto 0);
+        --! The address of the pixel to get from the sprite ROM
         ROM_address : out std_logic_vector(14 downto 0)
     );
 end PIXEL_GETTER;
 
+--! @brief Gets the pixel of the sprite on the given horizontal and vertical position
+--! @details Calculates the ROM address of the given sprite on the horizontal and vertical
+--! positions that the sprite was detected on. The formula used for this is:
+--! spriteNumber * 64 + xOffset + (yOffset * 8)
 architecture Behavioral of PIXEL_GETTER is
     constant no_sprite : std_logic_vector(31 downto 0) := (others => '1');
     constant addressOffMultiplier : integer := 64;

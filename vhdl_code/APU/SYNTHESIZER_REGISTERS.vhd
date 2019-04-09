@@ -31,7 +31,7 @@ entity SYNTHESIZER_REGISTERS is
         square2_volume : out std_logic_vector(7 downto 0);
 
         --! The register to store the frequency of triangle wave generator (TRIANGLE_GENERATOR)
-        triangle_frequency : out std_logic_vector(10 downto 0
+        triangle_frequency : out std_logic_vector(10 downto 0);
         --! The register of the enable of the triangle generator (TRIANGLE_GENERATOR)
         triangle_enable : out std_logic;
 
@@ -48,7 +48,7 @@ end entity;
 --! @brief The registers to control all generators
 --! @details This behavoir stores data for the generators. The register can be
 --! written to be selecting the address with register_select and settings the data
---! with data. To write the data to the register the enable input should be high. 
+--! with data. To write the data to the register the enable input should be high.
 architecture Behavioral of SYNTHESIZER_REGISTERS is
 
 begin

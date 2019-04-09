@@ -1,3 +1,7 @@
+#include <vector>
+#include <utility>
+#include <string>
+
 #include "Entity/Entity.h"
 #include "GameLoop.h"
 #include "Handlers/CollisionHandler.h"
@@ -8,11 +12,24 @@ class MainGame : public GameLoop
 {
 public:
                 MainGame();
-                ~MainGame();
+    virtual     ~MainGame();
 
 public:
     void        setup()     override;
-    GameLoop*   loop()      override;
+    void        loop()      override;
+
+private:
+    enum GAMESTATE {GAME, MENU, ENDSCREEN};
+    GAMESTATE _state;
+
+private:
+    GAMESTATE   gameloop();
+    GAMESTATE   menuloop();
+    GAMESTATE   endloop();
+
+private:
+    bool _isMenuDrawn;
+    std::vector<uint8_t *> _textVector;
 
 public:
     void        setupInput() override;

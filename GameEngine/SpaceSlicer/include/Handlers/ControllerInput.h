@@ -1,6 +1,9 @@
 #pragma once
 #include "driver/i2c.h"
 
+#define BLUE_CONTROLLER     (int)(0x27)
+#define RED_CONTROLLER      (int)(0x20)
+
 class ControllerInput
 {
 public:

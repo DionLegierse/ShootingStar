@@ -8,11 +8,11 @@ class GameLoop
 {
 public:
                         GameLoop();
-                        ~GameLoop();
+    virtual             ~GameLoop();
 
 public:
     virtual void        setup() = 0;
-    virtual GameLoop*   loop()    = 0;
+    virtual void        loop()  = 0;
 
 public:
     virtual void        readInput() = 0;
@@ -41,4 +41,5 @@ protected:
 
 protected:
     Laser*              _laser          = nullptr;
+
 };

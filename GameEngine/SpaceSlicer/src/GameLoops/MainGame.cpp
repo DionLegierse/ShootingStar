@@ -5,14 +5,17 @@
 #include "Entity/Bloop.h"
 #include "Utils/Profiler.h"
 
-MainGame::MainGame () {}
+MainGame::MainGame () {
+    this->_state = GAMESTATE::MENU;
+    this->_isMenuDrawn = false;
+}
+
 MainGame::~MainGame () {}
 
 void MainGame::setup()
 {
     ConsoleInterface ci;
     ci.freeAllObjects();
-    ci.printText("incompetendo", Vector2(0,0));
     
     this->_collision = new CollisionHandler(this);
     this->_playerOne = new Player(1, Vector2(16, 128), 1, this->_stickPlayerOne, this->_buttonPlayerOne);
@@ -24,8 +27,25 @@ void MainGame::setup()
     ci.playSong(0);
 }
 
-GameLoop* MainGame::loop()
+void MainGame::loop()
 {
+    switch (this->_state)
+    {
+        case GAMESTATE::MENU:
+            this->_state = this->menuloop();
+            break;
+        case GAMESTATE::GAME:
+            this->_state = this->gameloop();
+            break;
+        case GAMESTATE::ENDSCREEN:
+            this->_state = this->endloop();
+            break;
+        default:
+            break;
+    }
+}
+
+MainGame::GAMESTATE MainGame::gameloop(){
     this->_playerOne->move();
     this->_playerTwo->move();
 
@@ -36,7 +56,39 @@ GameLoop* MainGame::loop()
 
     this->_laser->generateLaser();
 
-    return this;
+    return GAMESTATE::GAME;
+}
+
+MainGame::GAMESTATE MainGame::menuloop(){
+    ControllerInput controllerBlue = ControllerInput(BLUE_CONTROLLER);
+    ControllerInput::BUTTON pressed = controllerBlue.getButton();
+    ConsoleInterface ci;
+   
+    if (!this->_isMenuDrawn) {
+            this->_textVector.push_back(ci.printText("hi-scores", Vector2(200, 128)));
+            this->_textVector.push_back(ci.printText("hi-dion", Vector2(200, 140)));
+            this->_textVector.push_back(ci.printText("hi-kayne", Vector2(200, 150)));
+            this->_textVector.push_back(ci.printText("hi-harm", Vector2(200, 160)));
+            this->_textVector.push_back(ci.printText("hi-daniel", Vector2(200, 170)));
+    }
+    
+    if (pressed == ControllerInput::BUTTON::BTN_THREE) {
+        this->_isMenuDrawn = false;
+
+        for(uint8_t * n : this->_textVector)
+        {
+            ci.removeText(n);
+        }
+
+        return GAMESTATE::GAME;
+    }else{
+        this->_isMenuDrawn = true;
+        return GAMESTATE::MENU;
+    }
+}
+
+MainGame::GAMESTATE MainGame::endloop(){
+    return GAMESTATE::ENDSCREEN;
 }
 
 void MainGame::setupInput()

@@ -175,7 +175,7 @@ uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
     Vector2 pos = aPos;
 
     uint8_t data = 0;
-    static uint8_t address[16];
+    uint8_t * address = new uint8_t[16];
 
     int cnt = 0;
 
@@ -213,7 +213,7 @@ uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
     Vector2 pos = aPos;
 
     uint16_t data = 0;
-    static uint8_t address[8];
+    uint8_t * address = new uint8_t[8];
 
     uint8_t num[8];
 
@@ -242,7 +242,8 @@ void ConsoleInterface::removeText(uint8_t * row)
     for(uint8_t i = 0; i < 8; i++)
     {
         deleteObject(row[i]);
-    }    
+    }
+    delete[] row;    
 }
 
 uint8_t ConsoleInterface::getFreeRegisterID()

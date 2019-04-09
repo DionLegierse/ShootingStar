@@ -60,16 +60,18 @@ MainGame::GAMESTATE MainGame::gameloop(){
 }
 
 MainGame::GAMESTATE MainGame::menuloop(){
-    ControllerInput controllerBlue = ControllerInput(BLUE_CONTROLLER);
-    ControllerInput::BUTTON pressed = controllerBlue.getButton();
+    MutexHandler::takeMutex();
+    ControllerInput::BUTTON pressed = *this->_buttonPlayerTwo;
+    MutexHandler::giveMutex();
+
     ConsoleInterface ci;
    
     if (!this->_isMenuDrawn) {
-            this->_textVector.push_back(ci.printText("hi-scores", Vector2(200, 128)));
-            this->_textVector.push_back(ci.printText("hi-dion", Vector2(200, 140)));
-            this->_textVector.push_back(ci.printText("hi-kayne", Vector2(200, 150)));
-            this->_textVector.push_back(ci.printText("hi-harm", Vector2(200, 160)));
-            this->_textVector.push_back(ci.printText("hi-daniel", Vector2(200, 170)));
+            this->_textVector.push_back(ci.printText("hiscores", Vector2(200, 128)));
+            this->_textVector.push_back(ci.printText("hidion", Vector2(200, 140)));
+            this->_textVector.push_back(ci.printText("hikayne", Vector2(200, 150)));
+            this->_textVector.push_back(ci.printText("hiharm", Vector2(200, 160)));
+            this->_textVector.push_back(ci.printText("hidaniel", Vector2(200, 170)));
     }
     
     if (pressed == ControllerInput::BUTTON::BTN_THREE) {

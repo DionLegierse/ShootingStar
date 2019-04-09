@@ -3,15 +3,24 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity SQUARE_WAVE is
-  port (
-    clk : in std_logic;
-    enable : in std_logic;
-    frequency : in std_logic_vector(10 downto 0);
-    volume : in std_logic_vector(7 downto 0);
-    waveOut : out std_logic_vector(7 downto 0)
-  );
+    port (
+        --! The 100Mhz clock coming from the basys 3
+        clk : in std_logic;
+        --! Enables the square wave generator
+        enable : in std_logic;
+        --! Controls the frequency that should be played
+        frequency : in std_logic_vector(10 downto 0);
+        --! Controls the volume of the generated square wave
+        volume : in std_logic_vector(7 downto 0);
+        --! The square wave signal
+        waveOut : out std_logic_vector(7 downto 0)
+    );
 end entity;
 
+--! @brief Generates a square wave at the specified frequency and volume.
+--! @details Generates a square wave at the specified frequency and volume, using
+--! a DSP to calculate the frequency. The formula for the frequency is
+--! f = 131072 / (2048 - x) where x is the frequency input.
 architecture Behavioral of SQUARE_WAVE is
     component xbip_dsp48_macro_0 is
         port(

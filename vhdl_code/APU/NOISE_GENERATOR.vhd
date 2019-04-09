@@ -5,15 +5,24 @@ use ieee.numeric_std.all;
 entity NOISE_GENERATOR is
     port (
 ------------------------------------INPUTS--------------------------------------
+        --! A 100 Mhz clock coming from the basys 3
         clk : in std_logic;
+        --! Selects the sample to be played
         selectSample : in std_logic_vector(3 downto 0);
+        --! Enables the noise generator to make sound
         enable : in std_logic;
+        --! Controls the volume of the noise generator higher is louder
         volume : in std_logic_vector(7 downto 0);
 ------------------------------------OUTPUTS-------------------------------------
+        --! Sends out the generated noise signal
         noiseWaveOut : out std_logic_vector(7 downto 0)
     );
 end entity;
 
+--! @brief The behavior of the NOISE_GENERATOR for generating percussion sounds.
+--! @details generates a noise signal. The noise to be generated is selected by
+--! adjusting the selectSample. The volume can be controlled with the volume
+--! input.
 architecture Behavioral of NOISE_GENERATOR is
     constant clkSpeed : positive := 10 ** 8;
 

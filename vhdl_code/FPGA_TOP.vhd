@@ -18,6 +18,7 @@
 --
 ----------------------------------------------------------------------------------
 
+--! @name FPGA_TOP
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -33,18 +34,28 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity FPGA_TOP is
     Port (
+        --! The 100Mhz clock coming from the basys 3
         clk : in std_logic;
+        --! Parallel data coming from the microcontroller
         mc_data : in std_logic_vector(7 downto 0);
+        --! The clock signal coming from the microcontroller
         mc_clk : in std_logic;
+        --! The register select signal coming from the microcontroller
         mc_register_select : in std_logic;
 
+        --! The color signals for the vga port
         redOut, greenOut, blueOut : out  std_logic_vector(3 downto 0);
+        --! The synchronyser signals forthe vga port
         hsync, vsync : out  STD_LOGIC;
 
+        --! The sound from the SYNTHESIZER_TOP that has been PWM modulated
         sound_out : out std_logic
     );
 end FPGA_TOP;
 
+--! @brief The top level structure of the FPGA
+--! @details The top level structure containing the GPU and SYNTHESIZER_TOP and
+--! the COMMAND_PROCESSOR to create the complete hardware for the project.
 architecture Behavioral of FPGA_TOP is
     signal x_loc_sprite : std_logic_vector(8 downto 0);
     signal y_loc_sprite : std_logic_vector(8 downto 0);

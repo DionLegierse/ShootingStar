@@ -33,30 +33,48 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity GPU is
     generic(
+        --! The generic that controls the amount bits that should be used for the sprite address (final in FPGA_TOP)
         sprite_address_bits : integer := 7
     );
     Port (
+        --! 25Mhz clock coming from the MMCM
         clk : in std_logic;
 
+        --! The address for the sprite bank to select a sprite
         register_address : in std_logic_vector((sprite_address_bits - 1) downto 0);
 
+        --! Signal for the x coördinate to set
         sprite_x : in std_logic_vector(8 downto 0);
+        --! Signal for the y coördinate to set
         sprite_y : in std_logic_vector(8 downto 0);
+        --! Signal for the sprite attribute to set
         sprite_attribute : in std_logic_vector(5 downto 0);
+        --! Signal for the sprite to load
         sprite_number : in std_logic_vector(7 downto 0);
 
+        --! Signal to update the x of the sprite selected with register_address
         update_x : in std_logic;
+        --! Signal to update the y of the sprite selected with register_address
         update_y : in std_logic;
+        --! Signal to update the x and y of the sprite selected with register_address
         update_xy : in std_logic;
+        --! Signal to update the all data of the sprite selected with register_address
         update_all : in std_logic;
+        --! Signal to reset all sprites to their initial state
         reset_bank : in std_logic;
+        --! Signal to reset the selected sprite on register_address
         reset_sprite : in std_logic;
 
+        --! The outputs for the VGA color signals
         redOut, greenOut, blueOut : out  std_logic_vector(3 downto 0);
+        --! The outputs for the VGA synching signals
         hsync, vsync : out  STD_LOGIC
     );
 end GPU;
 
+--! @brief The behavior of the GPU
+--! @details The top level of all video components containing the sprite bank,
+--! the pixel getter and the VGA driver.
 architecture Behavioral of GPU is
     component sprite_rom is
         port(

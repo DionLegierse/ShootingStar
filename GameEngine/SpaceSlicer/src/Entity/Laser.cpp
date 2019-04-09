@@ -16,6 +16,8 @@ Laser::Laser (Player* aPlayerOne, Player* aPlayerTwo)
 
     this->_score = 0;
     this->_prevScore = -1;
+
+    this->_isLaserEnabled = false;
 }
 
 Laser::~Laser () {}
@@ -44,11 +46,21 @@ void Laser::drawLaser ()
 void Laser::generateLaser()
 {
     this->_partPosition.clear();
-    
+
     if (this->_playerOne->getLaserEnabled() && this->_playerTwo->getLaserEnabled())
+        this->_isLaserEnabled = true;
+    else if (!this->_playerOne->getLaserEnabled() && !this->_playerTwo->getLaserEnabled())
+        this->_isLaserEnabled = false;
+    
+    if (this->_isLaserEnabled)
     {
-        this->_partPosition = LaserCalculator::calculateLaser(this->_playerOne->getPosition(),
-                                                            this->_playerTwo->getPosition());
+        std::vector<Vector2> tempLaser = LaserCalculator::calculateLaser(this->_playerOne->getPosition(),
+                                                                         this->_playerTwo->getPosition()); 
+        
+        if (tempLaser.size() < 16)
+            this->_partPosition = tempLaser;
+        else
+            this->_isLaserEnabled = false;        
     }
 }
 

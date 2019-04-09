@@ -31,6 +31,9 @@ public:
     int                 _prevScore;
 
 private:
+    bool                _isLaserEnabled;
+
+private:
     std::vector<uint8_t>    _partSpriteID;
     std::vector<Vector2>    _partPosition;
 };

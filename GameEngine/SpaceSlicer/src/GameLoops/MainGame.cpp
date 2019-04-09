@@ -26,7 +26,6 @@ void MainGame::setup()
 
 GameLoop* MainGame::loop()
 {
-    Profiler profile("Loop");
     this->_playerOne->move();
     this->_playerTwo->move();
 
@@ -103,12 +102,12 @@ void MainGame::getRandomNPC()
 
     if (chance <= 100)
     {
-        this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(500, rand() % 448)));
+        this->_astroidList->insert(new Astroid(2, Vector2(-1, 0), Vector2(500, rand() % 424 + 8)));
     }
 
     if (chance <= 50)
     {
-        this->_bloopList->insert(new Bloop(2, Vector2(-1, 0), Vector2(500, rand() % 448)));
+        this->_bloopList->insert(new Bloop(2, Vector2(-1, 0), Vector2(500, rand() % 424 + 8)));
     }
 }
 

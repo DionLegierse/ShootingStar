@@ -38,10 +38,10 @@ private:
     int     _index;
 
 private:
-    const int _xUpBound         = 496;
+    const int _xUpBound         = 494;
     const int _xLowBound        = 0;
     const int _yUpBound         = 432;
-    const int _yLowBound        = 0;
+    const int _yLowBound        = 8;
 
 private:
     ControllerInput::STICK*     _inputStick     = nullptr;

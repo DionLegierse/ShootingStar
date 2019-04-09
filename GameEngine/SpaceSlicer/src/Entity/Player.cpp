@@ -33,43 +33,43 @@ void Player::move ()
     switch (*this->_inputStick)
     {
         case ControllerInput::DOWNLEFT:
-            if (this->_position.getX() >= _xLowBound)
+            if (this->_position.getX() > _xLowBound)
                 this->_position += Vector2(-this->_speed, 0);
-            if (this->_position.getY() <= _yUpBound)
+            if (this->_position.getY() < _yUpBound)
                 this->_position += Vector2(0, this->_speed);
             break;
         case ControllerInput::LEFT:
-            if (this->_position.getX() >= _xLowBound)
+            if (this->_position.getX() > _xLowBound)
                 this->_position += Vector2(-this->_speed, 0);
             break;
         case ControllerInput::UPLEFT:
-            if (this->_position.getY() >= _yLowBound)
-                this->_position += Vector2(-this->_speed, 0);
-            if (this->_position.getX() >= _xLowBound)
+            if (this->_position.getY() > _yLowBound)
                 this->_position += Vector2(0, -this->_speed);
+            if (this->_position.getX() > _xLowBound)
+                this->_position += Vector2(-this->_speed, 0);
             break;
         case ControllerInput::UP:
             if (this->_position.getY() > _xLowBound)
                 this->_position += Vector2(0, -this->_speed);
             break;
         case ControllerInput::UPRIGHT:
-            if (this->_position.getX() <= _xUpBound)
+            if (this->_position.getX() < _xUpBound)
                 this->_position += Vector2(this->_speed, 0);
-            if (this->_position.getY() >= _xLowBound)
+            if (this->_position.getY() > _xLowBound)
                 this->_position += Vector2(0, -this->_speed);
             break;
         case ControllerInput::RIGHT:
-            if (this->_position.getX() <= _xUpBound)
+            if (this->_position.getX() < _xUpBound)
                 this->_position += Vector2(this->_speed, 0);
             break;
         case ControllerInput::DOWNRIGHT:
-            if (this->_position.getX() <= _xUpBound)
+            if (this->_position.getX() < _xUpBound)
                 this->_position += Vector2(this->_speed, 0);
-            if (this->_position.getY() <= _yUpBound)
+            if (this->_position.getY() < _yUpBound)
                 this->_position += Vector2(0, this->_speed);
             break;
         case ControllerInput::DOWN:
-            if (this->_position.getY() <= _yUpBound)
+            if (this->_position.getY() < _yUpBound)
                 this->_position += Vector2(0, this->_speed);
             break;
 

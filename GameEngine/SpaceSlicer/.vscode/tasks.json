@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "openocd",
+        "type": "shell",
+        "isBackground": true,
+        "options": {
+          "cwd": "/opt/esp/openocd-esp32"
+        },
+        "command": "C:/Users/Kayne/.platformio/packages/tool-openocd-esp32bin/openocd -s C:/Users/Kayne/.platformio/packages/tool-openocd-esp32bin/share/openocd/scripts -f C:/Users/Kayne/.platformio/packages/tool-openocd-esp32bin/interface/jlink.cfg -f board/esp-wroom-32.cfg",
+      }
+    ]
+  }

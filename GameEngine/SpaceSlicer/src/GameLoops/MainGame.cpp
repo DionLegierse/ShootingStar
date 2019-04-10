@@ -66,10 +66,17 @@ MainGame::GAMESTATE MainGame::menuloop(){
     MutexHandler::giveMutex();
 
     ConsoleInterface ci;
+
+    uint16_t id = 0;
+
+    if (!this->_isMenuDrawn) {
+        id = ci.printText("Hidion", Vector2(200,200));
+    }
+    
     
     if (pressed == ControllerInput::BUTTON::BTN_THREE) {
         this->_isMenuDrawn = false;
-
+        ci.removeText(id);
         return GAMESTATE::GAME;
     }else{
         this->_isMenuDrawn = true;

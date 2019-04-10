@@ -1,7 +1,10 @@
+#include <list>
 
 #include "Handlers/ConsoleInterface.h"
 
 bool ConsoleInterface::isAvailable[REG_AMOUNT + 1];
+
+static std::list<ConsoleInterface::textID> writtenTextVector;
 
 ConsoleInterface::ConsoleInterface()
 {    
@@ -170,9 +173,11 @@ void ConsoleInterface::playSong(uint16_t aAddress)
 	writeToGPU(START_APU);
 }
 
-uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
-{    
-    Vector2 pos = aPos;
+uint16_t ConsoleInterface::IDcounter = 0;
+
+uint16_t ConsoleInterface::printText(char * aText, Vector2 aPos)
+{   
+    ConsoleInterface::textID ID;
 
     uint8_t data = 0;
     uint8_t * address = new uint8_t[16];
@@ -189,28 +194,33 @@ uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
         if (data >= 207) //value of 0
             data -= 181; //offset
 
-        if (data >= 0 && data < 36) //value of a space
+        if (data < 36) //value of a space
         {
             address[cnt] = createNewObject( data );
-            updateObjectCoord( address[cnt], pos );
+            updateObjectCoord( address[cnt], aPos );
             cnt++;
         }
 
-        pos += Vector2(LETTER_OFFSET, 0);        
+        aPos += Vector2(LETTER_OFFSET, 0);        
         aText++;
-
-        //printf("Data: %d  \t|| Position: (%d, %d)\t|| Address: %d\n", data, pos.getX(), pos.getY(), address);
 
         if (cnt >= 16)
             flag = false;
-    }    
+    } 
 
-    return address;
+
+    std::get<0>(ID) = ConsoleInterface::IDcounter++;
+    std::get<1>(ID) = cnt;
+    std::get<2>(ID) = address;
+
+    writtenTextVector.push_back(ID);   
+
+    return (ConsoleInterface::IDcounter - 1);
 }
 
-uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
-{    
-    Vector2 pos = aPos;
+uint16_t ConsoleInterface::printText(uint16_t values, Vector2 aPos)
+{   
+    ConsoleInterface::textID ID;
 
     uint16_t data = 0;
     uint8_t * address = new uint8_t[8];
@@ -229,21 +239,42 @@ uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
     for(int i = 7; i > -1; i--)
     {
         address[i] = createNewObject( num[i] + 26 );
-        updateObjectCoord( address[i], pos );
+        updateObjectCoord( address[i], aPos );
 
-        pos += Vector2(LETTER_OFFSET, 0); 
-    }     
+        aPos += Vector2(LETTER_OFFSET, 0); 
+    }  
 
-    return address;
+    std::get<0>(ID) = ConsoleInterface::IDcounter++;
+    std::get<1>(ID) = 8;
+    std::get<2>(ID) = address;
+
+    writtenTextVector.push_back(ID);   
+
+    return (ConsoleInterface::IDcounter - 1);
 }
 
-void ConsoleInterface::removeText(uint8_t * row)
+void ConsoleInterface::removeText(uint16_t row)
 {
-    for(uint8_t i = 0; i < 8; i++)
+    ConsoleInterface::textID toRemove;
+
+    std::get<0>(toRemove) = MAX_ID;
+
+    for(ConsoleInterface::textID& n : writtenTextVector)
     {
-        deleteObject(row[i]);
+        if (std::get<0>(n) == row) {
+            toRemove = n;
+            writtenTextVector.remove(n);
+        }
     }
-    delete[] row;    
+
+    for(uint8_t i = 0; i < std::get<1>(toRemove); i++)
+    {
+        deleteObject(std::get<2>(toRemove)[i]);
+    }
+
+    if (std::get<0>(toRemove) != MAX_ID) {
+        delete[] std::get<2>(toRemove);    
+    }
 }
 
 uint8_t ConsoleInterface::getFreeRegisterID()

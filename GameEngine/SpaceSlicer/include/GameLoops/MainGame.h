@@ -29,7 +29,6 @@ private:
 
 private:
     bool _isMenuDrawn;
-    std::vector<uint8_t *> _textVector;
 
 public:
     void        setupInput() override;
@@ -52,7 +51,7 @@ private:
     void        updateListPositions(uint8_t);
 
 private:
-    uint8_t*            _scoreboard = nullptr;
+    uint16_t            _scoreboard;
 
 private:
     CollisionHandler*   _collision  = nullptr;

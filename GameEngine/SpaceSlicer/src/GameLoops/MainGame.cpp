@@ -61,26 +61,14 @@ MainGame::GAMESTATE MainGame::gameloop(){
 
 MainGame::GAMESTATE MainGame::menuloop(){
     MutexHandler::takeMutex();
-    ControllerInput::BUTTON pressed = *this->_buttonPlayerTwo;
+    ControllerInput controllerBlue(BLUE_CONTROLLER);
+    ControllerInput::BUTTON pressed = controllerBlue.getButton();
     MutexHandler::giveMutex();
 
     ConsoleInterface ci;
-   
-    if (!this->_isMenuDrawn) {
-            this->_textVector.push_back(ci.printText("hiscores", Vector2(200, 128)));
-            this->_textVector.push_back(ci.printText("hidion", Vector2(200, 140)));
-            this->_textVector.push_back(ci.printText("hikayne", Vector2(200, 150)));
-            this->_textVector.push_back(ci.printText("hiharm", Vector2(200, 160)));
-            this->_textVector.push_back(ci.printText("hidaniel", Vector2(200, 170)));
-    }
     
     if (pressed == ControllerInput::BUTTON::BTN_THREE) {
         this->_isMenuDrawn = false;
-
-        for(uint8_t * n : this->_textVector)
-        {
-            ci.removeText(n);
-        }
 
         return GAMESTATE::GAME;
     }else{
@@ -141,8 +129,7 @@ void MainGame::updateScoreBoard()
 
     if (this->_laser->_score != this->_laser->_prevScore)
     {
-        if (this->_scoreboard != nullptr)
-            ci.removeText(this->_scoreboard);    
+        ci.removeText(this->_scoreboard);    
 
         this->_scoreboard = ci.printText(this->_laser->_score, Vector2(440, 0));
 

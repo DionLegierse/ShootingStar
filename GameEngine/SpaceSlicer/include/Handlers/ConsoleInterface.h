@@ -1,4 +1,8 @@
 #pragma once
+
+#include <utility>
+#include <tuple>
+
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 #include "freertos/FreeRTOS.h"
@@ -30,6 +34,8 @@
 
 #define REG_AMOUNT  (uint8_t)255
 
+#define MAX_ID (uint16_t) 0xFFFF
+
 extern gpio_dev_t GPIO;	
 
 class ConsoleInterface
@@ -51,9 +57,13 @@ public:
 
 //text printing
 public:
-    uint8_t * printText(char *, Vector2);
-    uint8_t * printText(uint16_t, Vector2);
-    void removeText(uint8_t *);
+    uint16_t printText(char *, Vector2);
+    uint16_t printText(uint16_t, Vector2);
+    void removeText(uint16_t);
+    typedef std::tuple<uint16_t, uint8_t, uint8_t *> textID;
+
+private:
+    static uint16_t IDcounter;
 
 //registers
 public:

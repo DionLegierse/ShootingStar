@@ -15,7 +15,7 @@ void drawTask(void*);
 
 GameLoop* currentLoop = nullptr;
 
-GameLoop* test = new MainGame();
+GameLoop* mainGame = new MainGame();
 
 
 extern "C" {
@@ -29,7 +29,7 @@ void app_main(void)
 
 void createMainTask()
 {
-	currentLoop = test;
+	currentLoop = mainGame;
 
 	MutexHandler::initMutex();
 

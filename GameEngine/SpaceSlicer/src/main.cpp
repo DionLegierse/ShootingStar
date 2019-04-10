@@ -15,9 +15,10 @@ void inputTask(void*);
 void drawTask(void*);
 
 GameLoop* currentLoop = nullptr;
+GameLoop* nextLoop = nullptr;
 
-GameLoop* test = new TestPC();
-GameLoop* mainMenu = new MainMenu(test);
+GameLoop* test;
+GameLoop* mainMenu;
 
 
 extern "C" {
@@ -26,12 +27,15 @@ extern "C" {
 
 void app_main(void)
 {
+	test = new TestPC();
+	mainMenu = new MainMenu(test);
+	currentLoop = mainMenu;
 	createMainTask();
 }
 
 void createMainTask()
 {
-	currentLoop = test;
+	
 
 	MutexHandler::initMutex();
 
@@ -41,7 +45,7 @@ void createMainTask()
 
 
 	//Core 0
-	xTaskCreatePinnedToCore (mainTask, "MAIN", 4096, (void*) 1, 2, &xHandleLoop, 0 );				 
+	xTaskCreatePinnedToCore (mainTask, "MAIN", 8192, (void*) 1, 2, &xHandleLoop, 0 );				 
 	xTaskCreatePinnedToCore (drawTask, "DRAW", 4096, (void*) 1, 1, &xHandleDraw, 0);
 
 	//Core 1
@@ -59,8 +63,11 @@ void mainTask(void* vParam)
 
 	for (;;)
 	{
+		
+		nextLoop = currentLoop->loop();
+		printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		vTaskDelayUntil(&xLastWakeTime, xFrequency);
-		currentLoop->loop();
+		currentLoop = nextLoop;
 	}
 }
 

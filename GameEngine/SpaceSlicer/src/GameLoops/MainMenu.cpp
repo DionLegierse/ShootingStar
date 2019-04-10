@@ -22,7 +22,7 @@ GameLoop* MainMenu::loop()
         this->_butTwo != ControllerInput::BTN_NOPE)
     {
         printf("AAAAAAAA\n");
-        return this;
+        return _mainGame;
     }
 
     return this;

@@ -1,7 +1,7 @@
 
 #include "Handlers/ConsoleInterface.h"
 
-bool ConsoleInterface::isAvailable[REG_AMOUNT + 1];
+bool ConsoleInterface::isAvailable[128];
 
 ConsoleInterface::ConsoleInterface()
 {    
@@ -21,6 +21,7 @@ ConsoleInterface::ConsoleInterface()
 
 ConsoleInterface::~ConsoleInterface()
 {
+
 }
 
 void ConsoleInterface::writeToRegister(uint8_t aReg, uint8_t aData)
@@ -144,10 +145,7 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, Vector2 coord)
  */
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
-    isAvailable[aRegAddress] = true;
-
-    writeToRegister(SPR_REG_LOC, aRegAddress);
-    writeToGPU(RESET_SPR);
+    isAvailable[aRegAddress] = false;
 }
 
 void ConsoleInterface::clockIn()
@@ -167,80 +165,6 @@ void ConsoleInterface::playSong(uint16_t aAddress)
 	writeToGPU(START_APU);
 }
 
-uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
-{    
-    Vector2 pos = aPos;
-
-    uint8_t data = 0;
-    static uint8_t address[16];
-
-    int cnt = 0;
-
-    bool flag = true;
-
-    while(*aText && flag)
-    {
-        data = *aText;
-        data -= ASCII_A; //ascii value of a
-
-        if (data >= 207) //value of 0
-            data -= 181; //offset
-
-        if (data < 36) //value of a space
-        {
-            address[cnt] = createNewObject( data );
-            updateObjectCoord( address[cnt], pos );
-            cnt++;
-        }
-
-        pos += Vector2(LETTER_OFFSET, 0);        
-        aText++;
-
-        //printf("Data: %d  \t|| Position: (%d, %d)\t|| Address: %d\n", data, pos.getX(), pos.getY(), address);
-
-        if (cnt >= 16)
-            flag = false;
-    }    
-
-    return address;
-}
-
-uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
-{    
-    Vector2 pos = aPos;
-
-    uint16_t data = 0;
-    static uint8_t address[8];
-
-    uint8_t num[8];
-
-    for(size_t i = 0; i < 8; i++)    
-    {
-        data = values % 10;       
-
-        num[i] = data;
-
-        values /= 10; 
-    }   
-
-    for(int i = 7; i > -1; i--)
-    {
-        address[i] = createNewObject( num[i] + 26 );
-        updateObjectCoord( address[i], pos );
-
-        pos += Vector2(LETTER_OFFSET, 0); 
-    }     
-
-    return address;
-}
-
-void ConsoleInterface::removeText(uint8_t * row)
-{
-    for(uint8_t i = 0; i < 8; i++)
-    {
-        deleteObject(row[i]);
-    }    
-}
 
 uint8_t ConsoleInterface::getFreeRegisterID()
 {
@@ -249,7 +173,7 @@ uint8_t ConsoleInterface::getFreeRegisterID()
 
     while (flag)
     {
-        if (cnt >= REG_AMOUNT)
+        if (cnt >= 128)
         {
             return -1;
         }

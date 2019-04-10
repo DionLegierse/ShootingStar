@@ -10,19 +10,16 @@ Astroid::Astroid ()
 
 Astroid::Astroid (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpeed, aDirection, aPosition)
 {
-    this->_colliderRadius = 8;
+    this->_colliderRadius = 2;
     this->_type = ENT_ASTROID;
     createSprites();
 }
 
-Astroid::~Astroid ()
-{
-    deleteSprites();
-}
+Astroid::~Astroid () {}
 
 void Astroid::collisionEvent()
 {
-    
+
 }
 
 void Astroid::createSprites()

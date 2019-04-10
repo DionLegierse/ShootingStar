@@ -27,7 +27,7 @@ void EntityList::remove(Entity* aEntity)
         }
 
         prevLink = curLink;
-        curLink = curLink->getNext();
+        curLink->getNext();
     }
 }
 

@@ -5,6 +5,7 @@ GameLoop::~GameLoop() {}
 
 EntityList* GameLoop::getAstroidList() { return this->_astroidList; }
 EntityList* GameLoop::getBloopList() { return this->_bloopList; }
+EntityList* GameLoop::getFuelList() { return this->_fuelList; }
 
 Player* GameLoop::getPlayer(int aNumber)
 {
@@ -15,5 +16,3 @@ Player* GameLoop::getPlayer(int aNumber)
         
     return nullptr;
 }
-
-Laser* GameLoop::getLaser() { return this->_laser; }

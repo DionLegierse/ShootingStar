@@ -102,7 +102,7 @@ Vector2 Vector2::operator/(int v) const
 
 void Vector2::print()
 {
-	printf("(%d, %d)\n", this->x, this->y);
+
 }
 
 int Vector2::getAngle(Vector2& begin, Vector2& end)
@@ -124,8 +124,8 @@ int Vector2::getDistance(Vector2& other)
 Vector2 Vector2::getParallelVector(const Vector2 & aVector) const
 {
 	Vector2 parallelVector;
-	parallelVector.x = this->x - aVector.x;
-	parallelVector.y = this->y - aVector.y;
+	parallelVector.x = abs(this->x - aVector.x);
+	parallelVector.y = abs(this->y - aVector.y);
 	return parallelVector;
 }
 

@@ -2,46 +2,31 @@
 #include "Utils/EntityList.h"
 #include "Entity/Player.h"
 #include "Entity/Astroid.h"
-#include "Entity/Laser.h"
 
 class GameLoop
 {
 public:
-                        GameLoop();
-                        ~GameLoop();
+                    GameLoop();
+                    ~GameLoop();
 
 public:
-    virtual void        setup() = 0;
-    virtual void        loop()    = 0;
+    virtual void    setup() = 0;
+    virtual void    loop()  = 0;
 
 public:
-    virtual void        readInput() = 0;
-    virtual void        setupInput() = 0;
+    EntityList*     getAstroidList();
+    EntityList*     getBloopList();
+    EntityList*     getFuelList();
 
 public:
-    virtual void        updateAllSprites() = 0;
-
-public:
-    virtual void        GameOver() = 0;
-
-public:
-    EntityList*         getAstroidList();
-    EntityList*         getBloopList();
-
-public:
-    Player*             getPlayer(int);
-
-public:
-    Laser*              getLaser();
+    Player*         getPlayer(int);
 
 protected:
-    EntityList*         _astroidList    = nullptr;
-    EntityList*         _bloopList      = nullptr;
+    EntityList*     _astroidList    = nullptr;
+    EntityList*     _bloopList      = nullptr;
+    EntityList*     _fuelList       = nullptr;
 
 protected:
-    Player*             _playerOne      = nullptr;
-    Player*             _playerTwo      = nullptr;
-
-protected:
-    Laser*              _laser          = nullptr;
+    Player*         _playerOne      = nullptr;
+    Player*         _playerTwo      = nullptr;
 };

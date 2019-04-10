@@ -1,6 +1,5 @@
 #pragma once
 #include "Entity.h"
-#include "Handlers/MutexHandler.h"
 
 class NPC : public Entity
 {

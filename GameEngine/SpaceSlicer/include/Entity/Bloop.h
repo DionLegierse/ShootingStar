@@ -4,13 +4,16 @@ class Bloop : public NPC
 {
 // Constructors/destructor
 public:
-            Bloop(int, Vector2);
+            Bloop(int, Vector2, Vector2);
             ~Bloop();
 
 private:
             Bloop();
 
-// Move methods
 public:
-    void    move() override;
+    void    collisionEvent()    override;
+
+// Sprite methods
+private:
+    void    createSprites()     override;
 };

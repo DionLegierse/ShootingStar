@@ -16,8 +16,9 @@ void MainMenu::setup()
     ci.printText("iajbaaaa", Vector2(100, 100));
 }
 
-GameLoop* MainMenu::loop()
+void MainMenu::loop()
 {
+<<<<<<< HEAD
     if (this->_butOne != ControllerInput::BTN_NOPE ||
         this->_butTwo != ControllerInput::BTN_NOPE)
     {
@@ -26,6 +27,9 @@ GameLoop* MainMenu::loop()
     }
 
     return this;
+=======
+    
+>>>>>>> 32aeff9b2345e52ddcc1566ea7202776e233f720
 }
 
 void MainMenu::setupInput()

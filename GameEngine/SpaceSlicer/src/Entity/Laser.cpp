@@ -1,10 +1,24 @@
 #include "Entity/Laser.h"
+
 #include "Handlers/ConsoleInterface.h"
-#include "Utils/LaserCalculator.h"
 
 //>-----------{ Contructors/destructor }-----------<<
 
-Laser::Laser () {}
+Laser::Laser ()
+{
+    
+}
+
+Laser::Laser (Player* aPlayerOne, Player* aPlayerTwo)
+{
+    this->_playerOne = aPlayerOne;
+    this->_playerTwo = aPlayerTwo;
+
+    this->_score = 0;
+    this->_prevScore = -1;
+
+    this->_isLaserEnabled = false;
+}
 
 Laser::~Laser () {}
 
@@ -14,28 +28,40 @@ void Laser::drawLaser ()
 {
     ConsoleInterface ci;
 
-    generateLaser();
-
-    for (LaserPart n : this->_laserParts)
+    for (uint8_t s : this->_partSpriteID)
     {
-        ci.updateObjectCoord(n.getSpriteID(), n.getPosition());
+        ci.deleteObject(s);
+    }
+
+    this->_partSpriteID.clear();
+
+    for (Vector2 n : this->_partPosition)
+    {
+        uint8_t tempID = ci.createNewObject(SPR_LASER);
+        this->_partSpriteID.push_back(tempID);
+        ci.updateObjectCoord(tempID, n);
     }
 }
 
 void Laser::generateLaser()
 {
-    ConsoleInterface ci;
+    this->_partPosition.clear();
 
-    this->_laserPositions = LaserCalculator::calculateLaser(this->_playerOne->getPosition(),
-                                                            this->_playerTwo->getPosition());
-
-    for (Vector2 n : _laserPositions)
+    if (this->_playerOne->getLaserEnabled() && this->_playerTwo->getLaserEnabled())
+        this->_isLaserEnabled = true;
+    else if (!this->_playerOne->getLaserEnabled() && !this->_playerTwo->getLaserEnabled())
+        this->_isLaserEnabled = false;
+    
+    if (this->_isLaserEnabled)
     {
-        this->_laserParts.push_back(LaserPart(ci.createNewObject(SPR_A), n));
+        std::vector<Vector2> tempLaser = LaserCalculator::calculateLaser(this->_playerOne->getPosition(),
+                                                                         this->_playerTwo->getPosition()); 
+        
+        if (tempLaser.size() < 16)
+            this->_partPosition = tempLaser;
+        else
+            this->_isLaserEnabled = false;        
     }
 }
 
-void Laser::clearLaser()
-{
-
-}
+std::vector<Vector2> Laser::getLaserPositions() { return this->_partPosition; }

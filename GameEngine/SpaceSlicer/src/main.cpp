@@ -3,7 +3,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#include "GameLoops/TestPC.h"
+#include "GameLoops/MainGame.h"
 #include "GameLoops/MainMenu.h"
 #include "Handlers/MutexHandler.h"
 
@@ -17,8 +17,13 @@ void drawTask(void*);
 GameLoop* currentLoop = nullptr;
 GameLoop* nextLoop = nullptr;
 
+<<<<<<< HEAD
 GameLoop* test;
 GameLoop* mainMenu;
+=======
+GameLoop* test = new MainGame();
+// GameLoop* mainMenu = new MainMenu(test);
+>>>>>>> 32aeff9b2345e52ddcc1566ea7202776e233f720
 
 
 extern "C" {
@@ -54,6 +59,7 @@ void createMainTask()
 
 void mainTask(void* vParam)
 {
+	vTaskDelay(5000);
 	currentLoop->setup();
 
 	TickType_t xLastWakeTime;
@@ -73,6 +79,7 @@ void mainTask(void* vParam)
 
 void inputTask(void* vParam)
 {
+	vTaskDelay(5000);
 	currentLoop->setupInput();
 	
 	TickType_t xLastWakeTime;
@@ -89,6 +96,7 @@ void inputTask(void* vParam)
 
 void drawTask(void* vParam)
 {
+	vTaskDelay(5000);
 	TickType_t xLastWakeTime;
 	const TickType_t xFrequency = GAME_SPEED;
 

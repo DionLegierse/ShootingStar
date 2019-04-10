@@ -3,14 +3,22 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity TRIANGLE_GENERATOR is
-  port (
-    clk : in std_logic;
-    enable : in std_logic;
-    frequency : in std_logic_vector(10 downto 0);
-    waveOut : out std_logic_vector(7 downto 0)
-  );
+    port (
+        --! The 100Mhz clock coming from the basys 3
+        clk : in std_logic;
+        --! The enable to start to triangle generator
+        enable : in std_logic;
+        --! The frequency of the triangle wave
+        frequency : in std_logic_vector(10 downto 0);
+        --! The generated triangle wave output
+        waveOut : out std_logic_vector(7 downto 0)
+    );
 end entity;
 
+--! @brief Generates a triangle wave at the specified frequency.
+--! @details Generates a square wave at the specified frequency, using
+--! a DSP to calculate the frequency. The formula for the frequency is
+--! f = 131072 / (2048 - x) where x is the frequency input.
 architecture Behavioral of TRIANGLE_GENERATOR is
     component triangle_dsp is
         port(

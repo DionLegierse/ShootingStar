@@ -1,5 +1,7 @@
 #include "Handlers/CollisionHandler.h"
 
+#include <vector>
+
 CollisionHandler::CollisionHandler() {}
 
 CollisionHandler::CollisionHandler(GameLoop* aGameLoop)
@@ -11,56 +13,64 @@ CollisionHandler::~CollisionHandler() {}
 
 void CollisionHandler::checkAllCollision()
 {
-    checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(1), DEL_SECOND);
-    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(1), DEL_SECOND);
-    checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(2), DEL_SECOND);
-    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(2), DEL_SECOND);
+    checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(1));
+    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(1));
+    checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(2));
+    checkListCollision(LIST_BLOOP, this->_gameLoop->getPlayer(2));
 
-    // checkListLists(LIST_ASTROID);
-    // checkListLists(LIST_BLOOP);
+    checkLaserCollision(LIST_ASTROID);
+    checkLaserCollision(LIST_BLOOP);
 }
 
-void CollisionHandler::checkListLists(uint8_t aList)
+void CollisionHandler::checkListCollision(uint8_t aList, Player* aPlayer)
 {
     EntityLink* curEntity = getList(aList);
-    
+
     while (curEntity != nullptr)
     {
-        checkListCollision(LIST_ASTROID, curEntity->getEntity(), DEL_BOTH);
-        checkListCollision(LIST_BLOOP, curEntity->getEntity(), DEL_BOTH);
+        if (aPlayer->checkCollision(curEntity->getEntity()))
+        {
+            if (aList == LIST_BLOOP)
+            {
+                this->_gameLoop->getLaser()->_score += 5;
+            }
+            else if(aList == LIST_ASTROID)
+            {
+                this->_gameLoop->GameOver();
+                return;
+            }
+
+            deleteEntity(curEntity->getEntity());
+        }
+        
         curEntity = curEntity->getNext();
     }
 }
 
-void CollisionHandler::checkListCollision(uint8_t aList, Entity* aEntity, uint8_t aDelete)
+void CollisionHandler::checkLaserCollision(uint8_t aList)
 {
+    std::vector<Vector2> laserPositions = this->_gameLoop->getLaser()->getLaserPositions();
+
     EntityLink* curEntity = getList(aList);
 
     while (curEntity != nullptr)
     {
-        if (aEntity->checkCollision(curEntity->getEntity()))
+        for (Vector2 n : laserPositions)
         {
-            aEntity->collisionEvent();
-            curEntity->getEntity()->collisionEvent();
+            int distance = (n + Vector2(LASER_COLLIDER_DISTANCE, LASER_COLLIDER_DISTANCE)).getDistance(curEntity->getEntity()->getPosition());
 
-            switch (aDelete)
+            if (distance <= LASER_COLLIDER_DISTANCE + curEntity->getEntity()->getColliderRadius())
             {
-                case DEL_FIRST:
-                    deleteEntity(aEntity);
-                    break;
-                case DEL_SECOND:
-                    deleteEntity(curEntity->getEntity());
-                    break;
-                case DEL_BOTH:
-                    deleteEntity(aEntity);
-                    deleteEntity(curEntity->getEntity());
-                    break;
-
-                default:
-                    break;
+                if (aList == LIST_ASTROID)
+                    this->_gameLoop->getLaser()->_score += 5;
+                else if (aList == LIST_BLOOP)
+                    this->_gameLoop->getLaser()->_score -= 30;
+                
+                deleteEntity(curEntity->getEntity());
+                break;
             }
         }
-        
+
         curEntity = curEntity->getNext();
     }
 }

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Entity.h"
 #include "Handlers/ControllerInput.h"
 #include "Handlers/MutexHandler.h"
@@ -11,7 +10,7 @@ class Player : public Entity
 // Constructors/destructors
 public:
             Player();
-            Player(int, Vector2, int, ControllerInput::STICK*);
+            Player(int, Vector2, int, ControllerInput::STICK*, ControllerInput::BUTTON*);
             ~Player();
 
 // Movement methods
@@ -22,6 +21,9 @@ public:
 public:
     void    laserEnable();
     bool    getLaserEnabled();
+
+public:
+    int     getIndex();
 
 // Collision methods
 public:
@@ -39,14 +41,12 @@ private:
     int     _index;
 
 private:
-    const int _xUpBound         = 496;
+    const int _xUpBound         = 494;
     const int _xLowBound        = 0;
     const int _yUpBound         = 432;
-    const int _yLowBound        = 0;
-
-public:
-    ControllerInput*    _conIn  = nullptr;
+    const int _yLowBound        = 8;
 
 private:
-    ControllerInput::STICK* _inputStick;
+    ControllerInput::STICK*     _inputStick     = nullptr;
+    ControllerInput::BUTTON*    _inputButton    = nullptr;
 };

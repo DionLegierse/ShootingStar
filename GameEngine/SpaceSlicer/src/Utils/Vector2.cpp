@@ -121,12 +121,12 @@ int Vector2::getDistance(Vector2& other)
 	return sqrt( pow(difX, 2 ) + pow( difY, 2 ));
 }
 
-Vector2 Vector2::getRelativeVector(const Vector2 & aVector) const
+Vector2 Vector2::getParallelVector(const Vector2 & aVector) const
 {
-	Vector2 relativeVector;
-	relativeVector.x = abs(this->x - aVector.x);
-	relativeVector.y = abs(this->y - aVector.y);
-	return relativeVector;
+	Vector2 parallelVector;
+	parallelVector.x = this->x - aVector.x;
+	parallelVector.y = this->y - aVector.y;
+	return parallelVector;
 }
 
 float Vector2::getGradient()

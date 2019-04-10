@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "Entity/LaserPart.h"
+#include "Utils/LaserCalculator.h"
 
 #include <vector>
 
@@ -8,6 +8,7 @@ class Laser
 // Constructors/destructors
 public:
             Laser();
+            Laser(Player*, Player*);
             ~Laser();
 
 // Draw function
@@ -15,22 +16,24 @@ public:
     void    drawLaser();
 
 public:
-    std::vector<Vector2>    getLaserPositions();
-
-private:
     void    generateLaser();
-    void    clearLaser();
 
-// Laser variables
-private:
-    bool    _isEnabled = false;
+public:
+    std::vector<Vector2>    getLaserPositions();
 
 // Player pointers
 private:
-    Player* _playerOne;
-    Player* _playerTwo;
+    Player* _playerOne  =   nullptr;
+    Player* _playerTwo  =   nullptr;
+
+public:
+    int                 _score ;
+    int                 _prevScore;
+
+public:
+    bool                _isLaserEnabled;
 
 private:
-    std::vector<Vector2>    _laserPositions;
-    std::vector<LaserPart>  _laserParts;
+    std::vector<uint8_t>    _partSpriteID;
+    std::vector<Vector2>    _partPosition;
 };

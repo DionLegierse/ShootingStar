@@ -5,16 +5,29 @@ use ieee.numeric_std.all;
 entity SYNTHESIZER is
     port (
 ----------------------------------INPUTS------------------------------
+        --! 100Mhz clock coming from the basys 3
         clk : in std_logic;
+        --! The register write enable
         write_enable : in std_logic;
+        --! Select the register to write to
         register_select : in std_logic_vector(3 downto 0);
+        --! The data to set in the register
         data : in std_logic_vector(10 downto 0);
+        --! The sound channel of the DIGITAL_MIXER
         soundEffect : in std_logic_vector(7 downto 0);
+        --! The reset to reset the register bank for the APU
+        reset : in std_logic;
 ----------------------------------OUTPUTS-----------------------------
+        --! The sound that the synthesizer generated
         sound_out : out std_logic
     );
 end entity;
 
+
+--! @brief The SYNTHESIZER_REGISTERS connected to the generators and PWM modulator
+--! @details The SYNTHESIZER_REGISTERS registers connected to two square wave generators
+--! (SQUARE_WAVE), one triangle generator (TRIANGLE_GENERATOR), and one noise generators
+--! (NOISE_GENERATOR) mixed in the DIGITAL_MIXER and modulated with the PWM_GENERATOR
 architecture Behavioral of SYNTHESIZER is
 
     signal square1_frequency : std_logic_vector(10 downto 0);
@@ -45,6 +58,7 @@ begin
         write_enable => write_enable,
         register_select => register_select,
         data => data,
+        reset => reset,
 
         square1_frequency => square1_frequency,
         square1_enable => square1_enable,

@@ -33,33 +33,57 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity SPRITE_BANK is
     generic(
+        --! Amount of bits used for the sprite bank address (final in FPGA_TOP)
         sprite_address_bits : integer := 7
     );
     Port (
+        --! 25 Mhz clock coming from the MMCM
         clk : in std_logic;
 
+        --! Register address, used to access the specific sprite
         register_address : in std_logic_vector((sprite_address_bits - 1) downto 0);
 
+        --! Sprite x location
         sprite_x : in std_logic_vector(8 downto 0);
+        --! Sprite y location
         sprite_y : in std_logic_vector(8 downto 0);
+        --! Sprite sprite attribute
         sprite_attribute : in std_logic_vector(5 downto 0);
+        --! Sprite to access in the sprite ROM
         sprite_number : in std_logic_vector(7 downto 0);
 
+        --! Signal used to update the x coördinate of the sprite on register_address
         update_x : in std_logic;
+        --! Signal used to update the y coördinate of the sprite on register_address
         update_y : in std_logic;
+        --! Signal used to update the x and y coördinate of the sprite on register_address
         update_xy : in std_logic;
+        --! Signal used to update all data of the sprite on register_address
         update_all : in std_logic;
+        --! Signal used to reset the entire bank to the initial state
         reset_bank : in std_logic;
+        --! Signal used to reset the sprite given on the register_address input
+        reset_sprite :in std_logic;
 
+        --! The vertical position coming from the VGA
         vpos : in std_logic_vector(9 downto 0);
+        --! The horizontal position coming from the VGA
         hpos : in std_logic_vector(9 downto 0);
 
+        --! All sprite data combined in one
         sprite_data : out std_logic_vector(31 downto 0);
+        --! The vertical position on which the sprite was detected
         sprite_vpos : out std_logic_vector(9 downto 0);
+        --! The horizontal position on which the sprite was detected
         sprite_hpos : out std_logic_vector(9 downto 0)
     );
 end SPRITE_BANK;
 
+--! @brief The behavior of the sprite bank
+--! @details The sprite bank can handle different commands like update_x, update_y,
+--! update_xy, update_all, reset_bank and reset_sprite. It executes these commands
+--! on the sprite on register_address using the data sprite_x, sprite_y, sprite_attribute
+--! and sprite_number
 architecture Behavioral of SPRITE_BANK is
     type sprite is record
         x : std_logic_vector(8 downto 0);
@@ -78,6 +102,7 @@ architecture Behavioral of SPRITE_BANK is
     type sprite_array is array (0 to ((2**sprite_address_bits ) - 1)) of sprite;
 
     signal sprites_array : sprite_array := (others => initial_sprite);
+    signal sprites_array_buffer : sprite_array := (others => initial_sprite);
 
     signal register_address_integer : integer range 0 to (2**sprite_address_bits) - 1;
     signal hpos_unsigned : unsigned(9 downto 0);
@@ -115,6 +140,19 @@ begin
             if reset_bank = '1' then
                 sprites_array <= (others => initial_sprite);
             end if;
+
+            if reset_sprite = '1' then
+                sprites_array(register_address_integer) <= initial_sprite;
+            end if;
+        end if;
+    end process;
+
+    SPRITE_BUFFER : process(clk)
+    begin
+        if rising_edge(clk) then
+            if to_integer(hpos_unsigned) = 0 and to_integer(vpos_unsigned) = 0 then
+                sprites_array_buffer <= sprites_array;
+            end if;
         end if;
     end process;
 
@@ -127,15 +165,15 @@ begin
 
             SPRITE_FINDING_LOOP : for i in 0 to (2**sprite_address_bits) - 1 loop
                 if
-                    unsigned(sprites_array(i).x) <= hpos_unsigned and
-                    (unsigned(sprites_array(i).x) + 8) > hpos_unsigned and
-                    unsigned(sprites_array(i).y) <= vpos_unsigned and
-                    (unsigned(sprites_array(i).y) + 8) > vpos_unsigned
+                    unsigned(sprites_array_buffer(i).x) <= hpos_unsigned and
+                    (unsigned(sprites_array_buffer(i).x) + 8) > hpos_unsigned and
+                    unsigned(sprites_array_buffer(i).y) <= vpos_unsigned and
+                    (unsigned(sprites_array_buffer(i).y) + 8) > vpos_unsigned
                 then
-                    sprite_data <=  sprites_array(i).y &
-                                    sprites_array(i).x &
-                                    sprites_array(i).attrib &
-                                    sprites_array(i).number;
+                    sprite_data <=  sprites_array_buffer(i).y &
+                                    sprites_array_buffer(i).x &
+                                    sprites_array_buffer(i).attrib &
+                                    sprites_array_buffer(i).number;
 
                     sprite_vpos <= vpos;
                     sprite_hpos <= hpos;

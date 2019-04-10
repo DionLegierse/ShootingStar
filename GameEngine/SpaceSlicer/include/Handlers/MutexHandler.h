@@ -6,8 +6,6 @@
 
 namespace MutexHandler
 {
-    static SemaphoreHandle_t mutex;
-
     bool initMutex();
     void takeMutex();
     void giveMutex();

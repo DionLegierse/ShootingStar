@@ -1,5 +1,10 @@
 #include "Handlers/ControllerInput.h"
 
+/**
+ * @brief Construct a new Controller Input:: Controller Input object
+ * 
+ * @param aAddress The I2C address of the controller
+ */
 ControllerInput::ControllerInput(int aAddress)
 {
     address = aAddress;
@@ -10,6 +15,10 @@ ControllerInput::~ControllerInput()
 
 }
 
+/**
+ * @brief Setup the I2C for the controller
+ * 
+ */
 void ControllerInput::setupController()
 {
     i2c_config_t conf;
@@ -29,6 +38,11 @@ void ControllerInput::setupController()
     i2c_driver_install(I2C_NUM_0, conf.mode, 0, 0, 0);
 }
 
+/**
+ * @brief read I2C data
+ * 
+ * @return uint8_t I2C data
+ */
 uint8_t ControllerInput::readControllerData()
 {    
     uint8_t data_rd;
@@ -45,6 +59,11 @@ uint8_t ControllerInput::readControllerData()
 	return data_rd;
 }
 
+/**
+ * @brief Returns the stick input of the controller
+ * 
+ * @return ControllerInput::STICK The enum for the input
+ */
 ControllerInput::STICK ControllerInput::getStick()
 {
     uint8_t data = readControllerData() & 0xF0;
@@ -72,6 +91,11 @@ ControllerInput::STICK ControllerInput::getStick()
     }   
 }
 
+/**
+ * @brief Returns the button input of the controller
+ * 
+ * @return ControllerInput::BUTTON The enum for the input
+ */
 ControllerInput::BUTTON ControllerInput::getButton()
 {
     uint8_t data = readControllerData() & 0x0F;

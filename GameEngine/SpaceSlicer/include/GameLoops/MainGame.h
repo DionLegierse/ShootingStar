@@ -4,6 +4,9 @@
 #include "Handlers/ControllerInput.h"
 #include "freertos/task.h"
 
+#define STATE_MAIN_MENU 0
+#define STATE_MAIN_GAME 1
+
 class MainGame : public GameLoop
 {
 public:
@@ -12,7 +15,8 @@ public:
 
 public:
     void        setup()     override;
-    GameLoop*   loop()      override;
+    void        loop()      override;
+    void        GameOver()  override;
 
 public:
     void        setupInput() override;
@@ -29,6 +33,7 @@ private:
 
 private:
     void        getRandomNPC();
+    void        removeNPCList();
 
 private:
     void        updateListSprites(uint8_t);
@@ -36,6 +41,9 @@ private:
 
 private:
     bool        checkOverlay(uint8_t, int);
+
+private:
+    static bool         _isGamePlaying;
 
 private:
     uint8_t*            _scoreboard = nullptr;

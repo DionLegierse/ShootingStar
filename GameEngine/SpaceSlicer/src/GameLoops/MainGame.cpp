@@ -8,11 +8,13 @@
 MainGame::MainGame () {}
 MainGame::~MainGame () {}
 
+bool MainGame::_isGamePlaying = false;
+
 void MainGame::setup()
 {
     ConsoleInterface ci;
     ci.freeAllObjects();
-    ci.printText("incompetendo", Vector2(0,0));
+    ci.printText("spaceslicer", Vector2(0,0));
     
     this->_collision = new CollisionHandler(this);
     this->_playerOne = new Player(1, Vector2(16, 128), 1, this->_stickPlayerOne, this->_buttonPlayerOne);
@@ -24,19 +26,50 @@ void MainGame::setup()
     ci.playSong(0);
 }
 
-GameLoop* MainGame::loop()
+void MainGame::loop()
 {
-    this->_playerOne->move();
-    this->_playerTwo->move();
+    if (MainGame::_isGamePlaying)
+    {
+        this->_playerOne->move();
+        this->_playerTwo->move();
 
-    getRandomNPC();
+        getRandomNPC();
 
-    updateNPC();
-    this->_collision->checkAllCollision();
+        updateNPC();
+        this->_collision->checkAllCollision();
 
-    this->_laser->generateLaser();
+        this->_laser->generateLaser();
 
-    return this;
+        if (this->_laser->_score < 0)
+            GameOver();
+    }
+    else
+    {
+        if (*this->_buttonPlayerOne != ControllerInput::BTN_NOPE ||
+            *this->_buttonPlayerTwo != ControllerInput::BTN_NOPE)
+        {
+            this->_playerOne->setPosition(Vector2(16, 128));
+            this->_playerTwo->setPosition(Vector2(16, 256));
+            MainGame::_isGamePlaying = true;
+        }
+    }
+    
+}
+
+void MainGame::GameOver()
+{
+    ConsoleInterface ci;
+
+    removeNPCList();
+    MainGame::_isGamePlaying = false;
+
+    uint8_t* gameOver = ci.printText("game over", Vector2(216, 0));
+    
+    vTaskDelay(1000);
+
+    ci.removeText(gameOver);
+
+    this->_laser->_score = 0;
 }
 
 void MainGame::setupInput()
@@ -122,6 +155,24 @@ void MainGame::getRandomNPC()
         } while (checkOverlay(LIST_ASTROID, yPos));
         
         this->_bloopList->insert(new Bloop(2, Vector2(-1, 0), Vector2(500, yPos)));
+    }
+}
+
+void MainGame::removeNPCList()
+{
+    EntityLink* curAstroid = this->_astroidList->getFirst();
+    EntityLink* curBloop = this->_bloopList->getFirst();
+
+    while (curAstroid != nullptr)
+    {
+        this->_astroidList->remove(curAstroid->getEntity());
+        curAstroid = this->_astroidList->getFirst();
+    }
+
+    while (curBloop != nullptr)
+    {
+        this->_bloopList->remove(curBloop->getEntity());
+        curBloop = this->_bloopList->getFirst();
     }
 }
 

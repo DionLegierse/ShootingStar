@@ -30,7 +30,7 @@ public:
     int                 _score ;
     int                 _prevScore;
 
-private:
+public:
     bool                _isLaserEnabled;
 
 private:

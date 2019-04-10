@@ -82,8 +82,6 @@ std::vector<Vector2>& LaserCalculator::calculateLaser(Vector2 player1Coord, Vect
 	//Calculate the Y starting position of the line between the two points;
 	float b = (float)player1Coord.getY() - (a * (float)player1Coord.getX());
 
-	printf("%f\n",a);
-
 	if(std::isinf(a)){
 		laserparts = getLaserCoordsByY(player1Coord, player2Coord, INFINITE_GRADIENT_ALTENATIVE, b);
 	}else if(a < -1.f && !std::isinf(a)){

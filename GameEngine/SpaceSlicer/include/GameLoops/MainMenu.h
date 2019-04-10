@@ -11,7 +11,7 @@ public:
 
 public:
     void        setup()             override;
-    GameLoop*   loop()              override;
+    void        loop()              override;
 
 public:
     void        readInput()         override;

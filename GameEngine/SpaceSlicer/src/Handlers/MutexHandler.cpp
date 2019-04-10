@@ -1,5 +1,7 @@
 #include "Handlers/MutexHandler.h"
 
+static SemaphoreHandle_t mutex;
+
 bool MutexHandler::initMutex()
 {
     mutex = xQueueCreateMutex(queueQUEUE_TYPE_MUTEX);

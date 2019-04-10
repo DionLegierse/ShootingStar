@@ -36,7 +36,8 @@ void CollisionHandler::checkListCollision(uint8_t aList, Player* aPlayer)
             }
             else if(aList == LIST_ASTROID)
             {
-                aPlayer->setPosition(Vector2(16, aPlayer->getIndex() * 128));
+                this->_gameLoop->GameOver();
+                return;
             }
 
             deleteEntity(curEntity->getEntity());

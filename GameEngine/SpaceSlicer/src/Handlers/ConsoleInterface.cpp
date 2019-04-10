@@ -93,9 +93,6 @@ int ConsoleInterface::createNewObject(uint8_t aSprAddress)
 ///////////ASSIGN ID////////////
     uint8_t temp = getFreeRegisterID();
 
-    if (temp > REG_AMOUNT)
-        return -1;
-
     writeToRegister(SPR_REG_LOC, temp);
     writeToRegister(SPR_MEM_LOC_LSB, aSprAddress);
 ///////////SET THE X VALUES////////////
@@ -189,7 +186,7 @@ uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
         if (data >= 207) //value of 0
             data -= 181; //offset
 
-        if (data >= 0 && data < 36) //value of a space
+        if (data < 36) //value of a space
         {
             address[cnt] = createNewObject( data );
             updateObjectCoord( address[cnt], pos );

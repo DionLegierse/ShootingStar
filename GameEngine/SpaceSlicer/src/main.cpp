@@ -17,7 +17,7 @@ void drawTask(void*);
 GameLoop* currentLoop = nullptr;
 
 GameLoop* test = new MainGame();
-GameLoop* mainMenu = new MainMenu(test);
+// GameLoop* mainMenu = new MainMenu(test);
 
 
 extern "C" {
@@ -50,6 +50,7 @@ void createMainTask()
 
 void mainTask(void* vParam)
 {
+	vTaskDelay(5000);
 	currentLoop->setup();
 
 	TickType_t xLastWakeTime;
@@ -66,6 +67,7 @@ void mainTask(void* vParam)
 
 void inputTask(void* vParam)
 {
+	vTaskDelay(5000);
 	currentLoop->setupInput();
 	
 	TickType_t xLastWakeTime;
@@ -82,6 +84,7 @@ void inputTask(void* vParam)
 
 void drawTask(void* vParam)
 {
+	vTaskDelay(5000);
 	TickType_t xLastWakeTime;
 	const TickType_t xFrequency = GAME_SPEED;
 

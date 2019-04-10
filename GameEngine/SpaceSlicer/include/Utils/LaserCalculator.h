@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#define INFINITE_GRADIENT_ALTENATIVE (float)(148)
+
 class Vector2;
 
 namespace LaserCalculator

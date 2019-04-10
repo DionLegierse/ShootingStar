@@ -1,10 +1,10 @@
 #pragma once
 #include "Utils/Vector2.h"
 #include "Handlers/ConsoleInterface.h"
+#include "Handlers/MutexHandler.h"
 
 #define ENT_ASTROID 0
 #define ENT_BLOOP   1
-#define ENT_FUEL    2
 #define ENT_PLAYER  3
 
 
@@ -41,6 +41,9 @@ public:
 // Sprite methods
 protected:
     virtual void    createSprites() = 0;
+
+public:
+    void            deleteSprites();
 
 public:
     void            updateSprites();

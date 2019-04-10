@@ -6,28 +6,17 @@ Player::Player ()
 {
     this->_type = ENT_PLAYER;
 
-    if (this->_index == 1)
-        this->_conIn = new ControllerInput(0x27);
-    else if (this->_index == 2)
-        this->_conIn = new ControllerInput(0x20);
-
-    this->_conIn->setupController();
-
     createSprites();
 }
 
-Player::Player (int aSpeed, Vector2 aPosition, int aIndex) : Entity (aSpeed, aPosition)
+Player::Player (int aSpeed, Vector2 aPosition, int aIndex, ControllerInput::STICK* aStick, ControllerInput::BUTTON* aButton) : Entity (aSpeed, aPosition)
 {
-    this->_colliderRadius = 2;
+    this->_colliderRadius = 8;
     this->_index = aIndex;
     this->_type = ENT_PLAYER;
 
-    if (this->_index == 1)
-        this->_conIn = new ControllerInput(0x27);
-    else if (this->_index == 2)
-        this->_conIn = new ControllerInput(0x20);
-
-    this->_conIn->setupController();
+    this->_inputStick = aStick;
+    this->_inputButton = aButton;
 
     createSprites();
 }
@@ -39,37 +28,62 @@ Player::~Player () {}
 
 void Player::move ()
 {
-    ControllerInput::STICK stick = this->_conIn->getStick();
+    MutexHandler::takeMutex();
 
-    switch (stick)
+    switch (*this->_inputStick)
     {
-        case ControllerInput::UP:
-            this->_position += {0, -this->_speed};
-            break;
-        case ControllerInput::UPRIGHT:
-            this->_position += {this->_speed, -this->_speed};
-            break;
-        case ControllerInput::RIGHT:
-            this->_position += {this->_speed, 0};
-            break;
-        case ControllerInput::DOWNRIGHT:
-            this->_position += {this->_speed, this->_speed};
-            break;
-        case ControllerInput::DOWN:
-            this->_position += {0, this->_speed};
-            break;
         case ControllerInput::DOWNLEFT:
-            this->_position += {-this->_speed, this->_speed};
+            if (this->_position.getX() > _xLowBound)
+                this->_position += Vector2(-this->_speed, 0);
+            if (this->_position.getY() < _yUpBound)
+                this->_position += Vector2(0, this->_speed);
             break;
         case ControllerInput::LEFT:
-            this->_position += {-this->_speed, 0};
+            if (this->_position.getX() > _xLowBound)
+                this->_position += Vector2(-this->_speed, 0);
             break;
         case ControllerInput::UPLEFT:
-            this->_position += {-this->_speed, -this->_speed};
+            if (this->_position.getY() > _yLowBound)
+                this->_position += Vector2(0, -this->_speed);
+            if (this->_position.getX() > _xLowBound)
+                this->_position += Vector2(-this->_speed, 0);
+            break;
+        case ControllerInput::UP:
+            if (this->_position.getY() > _yLowBound)
+                this->_position += Vector2(0, -this->_speed);
+            break;
+        case ControllerInput::UPRIGHT:
+            if (this->_position.getX() < _xUpBound)
+                this->_position += Vector2(this->_speed, 0);
+            if (this->_position.getY() > _yLowBound)
+                this->_position += Vector2(0, -this->_speed);
+            break;
+        case ControllerInput::RIGHT:
+            if (this->_position.getX() < _xUpBound)
+                this->_position += Vector2(this->_speed, 0);
+            break;
+        case ControllerInput::DOWNRIGHT:
+            if (this->_position.getX() < _xUpBound)
+                this->_position += Vector2(this->_speed, 0);
+            if (this->_position.getY() < _yUpBound)
+                this->_position += Vector2(0, this->_speed);
+            break;
+        case ControllerInput::DOWN:
+            if (this->_position.getY() < _yUpBound)
+                this->_position += Vector2(0, this->_speed);
+            break;
 
         default:
             break;
     }
+
+    if (*this->_inputButton == ControllerInput::BTN_TWO)
+        this->_isLaserEnable = true;
+    else
+        this->_isLaserEnable = false;
+    
+
+    MutexHandler::giveMutex();
 }
 
 //>-----------{ Laser methods }-----------<
@@ -84,22 +98,12 @@ bool Player::getLaserEnabled ()
     return this->_isLaserEnable;
 }
 
-//>-----------{ Laser methods }-----------<
-
-void Player::setFuel (int aFuel)
-{
-    this->_fuel = aFuel;
-}
-
-int Player::getFuel ()
-{
-    return this->_fuel;
-}
+int Player::getIndex() { return this->_index; }
 
 //>-----------{ Collision methods }-----------<
 void Player::collisionEvent()
 {
-
+    
 }
 
 void Player::createSprites()

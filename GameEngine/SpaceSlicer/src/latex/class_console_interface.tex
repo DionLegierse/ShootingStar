@@ -1,0 +1,69 @@
+\hypertarget{class_console_interface}{}\section{Console\+Interface Class Reference}
+\label{class_console_interface}\index{ConsoleInterface@{ConsoleInterface}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_console_interface_a90bad9fe5033b8fd82b1ae6f8c7b3f43}{create\+New\+Object}} (uint8\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Creates a new object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_console_interface_a5362510f12bf757cc4c388a89b3e0477}{update\+Object\+Coord}} (uint8\+\_\+t, uint16\+\_\+t, uint16\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Updates the position of a register. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_console_interface_a4d9364dacc2bec064ee84abf374053f4}{delete\+Object}} (uint8\+\_\+t)
+\begin{DoxyCompactList}\small\item\em deletes an object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_console_interface_a90bad9fe5033b8fd82b1ae6f8c7b3f43}\label{class_console_interface_a90bad9fe5033b8fd82b1ae6f8c7b3f43}} 
+\index{ConsoleInterface@{ConsoleInterface}!createNewObject@{createNewObject}}
+\index{createNewObject@{createNewObject}!ConsoleInterface@{ConsoleInterface}}
+\subsubsection{\texorpdfstring{createNewObject()}{createNewObject()}}
+{\footnotesize\ttfamily int Console\+Interface\+::create\+New\+Object (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{a\+Spr\+Address }\end{DoxyParamCaption})}
+
+
+
+Creates a new object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Spr\+Address} & address on the fpga.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns -\/1 when all the registers are used. Returns the register address, this is needed if you want to update the position of a object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_console_interface_a4d9364dacc2bec064ee84abf374053f4}\label{class_console_interface_a4d9364dacc2bec064ee84abf374053f4}} 
+\index{ConsoleInterface@{ConsoleInterface}!deleteObject@{deleteObject}}
+\index{deleteObject@{deleteObject}!ConsoleInterface@{ConsoleInterface}}
+\subsubsection{\texorpdfstring{deleteObject()}{deleteObject()}}
+{\footnotesize\ttfamily void Console\+Interface\+::delete\+Object (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{a\+Reg\+Address }\end{DoxyParamCaption})}
+
+
+
+deletes an object. 
+
+\begin{DoxyVerb} Function might not be needed
+\end{DoxyVerb}
+ \mbox{\Hypertarget{class_console_interface_a5362510f12bf757cc4c388a89b3e0477}\label{class_console_interface_a5362510f12bf757cc4c388a89b3e0477}} 
+\index{ConsoleInterface@{ConsoleInterface}!updateObjectCoord@{updateObjectCoord}}
+\index{updateObjectCoord@{updateObjectCoord}!ConsoleInterface@{ConsoleInterface}}
+\subsubsection{\texorpdfstring{updateObjectCoord()}{updateObjectCoord()}}
+{\footnotesize\ttfamily void Console\+Interface\+::update\+Object\+Coord (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{a\+Reg\+Address,  }\item[{uint16\+\_\+t}]{a\+PosX,  }\item[{uint16\+\_\+t}]{a\+PosY }\end{DoxyParamCaption})}
+
+
+
+Updates the position of a register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Reg\+Address} & The register address you got from the create\+New\+Object function. \\
+\hline
+{\em a\+PosX} & the X position you want to set. \\
+\hline
+{\em a\+PosY} & the Y position you want to set. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Console\+Interface.\+h\item 
+Console\+Interface.\+cpp\end{DoxyCompactItemize}

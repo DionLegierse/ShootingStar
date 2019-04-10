@@ -25,10 +25,6 @@ public:
 public:
     int     getIndex();
 
-// Collision methods
-public:
-    void    collisionEvent()    override;
-
 // Sprite methods
 private:
     void    createSprites()     override;

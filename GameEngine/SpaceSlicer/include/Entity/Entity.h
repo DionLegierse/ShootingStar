@@ -28,11 +28,10 @@ public:
 public:
     bool            checkCollision(Entity*);
     int             getColliderRadius();
-    virtual void    collisionEvent() = 0;
 
 // Virtual methods
 public:
-    virtual void    move();
+    virtual void    move() = 0;
 
 // Type methods
 public:

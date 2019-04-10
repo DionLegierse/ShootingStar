@@ -4,7 +4,6 @@
 #include "freertos/task.h"
 
 #include "GameLoops/MainGame.h"
-#include "GameLoops/MainMenu.h"
 #include "Handlers/MutexHandler.h"
 
 #define GAME_SPEED 8
@@ -17,7 +16,6 @@ void drawTask(void*);
 GameLoop* currentLoop = nullptr;
 
 GameLoop* test = new MainGame();
-// GameLoop* mainMenu = new MainMenu(test);
 
 
 extern "C" {

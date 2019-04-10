@@ -23,6 +23,13 @@ ConsoleInterface::~ConsoleInterface()
 {
 }
 
+/**
+ * @brief Writes data to a register
+ *
+ * @param aReg address of the register on the FPGA.
+ * @param aData data you want to write
+ *
+ */
 void ConsoleInterface::writeToRegister(uint8_t aReg, uint8_t aData)
 { 
     setRegister(true);    
@@ -34,6 +41,12 @@ void ConsoleInterface::writeToRegister(uint8_t aReg, uint8_t aData)
     clockIn();
 }
 
+/**
+ * @brief executes a command on the GPU
+ *
+ * @param aCommand address of the register on the FPGA
+ *
+ */
 void ConsoleInterface::writeToGPU(uint8_t aCommand)
 {    
     setRegister(true);
@@ -140,7 +153,7 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, Vector2 coord)
 /**
  * @brief deletes an object.
  *
- *      Function might not be needed
+ * @param aRegAddress the object you want to remove this address is giving by the createNewObject function.
  */
 void ConsoleInterface::deleteObject(uint8_t aRegAddress)
 {    
@@ -156,6 +169,12 @@ void ConsoleInterface::clockIn()
     setClock(false);    
 }
 
+/**
+ * @brief Plays a song on the FPGA
+ *
+ * @param aAddress address of the song to play
+ *
+ */
 void ConsoleInterface::playSong(uint16_t aAddress)
 {    
     uint8_t LSBM = (uint8_t)(aAddress);
@@ -167,6 +186,14 @@ void ConsoleInterface::playSong(uint16_t aAddress)
 	writeToGPU(START_APU);
 }
 
+/**
+ * @brief prints a string to the screen
+ *
+ * @param aText a char pointer to print on the screen
+ * @param aPos a Vector2 for the position of the text
+ *
+ * @return Returns a pointer to the begin of an array
+ */
 uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
 {    
     Vector2 pos = aPos;
@@ -205,6 +232,14 @@ uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
     return address;
 }
 
+/**
+ * @brief prints a integer to the screen
+ *
+ * @param values uint16_t value to print on the screen
+ * @param aPos a Vector2 for the position of the text
+ *
+ * @return Returns a pointer to the begin of an array
+ */
 uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
 {    
     Vector2 pos = aPos;
@@ -234,6 +269,11 @@ uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
     return address;
 }
 
+/**
+ * @brief Writes data to a register
+ *
+ * @param row text to remove you get this value for the printText funciton
+ */
 void ConsoleInterface::removeText(uint8_t * row)
 {
     for(uint8_t i = 0; i < 8; i++)
@@ -276,6 +316,10 @@ void ConsoleInterface::writeDataToGPIO(uint8_t aData)
     gpio_set_level(GPIO_NUM_26, (aData >> 7) & (uint8_t)1);
 }
 
+/**
+ * @brief frees all the objects for the spritebank
+ *
+ */
 void ConsoleInterface::freeAllObjects()
 {
     for(uint8_t i = 0; i < REG_AMOUNT; i++)

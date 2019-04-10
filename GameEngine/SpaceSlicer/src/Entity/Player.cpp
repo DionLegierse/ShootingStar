@@ -2,6 +2,10 @@
 
 //>-----------{ Constructors/destructors }-----------<
 
+/**
+ * @brief Construct a new Player:: Player object
+ * 
+ */
 Player::Player ()
 {
     this->_type = ENT_PLAYER;
@@ -9,6 +13,15 @@ Player::Player ()
     createSprites();
 }
 
+/**
+ * @brief Construct a new Player:: Player object
+ * 
+ * @param aSpeed Speed with which the player moves
+ * @param aPosition Starting position of the player
+ * @param aIndex Index of the player (player 1, player 2)
+ * @param aStick Input of the stick
+ * @param aButton Input of the buttons
+ */
 Player::Player (int aSpeed, Vector2 aPosition, int aIndex, ControllerInput::STICK* aStick, ControllerInput::BUTTON* aButton) : Entity (aSpeed, aPosition)
 {
     this->_colliderRadius = 8;
@@ -21,11 +34,19 @@ Player::Player (int aSpeed, Vector2 aPosition, int aIndex, ControllerInput::STIC
     createSprites();
 }
 
+/**
+ * @brief Destroy the Player:: Player object
+ * 
+ */
 Player::~Player () {}
 
 
 //>-----------{ Movement methods }-----------<
 
+/**
+ * @brief Move the player
+ * 
+ */
 void Player::move ()
 {
     MutexHandler::takeMutex();
@@ -88,23 +109,25 @@ void Player::move ()
 
 //>-----------{ Laser methods }-----------<
 
-void Player::laserEnable ()
-{
-
-}
-
+/**
+ * @brief Gets if the laser is enabled
+ * 
+ * @return true Laser is enabled
+ * @return false Laser is not enabled
+ */
 bool Player::getLaserEnabled ()
 {
     return this->_isLaserEnable;
 }
 
+/**
+ * @brief Gets the index of the player
+ * 
+ * @return int The players index
+ */
 int Player::getIndex() { return this->_index; }
 
 //>-----------{ Collision methods }-----------<
-void Player::collisionEvent()
-{
-    
-}
 
 void Player::createSprites()
 {

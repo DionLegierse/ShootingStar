@@ -9,10 +9,7 @@ public:
 
 private:
             Bloop();
-
-public:
-    void    collisionEvent()    override;
-
+            
 // Sprite methods
 private:
     void    createSprites()     override;

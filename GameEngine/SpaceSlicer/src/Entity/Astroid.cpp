@@ -2,12 +2,23 @@
 
 //>-----------{ Contructors/destructor }-----------<<
 
+/**
+ * @brief Construct a new Astroid:: Astroid object
+ * 
+ */
 Astroid::Astroid ()
 {
     this->_type = ENT_ASTROID;
     createSprites();
 }
 
+/**
+ * @brief Construct a new Astroid:: Astroid object
+ * 
+ * @param aSpeed Speed whith which the entity moves
+ * @param aDirection Direction in which the entity moves
+ * @param aPosition Starting position of the entity
+ */
 Astroid::Astroid (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpeed, aDirection, aPosition)
 {
     this->_colliderRadius = 8;
@@ -15,14 +26,13 @@ Astroid::Astroid (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpe
     createSprites();
 }
 
+/**
+ * @brief Destroy the Astroid:: Astroid object
+ * 
+ */
 Astroid::~Astroid ()
 {
     deleteSprites();
-}
-
-void Astroid::collisionEvent()
-{
-    
 }
 
 void Astroid::createSprites()

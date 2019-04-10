@@ -13,9 +13,6 @@ public:
 private:
             Astroid();
 
-public:
-    void    collisionEvent()    override;
-
 // Sprite methods
 private:
     void    createSprites()     override;

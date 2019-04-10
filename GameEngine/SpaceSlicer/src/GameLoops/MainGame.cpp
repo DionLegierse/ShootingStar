@@ -5,10 +5,24 @@
 #include "Entity/Bloop.h"
 #include "Utils/Profiler.h"
 
+/**
+ * @brief Construct a new Main Game:: Main Game object
+ * 
+ */
 MainGame::MainGame () {}
+
+/**
+ * @brief Destroy the Main Game:: Main Game object
+ * 
+ */
 MainGame::~MainGame () {}
 
 bool MainGame::_isGamePlaying = false;
+
+/**
+ * @brief Setup the main game
+ *
+ */
 
 void MainGame::setup()
 {
@@ -25,6 +39,11 @@ void MainGame::setup()
 
     ci.playSong(0);
 }
+
+/**
+ * @brief Looping function of the main game
+ *
+ */
 
 void MainGame::loop()
 {
@@ -56,6 +75,11 @@ void MainGame::loop()
     
 }
 
+/**
+ * @brief Game over screen
+ *
+ */
+
 void MainGame::GameOver()
 {
     ConsoleInterface ci;
@@ -72,6 +96,11 @@ void MainGame::GameOver()
     this->_laser->_score = 0;
 }
 
+/**
+ * @brief Setup the input settings
+ *
+ */
+
 void MainGame::setupInput()
 {
     this->_inputPlayerOne = new ControllerInput(0x27);
@@ -86,6 +115,11 @@ void MainGame::setupInput()
     this->_buttonPlayerTwo = new ControllerInput::BUTTON;
 }
 
+/**
+ * @brief Loop for the input
+ *
+ */
+
 void MainGame::readInput()
 {
     *this->_stickPlayerOne = this->_inputPlayerOne->getStick();
@@ -95,11 +129,21 @@ void MainGame::readInput()
     *this->_buttonPlayerTwo = this->_inputPlayerTwo->getButton();
 }
 
+/**
+ * @brief Update all npc positions
+ *
+ */
+
 void MainGame::updateNPC()
 {
     updateListPositions(LIST_ASTROID);
     updateListPositions(LIST_BLOOP);
 }
+
+/**
+ * @brief Loop for sprite drawing
+ *
+ */
 
 void MainGame::updateAllSprites()
 {

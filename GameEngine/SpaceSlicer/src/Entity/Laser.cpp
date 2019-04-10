@@ -4,11 +4,21 @@
 
 //>-----------{ Contructors/destructor }-----------<<
 
+/**
+ * @brief Construct a new Laser:: Laser object
+ * 
+ */
 Laser::Laser ()
 {
     
 }
 
+/**
+ * @brief Construct a new Laser:: Laser object
+ * 
+ * @param aPlayerOne Player one
+ * @param aPlayerTwo Player two
+ */
 Laser::Laser (Player* aPlayerOne, Player* aPlayerTwo)
 {
     this->_playerOne = aPlayerOne;
@@ -20,10 +30,18 @@ Laser::Laser (Player* aPlayerOne, Player* aPlayerTwo)
     this->_isLaserEnabled = false;
 }
 
+/**
+ * @brief Destroy the Laser:: Laser object
+ * 
+ */
 Laser::~Laser () {}
 
 //>-----------{ Draw functions }-----------<<
 
+/**
+ * @brief Draws the laser
+ * 
+ */
 void Laser::drawLaser ()
 {
     ConsoleInterface ci;
@@ -43,6 +61,10 @@ void Laser::drawLaser ()
     }
 }
 
+/**
+ * @brief Generates the laser
+ * 
+ */
 void Laser::generateLaser()
 {
     this->_partPosition.clear();
@@ -64,4 +86,9 @@ void Laser::generateLaser()
     }
 }
 
+/**
+ * @brief Gets the positions of all laser parts
+ * 
+ * @return std::vector<Vector2> A list of all laser parts
+ */
 std::vector<Vector2> Laser::getLaserPositions() { return this->_partPosition; }

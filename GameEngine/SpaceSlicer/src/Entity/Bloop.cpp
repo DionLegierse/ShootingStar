@@ -2,12 +2,23 @@
 
 //>-----------{ Contructors/destructor }-----------<<
 
+/**
+ * @brief Construct a new Bloop:: Bloop object
+ * 
+ */
 Bloop::Bloop ()
 {
     this->_type = ENT_BLOOP;
     createSprites();
 }
 
+/**
+ * @brief Construct a new Bloop:: Bloop object
+ * 
+ * @param aSpeed The speed with which the NPC moves
+ * @param aDirection The direction in which the NPC moves
+ * @param aPosition The starting position of the NPC
+ */
 Bloop::Bloop (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpeed, aDirection, aPosition)
 {
     this->_colliderRadius = 8;
@@ -15,14 +26,13 @@ Bloop::Bloop (int aSpeed, Vector2 aDirection, Vector2 aPosition) : NPC (aSpeed, 
     createSprites();
 }
 
+/**
+ * @brief Destroy the Bloop:: Bloop object
+ * 
+ */
 Bloop::~Bloop ()
 {
     deleteSprites();
-}
-
-void Bloop::collisionEvent()
-{
-    
 }
 
 void Bloop::createSprites()

@@ -2,15 +2,32 @@
 
 #include <vector>
 
+/**
+ * @brief Construct a new Collision Handler:: Collision Handler object
+ * 
+ */
 CollisionHandler::CollisionHandler() {}
 
+/**
+ * @brief Construct a new Collision Handler:: Collision Handler object
+ * 
+ * @param aGameLoop The main game loop
+ */
 CollisionHandler::CollisionHandler(GameLoop* aGameLoop)
 {
     this->_gameLoop = aGameLoop;
 }
 
+/**
+ * @brief Destroy the Collision Handler:: Collision Handler object
+ * 
+ */
 CollisionHandler::~CollisionHandler() {}
 
+/**
+ * @brief Checks all needed collisions
+ * 
+ */
 void CollisionHandler::checkAllCollision()
 {
     checkListCollision(LIST_ASTROID, this->_gameLoop->getPlayer(1));

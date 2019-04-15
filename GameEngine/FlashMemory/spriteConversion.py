@@ -1,12 +1,10 @@
 import sys
 
-print("")
+print("\n")
 print(sys.version)
-print("")
+print("\n")
 
 import os
-import numpy as np
-from array import array
 from PIL import Image
 
 IMG_WIDTH = 8
@@ -58,7 +56,7 @@ for fichier in filelist[:]:
 
 f.write("; SpriteData\n")
 f.write("; .COE file with hex coefficients\n")
-f.write("; Height: " + str(16*count) + ", Width: " + str(IMG_WIDTH) + "\n")
+f.write("; Height: " + str(8*count) + ", Width: " + str(IMG_WIDTH) + "\n")
 f.write("\n")
 f.write("memory_initialization_radix=" + "16" + ";\n")
 f.write("memory_initialization_vector=\n")

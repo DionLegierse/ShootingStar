@@ -3,12 +3,14 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include <list>
+
 //-----------------------------------------------
 #include "Utils/spriteLocations.h"
 #include "Utils/Vector2.h"
 
 //Register names
-#define MUSIC_LSB           0
+#define MUSIC_LSB           (uint8_t)0
 #define MUSIC_MSB           (uint8_t)0x01
 #define POS_X_LSB           (uint8_t)0x02
 #define POS_X_MSB           (uint8_t)0x03
@@ -39,48 +41,52 @@ public:
 
 //Object handling
 public:
-    int createNewObject(uint8_t);
-    void updateObjectCoord(uint8_t, Vector2);
-    void deleteObject(uint8_t);
-    void freeAllObjects();
+    int         createNewObject(uint8_t);
+    void        updateObjectCoord(uint8_t, Vector2);
+    void        deleteObject(uint8_t);
+    void        freeAllObjects();
 
 //music 
 public:
-    void playSong(uint16_t);
+    void        playSong(uint16_t);
 
 //text printing
 public:
-    uint8_t * printText(char *, Vector2);
-    uint8_t * printText(uint16_t, Vector2);
-    void removeText(uint8_t *);
+    uint8_t*    printText(char *, Vector2);
+    uint16_t     printText(uint16_t, Vector2);
+    void        removeText(uint8_t *);
+
+private:
+    uint16_t idCount = 0;
+    std::
 
 //registers
 public:
-    void writeToGPU(uint8_t);
-    void writeToRegister(uint8_t, uint8_t); 
+    void        writeToGPU(uint8_t);
+    void        writeToRegister(uint8_t, uint8_t); 
 
 //gpio handling
 private:
-    void setData(uint8_t); //Depricated
+    void        setData(uint8_t); //Depricated
 
-    void setClock(bool);
-    void clockIn();
+    void        setClock(bool);
+    void        clockIn();
     
-    void setRegister(bool);
-    void writeDataToGPIO(uint8_t);
+    void        setRegister(bool);
+    void        writeDataToGPIO(uint8_t);
 
 //registers
 private:
-    uint8_t getFreeRegisterID();
+    uint8_t     getFreeRegisterID();
 
 
 //delay constants
 private:
-    static bool isAvailable[REG_AMOUNT + 1];
-    int output = 0;
+    static bool     isAvailable[REG_AMOUNT + 1];
+    int             output = 0;
 
 //offsets
 private:
-    const uint8_t LETTER_OFFSET = 9;
-    const uint8_t ASCII_A = 97;
+    const uint8_t   LETTER_OFFSET = 9;
+    const uint8_t   ASCII_A = 97;
 };

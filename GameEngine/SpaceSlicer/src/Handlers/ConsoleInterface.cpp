@@ -90,7 +90,7 @@ void ConsoleInterface::setRegister(bool reg)
  */
 int ConsoleInterface::createNewObject(uint8_t aSprAddress)
 {        
-///////////ASSIGN ID////////////
+    //assign an ID
     uint8_t temp = getFreeRegisterID();
 
     if (temp > REG_AMOUNT)
@@ -98,13 +98,13 @@ int ConsoleInterface::createNewObject(uint8_t aSprAddress)
 
     writeToRegister(SPR_REG_LOC, temp);
     writeToRegister(SPR_MEM_LOC_LSB, aSprAddress);
-///////////SET THE X VALUES////////////
+    //set x values to 0xFF
     writeToRegister(POS_X_LSB, 0xFF);
     writeToRegister(POS_X_MSB, 0xFF);
-///////////SET THE Y VALUES////////////
+    //set y values to 0xFF
     writeToRegister(POS_Y_LSB, 0xFF);
     writeToRegister(POS_Y_MSB, 0xFF);
-///////////CLOCK THAT SHIT/////////////
+    //update the GPU
     writeToGPU(UPDATE_SPR);
 
     return temp;
@@ -119,7 +119,7 @@ int ConsoleInterface::createNewObject(uint8_t aSprAddress)
  */
 void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, Vector2 coord)
 {   
-///////////SPLIT uint16_t//////////////
+    //Split uint16_t to uint8_t
     uint16_t coordX = coord.getX();
     uint16_t coordY = coord.getY();
 
@@ -130,13 +130,13 @@ void ConsoleInterface::updateObjectCoord(uint8_t aRegAddress, Vector2 coord)
     uint8_t MSBY = (uint8_t)(coordY >> 8);
     
     writeToRegister(SPR_REG_LOC, aRegAddress);
-///////////SET THE X VALUES////////////
+    //set the x values
     writeToRegister(POS_X_LSB, LSBX);
     writeToRegister(POS_X_MSB, MSBX);
-///////////SET THE Y VALUES////////////
+    //set the y values
     writeToRegister(POS_Y_LSB, LSBY);
     writeToRegister(POS_Y_MSB, MSBY);
-///////////CLOCK THAT SHIT/////////////
+    //clock the data to the GPU
     writeToGPU(UPDATE_XY);
 }
 
@@ -208,22 +208,22 @@ uint8_t * ConsoleInterface::printText(char * aText, Vector2 aPos)
     return address;
 }
 
-uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
+uint16_t ConsoleInterface::printText(uint16_t value, Vector2 aPos)
 {    
     Vector2 pos = aPos;
 
     uint16_t data = 0;
-    static uint8_t address[8];
+    uint8_t address[8];
 
     uint8_t num[8];
 
     for(size_t i = 0; i < 8; i++)    
     {
-        data = values % 10;       
+        data = value % 10;       
 
         num[i] = data;
 
-        values /= 10; 
+        value /= 10; 
     }   
 
     for(int i = 7; i > -1; i--)
@@ -234,7 +234,9 @@ uint8_t * ConsoleInterface::printText(uint16_t values, Vector2 aPos)
         pos += Vector2(LETTER_OFFSET, 0); 
     }     
 
-    return address;
+    idCount++;
+
+    return idCount;
 }
 
 void ConsoleInterface::removeText(uint8_t * row)

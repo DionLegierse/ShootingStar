@@ -234,7 +234,7 @@ uint16_t ConsoleInterface::printText(uint16_t value, Vector2 aPos)
         pos += Vector2(LETTER_OFFSET, 0); 
     }     
 
-    idCount++;
+    idCount++;   
 
     return idCount;
 }
